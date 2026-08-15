@@ -25,14 +25,20 @@ const CompanyModals = () => {
 
       {/* MODAL OVERLAY */}
       {activeModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto border border-white/20 bg-black p-8 sm:p-12 shadow-[0_0_50px_rgba(255,255,255,0.05)]">
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+          onClick={closeModal}
+        >
+          <div 
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto border border-white/20 bg-black p-8 sm:p-12 shadow-[0_0_50px_rgba(255,255,255,0.05)]"
+            onClick={(e) => e.stopPropagation()}
+          >
             
             <button 
               onClick={closeModal}
-              className="absolute top-6 right-6 p-2 text-white/50 hover:text-white transition"
+              className="absolute top-4 right-4 z-[150] p-2 text-white/70 hover:text-[#ff0055] bg-black/50 rounded-full transition-all"
             >
-              <X className="w-6 h-6" />
+              <X className="w-8 h-8" />
             </button>
 
             {/* CONTENIDO: MISIÓN, VISIÓN Y VALORES */}
