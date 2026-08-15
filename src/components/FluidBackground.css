@@ -1,0 +1,20 @@
+.fluid-container {
+  background: #000;
+}
+
+.fluid-gradient {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,240,255,0.4) 0%, rgba(0,0,0,1) 50%);
+  animation: fluidMove 15s ease-in-out infinite alternate;
+}
+
+@keyframes fluidMove {
+  0% { transform: scale(1) translate(0, 0); }
+  33% { transform: scale(1.2) translate(10%, -10%); }
+  66% { transform: scale(0.9) translate(-10%, 15%); }
+  100% { transform: scale(1.1) translate(5%, 5%); }
+}

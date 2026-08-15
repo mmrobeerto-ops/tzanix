@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Sección Fullscreen 100vh */
+  .spacex-section {
+    @apply relative w-[100vw] h-[100vh] flex flex-col justify-end px-[4vw] pb-[8vh] overflow-hidden;
+  }
+
+  /* Video de Fondo Fullscreen */
+  .bg-video {
+    @apply absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover z-0;
+    filter: brightness(0.65) contrast(1.15);
+  }
+
+  /* Degradado Cinematográfico Inferior */
+  .video-overlay {
+    @apply absolute inset-0 z-10;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.92) 100%);
+  }
+
+  /* Botón Oficial Estilo SpaceX */
+  .btn-spacex {
+    @apply relative inline-flex items-center justify-center px-[38px] py-[16px] text-[11px] font-[800] tracking-[0.25em] uppercase text-white border-2 border-white/85 bg-transparent cursor-pointer transition-all duration-300 overflow-hidden no-underline w-fit;
+  }
+
+  .btn-spacex::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-full bg-white transform translate-y-full transition-transform duration-300 z-0;
+  }
+
+  .btn-spacex:hover::before {
+    @apply translate-y-0;
+  }
+
+  .btn-spacex:hover {
+    @apply text-black border-white;
+  }
+
+  .btn-spacex span {
+    @apply relative z-20 flex items-center gap-[12px];
+  }
+}
+
+@layer utilities {
+  /* Efecto de Vidrio Holográfico */
+  .glass-panel {
+    background: rgba(7, 13, 24, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(0, 240, 255, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-panel:hover {
+    border-color: rgba(0, 240, 255, 0.4);
+    box-shadow: 0 15px 50px -10px rgba(0, 240, 255, 0.15), inset 0 0 25px rgba(0, 240, 255, 0.06);
+  }
+  
+  /* Gradiente de Texto Metálico TZANiX */
+  .metallic-text {
+    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #00f0ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Resplandor del núcleo */
+  .core-glow {
+    box-shadow: 0 0 50px #00f0ff, 0 0 100px rgba(0, 240, 255, 0.4);
+  }
+}
+
+@layer base {
+  ::selection {
+    background-color: rgba(56, 189, 248, 0.3);
+  }
+}
