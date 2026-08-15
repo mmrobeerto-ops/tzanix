@@ -35,12 +35,36 @@ const QuickstartOnboarding = ({ selectedTier }) => {
   const config = productConfig[selectedTier] || productConfig.gateway;
 
   useEffect(() => {
-    // Simular latencia de generación de API Key (Pronto será JWT)
-    const timer = setTimeout(() => {
-      setApiKey(`${config.prefix}${Math.random().toString(36).substr(2, 9)}`);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [selectedTier, config.prefix]);
+    // Si no ha aceptado el EULA, no pedimos la llave al servidor (ahorra costos de API)
+    if (!acceptedEula) {
+      setApiKey('BLOQUEADO - REQUIERE EULA');
+      return;
+    }
+
+    setApiKey('AUTENTICANDO CON SERVIDORES TZANIX...');
+    
+    // Llamada al motor serverless para firmar el JWT RSA-256
+    fetch('/api/generate-key', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        product: selectedTier, 
+        email: 'trial@client.local' // En producción esto vendrá de un input del usuario
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.apiKey) {
+        setApiKey(data.apiKey);
+      } else {
+        setApiKey('ERROR DE FIRMA CRIPTOGRÁFICA');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      setApiKey('ERROR DE CONEXIÓN AL GATEWAY');
+    });
+  }, [selectedTier, acceptedEula]);
 
   const handleCopy = (text) => {
     navigator.clipboard.writeText(text);
