@@ -108,7 +108,7 @@ function App() {
               Escudo tensorial programado en Rust. Purifica los flujos de datos antes de que toquen costosas granjas de GPUs, mitigando el envenenamiento de datos y reduciendo hasta un 40% la facturación en la nube.
             </p>
             <div className="pt-4">
-              <a href="https://tzanix-neural-gateway.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
+              <a href="https://gateway.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
                 <span>ABRIR NEURAL GATEWAY &rarr;</span>
               </a>
             </div>
@@ -133,7 +133,7 @@ function App() {
               Motor inercial sidecar para bases de datos. Análisis de entropía de Shannon a velocidad de línea con Kill-Switch autónomo en menos de 0.42 milisegundos con 0% de impacto sobre el servidor.
             </p>
             <div className="pt-4">
-              <a href="https://tzanix-q-balam.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
+              <a href="https://qbalam.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
                 <span>ABRIR Q-BALAM &rarr;</span>
               </a>
             </div>
@@ -160,7 +160,7 @@ function App() {
               Control inercial determinista y mitigación de ceguera por vibración crítica en drones autónomos. Filtrado de ruido mecánico con latencias récord de 14.52 nanosegundos en tiempo real.
             </p>
             <div className="pt-4">
-              <a href="https://tzanix-singularity-core.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
+              <a href="https://singularity.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
                 <span>ABRIR SINGULARITY CORE &rarr;</span>
               </a>
             </div>
@@ -185,7 +185,7 @@ function App() {
               Plataforma interactiva para docentes e investigadores. Visualización del principio de incertidumbre de Heisenberg, efectos de observador y osciloscopía dual en tiempo real.
             </p>
             <div className="pt-4">
-              <a href="https://tzanix-edtech.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
+              <a href="https://edtech.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
                 <span>ABRIR EDTECH &rarr;</span>
               </a>
             </div>
