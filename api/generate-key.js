@@ -32,10 +32,10 @@ export default function handler(req, res) {
       issuer: 'tzanix-auth-gateway'
     };
 
-    // Firmar con algoritmo RS256 y expiración exacta de 3 meses (90 días)
+    // Firmar con algoritmo RS256 y expiración exacta de 33 días
     const token = jwt.sign(payload, privateKey, {
       algorithm: 'RS256',
-      expiresIn: '90d'
+      expiresIn: '33d'
     });
 
     // Añadimos el prefijo según el producto para mantener tu estética

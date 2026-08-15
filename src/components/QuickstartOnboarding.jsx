@@ -91,7 +91,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
             HUB DE DESPLIEGUE DOCKER
           </h2>
           <p className="text-slate-400 font-mono text-xs tracking-wide max-w-2xl mx-auto">
-            Tus credenciales de prueba de 3 meses están listas. Por ser tecnología de grado profundo que interactúa con infraestructura crítica, debes proporcionar un correo válido y aceptar los términos de exención de responsabilidad.
+            Tus credenciales de prueba de 33 días están listas. Por ser tecnología de grado profundo que interactúa con infraestructura crítica, debes proporcionar un correo válido y aceptar los términos de exención de responsabilidad.
           </p>
         </div>
 
@@ -136,7 +136,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
             <div className="space-y-2">
               <label className="text-xs font-mono font-bold text-tzCyan uppercase tracking-widest flex items-center">
                 <Key className="w-4 h-4 mr-2" />
-                API Key de Prueba (3 Meses)
+                API Key de Prueba (33 Días)
               </label>
               <div className="flex items-center bg-black/60 border border-cyan-500/20 rounded-lg p-1">
                 <code className="flex-1 text-slate-300 px-3 font-mono text-sm tracking-wider">
