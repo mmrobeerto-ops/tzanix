@@ -5,6 +5,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
   const [apiKey, setApiKey] = useState('Generando TZX_API_KEY...');
   const [copied, setCopied] = useState(false);
   const [acceptedEula, setAcceptedEula] = useState(false);
+  const [email, setEmail] = useState('');
 
   // Configuraciones de Producto
 // ... (Configuración de Producto) ...
@@ -33,11 +34,12 @@ const QuickstartOnboarding = ({ selectedTier }) => {
   };
 
   const config = productConfig[selectedTier] || productConfig.gateway;
+  const isValidEmail = email.includes('@') && email.includes('.');
 
   useEffect(() => {
-    // Si no ha aceptado el EULA, no pedimos la llave al servidor (ahorra costos de API)
-    if (!acceptedEula) {
-      setApiKey('BLOQUEADO - REQUIERE EULA');
+    // Si no ha aceptado el EULA o no hay email, no pedimos la llave al servidor
+    if (!acceptedEula || !isValidEmail) {
+      setApiKey('BLOQUEADO - REQUIERE EMAIL Y EULA');
       return;
     }
 
@@ -49,7 +51,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         product: selectedTier, 
-        email: 'trial@client.local' // En producción esto vendrá de un input del usuario
+        email: email
       })
     })
     .then(res => res.json())
@@ -64,7 +66,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
       console.error(err);
       setApiKey('ERROR DE CONEXIÓN AL GATEWAY');
     });
-  }, [selectedTier, acceptedEula]);
+  }, [selectedTier, acceptedEula, isValidEmail, email]);
 
   const handleCopy = (text) => {
     navigator.clipboard.writeText(text);
@@ -89,26 +91,45 @@ const QuickstartOnboarding = ({ selectedTier }) => {
             HUB DE DESPLIEGUE DOCKER
           </h2>
           <p className="text-slate-400 font-mono text-xs tracking-wide max-w-2xl mx-auto">
-            Tus credenciales de prueba de 3 meses están listas. Por ser tecnología de grado profundo que interactúa con infraestructura crítica, debes aceptar los términos de exención de responsabilidad antes de inyectar el motor.
+            Tus credenciales de prueba de 3 meses están listas. Por ser tecnología de grado profundo que interactúa con infraestructura crítica, debes proporcionar un correo válido y aceptar los términos de exención de responsabilidad.
           </p>
         </div>
 
-        {/* EULA Checkbox */}
-        <div className="max-w-2xl mx-auto mb-10 p-4 border border-red-500/30 bg-red-950/20 rounded">
-          <label className="flex items-start space-x-3 cursor-pointer">
+        {/* Captura de Leads y EULA */}
+        <div className="max-w-2xl mx-auto mb-10 p-6 border border-white/10 bg-black/50 space-y-6">
+          <div className="space-y-2">
+            <label className="text-xs font-mono font-bold text-tzCyan uppercase tracking-widest">
+              Correo Electrónico Corporativo
+            </label>
             <input 
-              type="checkbox" 
-              checked={acceptedEula}
-              onChange={(e) => setAcceptedEula(e.target.checked)}
-              className="mt-1 w-4 h-4 rounded border-gray-300 text-[#ff0055] focus:ring-[#ff0055] bg-black" 
+              type="email" 
+              placeholder="admin@empresa.com"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (!e.target.value.includes('@')) setAcceptedEula(false);
+              }}
+              className="w-full bg-black border border-white/20 text-white p-3 font-mono text-sm focus:outline-none focus:border-tzCyan focus:ring-1 focus:ring-tzCyan transition"
             />
-            <span className="text-xs font-mono text-slate-300 leading-relaxed">
-              <strong className="text-red-400">ACUERDO EULA (ZERO-LIABILITY):</strong> Entiendo que este software se proporciona "AS-IS" (Tal cual). Asumo toda la responsabilidad técnica y financiera por su integración en mis servidores o hardware. <strong className="text-white">{config.eulaWarning}</strong>
-            </span>
-          </label>
+          </div>
+
+          <div className={`p-4 border ${isValidEmail ? 'border-red-500/30 bg-red-950/20' : 'border-gray-800 bg-black'} rounded transition-colors`}>
+            <label className={`flex items-start space-x-3 ${isValidEmail ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
+              <input 
+                type="checkbox" 
+                disabled={!isValidEmail}
+                checked={acceptedEula}
+                onChange={(e) => setAcceptedEula(e.target.checked)}
+                className="mt-1 w-4 h-4 rounded border-gray-300 text-[#ff0055] focus:ring-[#ff0055] bg-black disabled:bg-gray-800" 
+              />
+              <span className="text-xs font-mono text-slate-300 leading-relaxed">
+                <strong className="text-red-400">ACUERDO EULA (ZERO-LIABILITY):</strong> Entiendo que este software se proporciona "AS-IS" (Tal cual). Asumo toda la responsabilidad técnica y financiera por su integración en mis servidores o hardware. <strong className="text-white">{config.eulaWarning}</strong>
+              </span>
+            </label>
+          </div>
         </div>
 
-        <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-500 ${acceptedEula ? 'opacity-100' : 'opacity-20 pointer-events-none blur-[2px]'}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-500 ${acceptedEula && isValidEmail ? 'opacity-100' : 'opacity-20 pointer-events-none blur-[2px]'}`}>
           
           {/* Columna Izquierda: Credenciales & Python */}
           <div className="space-y-6">
