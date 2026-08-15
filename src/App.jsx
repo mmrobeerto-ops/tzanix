@@ -21,7 +21,7 @@ function App() {
       
       {/* HEADER / NAVBAR ESTILO SPACEX */}
       <header className="fixed top-0 left-0 w-full z-50 px-8 py-7 flex items-center justify-between">
-        <a href="#hero" className="flex items-center text-[34px] font-black tracking-[0.4em] transform scale-x-[1.25] origin-left transition-all hover:scale-x-[1.3] group">
+        <a href="#hero" className="flex items-center text-[34px] font-black tracking-[0.4em] transform scale-x-[1.25] origin-left transition-all hover:scale-x-[1.3] group mr-16 lg:mr-24">
           <span className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">TZAN</span>
           
           {/* Custom SVG 'i' basado en tu diseño */}

@@ -1,0 +1,86 @@
+# TZANiX Deep-Tech: Guía de Integración y Esquema de Precios (SaaS / Sovereign)
+
+¡Bienvenido al ecosistema TZANiX! Este documento es tu hoja de ruta completa para probar, integrar y desplegar nuestros motores de alto rendimiento (Neural Gateway, Q-Balam y Singularity Core).
+
+---
+
+## FASE 1: El Viaje del Cliente (Customer Journey)
+
+### Paso 1: Generación de Credenciales (Sitio Web)
+1. Ingresa a [tzanix.com](https://tzanix.com) y navega a la sección **"HUB DE DESPLIEGUE DOCKER"**.
+2. Selecciona el motor que deseas evaluar.
+3. El sistema generará automáticamente una **API Key de Prueba (Válida por 3 meses)**. Esta llave tiene un prefijo único para cada producto (ej. `tzx_gw_...` para Gateway). Cópiala en un lugar seguro.
+
+### Paso 2: Autenticación en el Registro Privado
+Antes de descargar los contenedores, debes autenticar tu entorno Docker con nuestro registro para validar que tienes permisos de extracción.
+
+```bash
+docker login ghcr.io -u tzanix-trial -p [TU_API_KEY]
+```
+
+### Paso 3: Descarga y Despliegue del Contenedor (Docker Run)
+Ejecuta el comando correspondiente al motor que seleccionaste, inyectando tu API Key como variable de entorno. El sistema validará tu licencia en el primer segundo de arranque.
+
+**Para Neural Gateway (FinOps IA):**
+```bash
+docker run -d -p 8000:8000 -e TZANIX_API_KEY="tzx_gw_..." ghcr.io/tzanix-deep-tech/neural-gateway:latest
+```
+
+**Para Q-Balam Core (Ciberseguridad Inercial):**
+```bash
+docker run -d -p 8000:8000 -e TZANIX_API_KEY="tzx_qb_..." ghcr.io/tzanix-deep-tech/q-balam:latest
+```
+
+**Para Singularity Core (Robótica / Drones):**
+```bash
+docker run -d -p 8000:8000 -e TZANIX_API_KEY="tzx_sg_..." ghcr.io/tzanix-deep-tech/singularity-core:latest
+```
+
+> [!IMPORTANT]
+> **Sin API Key Válida, el Contenedor entrará en modo "Kill-Switch" y se apagará.** 
+> El motor valida criptográficamente la llave contra nuestros servidores de licencia globales.
+
+---
+
+## FASE 2: Integración (Centro de Mando)
+
+Una vez que el contenedor esté corriendo (`docker ps`), abre tu navegador y dirígete a `http://localhost:8000` (o la IP de tu servidor). 
+
+En lugar de ver una terminal vacía, accederás a la **Interfaz de Producción TZANiX**, donde podrás:
+* Ver el Holograma de Telemetría en vivo (Osciloscopio, Matriz de Filtrado o Red Ciber).
+* Conectar tu clúster de GPUs o Flota de Drones.
+* Monitorear el ahorro de dinero o mitigación de ataques en tiempo real.
+
+---
+
+## FASE 3: Esquema de Precios (Post-Prueba 3 Meses)
+
+Al finalizar los 3 meses de prueba gratuita, el sistema bloqueará temporalmente el procesamiento hasta que selecciones un esquema de licenciamiento adecuado para tu escala comercial.
+
+### 1. TZANiX Neural Gateway (FinOps IA)
+El modelo de cobro es **Por Uso (Pay-as-you-go)** basado en el volumen de datos purificados.
+* **Costo:** $0.05 USD por cada Gigabyte (GB) de datos ruidosos purificados antes de tocar tu GPU.
+* *ROI Garantizado:* Te cobramos centavos por ahorrarte miles de dólares en facturación de cómputo en la nube (AWS/GCP).
+* **Licencia Sovereign (Enterprise):** $4,500 USD / Mes. Tráfico ilimitado on-premise con binarios nativos precompilados y soporte SLA.
+
+### 2. TZANiX Q-Balam (Ciberseguridad)
+El modelo de cobro es por **Nodo Protegido (SaaS)** o por ancho de banda analizado.
+* **Costo por Servidor:** $150 USD mensuales por cada máquina/nodo ejecutando el Kill-Switch.
+* *Opcional:* Si el tráfico supera los 5 TB mensuales por nodo, se factura a $0.02 USD por GB adicional.
+* **Licencia Sovereign (Banca/Defensa):** Contactar ventas. Instalación Air-Gapped (sin conexión a internet).
+
+### 3. TZANiX Singularity Core (Robótica/Drones)
+El modelo de cobro es por **Licencia Física (Por Unidad)**.
+* **Costo por Dron:** $15 USD mensuales por licencia de vuelo activa.
+* **Plan de Flota (Startups):** $1,200 USD mensuales para flotas de hasta 100 drones simultáneos.
+* *Beneficio:* Incluye acceso total al **Centro de Mando de Flota (Swarm Grid)** y alertas de mantenimiento predictivo (prevención de falla de rotores por armónicos).
+
+---
+
+## Privacidad Zero-Retention & Anti-Robo
+
+> [!WARNING]
+> **Arquitectura Distroless & Ofuscación**
+> Para proteger la propiedad intelectual, el contenedor no posee consola interactiva (Bash). El código está encriptado con PyArmor y los módulos críticos matemáticos están compilados en binarios nativos de C (Cython). Cualquier intento de aplicar ingeniería inversa está severamente bloqueado a nivel de sistema operativo.
+
+Toda tu información procesada por nuestros motores viaja y muere en tu servidor. **TZANiX no recolecta, ni entrena modelos públicos con tu información privada.** Solamente enviamos telemetría criptográfica básica a nuestro servidor de licencias para la facturación.

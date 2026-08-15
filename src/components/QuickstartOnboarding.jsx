@@ -7,31 +7,35 @@ const QuickstartOnboarding = ({ selectedTier }) => {
   const [acceptedEula, setAcceptedEula] = useState(false);
 
   // Configuraciones de Producto
+// ... (Configuración de Producto) ...
   const productConfig = {
     gateway: {
       name: 'NEURAL GATEWAY',
       prefix: 'tzx_gw_',
       image: 'ghcr.io/tzanix-deep-tech/neural-gateway:latest',
-      python: 'pip install tzanix-gateway'
+      python: 'pip install tzanix-gateway',
+      eulaWarning: 'TZANiX se exonera por completo de cualquier brecha de red, pérdida de datos o saturación de servidores causada por una mala configuración en los flujos tensoriales.'
     },
     qbalam: {
       name: 'Q-BALAM',
       prefix: 'tzx_qb_',
       image: 'ghcr.io/tzanix-deep-tech/q-balam:latest',
-      python: 'pip install tzanix-qbalam'
+      python: 'pip install tzanix-qbalam',
+      eulaWarning: 'TZANiX se exonera por completo de cualquier intrusión, robo de datos o vulnerabilidad explotada en caso de que la red local del cliente esté previamente comprometida.'
     },
     singularity: {
       name: 'SINGULARITY CORE',
       prefix: 'tzx_sg_',
       image: 'ghcr.io/tzanix-deep-tech/singularity-core:latest',
-      python: 'pip install tzanix-singularity'
+      python: 'pip install tzanix-singularity',
+      eulaWarning: 'TZANiX se exonera por completo de cualquier daño físico a hardware, colisión de drones/aeronaves, o pérdida de equipo autónomo derivado de la alteración de parámetros inerciales.'
     }
   };
 
   const config = productConfig[selectedTier] || productConfig.gateway;
 
   useEffect(() => {
-    // Simular latencia de generación de API Key
+    // Simular latencia de generación de API Key (Pronto será JWT)
     const timer = setTimeout(() => {
       setApiKey(`${config.prefix}${Math.random().toString(36).substr(2, 9)}`);
     }, 1000);
@@ -61,7 +65,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
             HUB DE DESPLIEGUE DOCKER
           </h2>
           <p className="text-slate-400 font-mono text-xs tracking-wide max-w-2xl mx-auto">
-            Tus credenciales de prueba están listas. Por ser tecnología de grado profundo que interactúa con hardware y redes críticas, debes aceptar los términos de exención de responsabilidad antes de inyectar el motor.
+            Tus credenciales de prueba de 3 meses están listas. Por ser tecnología de grado profundo que interactúa con infraestructura crítica, debes aceptar los términos de exención de responsabilidad antes de inyectar el motor.
           </p>
         </div>
 
@@ -75,7 +79,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
               className="mt-1 w-4 h-4 rounded border-gray-300 text-[#ff0055] focus:ring-[#ff0055] bg-black" 
             />
             <span className="text-xs font-mono text-slate-300 leading-relaxed">
-              <strong className="text-red-400">ACUERDO EULA (ZERO-LIABILITY):</strong> Entiendo que este software se proporciona "AS-IS" (Tal cual). Asumo toda la responsabilidad técnica y financiera por su integración en mis servidores o hardware. TZANiX se exonera por completo de cualquier daño a hardware (incluyendo aeronaves/drones), pérdida de datos o brechas de red causadas por mala configuración del entorno de pruebas.
+              <strong className="text-red-400">ACUERDO EULA (ZERO-LIABILITY):</strong> Entiendo que este software se proporciona "AS-IS" (Tal cual). Asumo toda la responsabilidad técnica y financiera por su integración en mis servidores o hardware. <strong className="text-white">{config.eulaWarning}</strong>
             </span>
           </label>
         </div>
@@ -138,7 +142,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
                     <span className="text-slate-500"># Iniciar Motor Localmente</span><br/>
                     <span className="text-tzCyan">$</span> {acceptedEula ? dockerCommand.split('\\').map((line, i) => (
                       <React.Fragment key={i}>
-                        {line} {i !== 2 && <span className="text-slate-500">\</span>}<br/>
+                        {line} {i !== 2 && <span className="text-slate-500">\\</span>}<br/>
                       </React.Fragment>
                     )) : 'BLOQUEADO'}
                   </code>
@@ -154,12 +158,13 @@ const QuickstartOnboarding = ({ selectedTier }) => {
             
             {/* Nuevo Botón de PDF / Documentación */}
             <div className="pt-2">
-              <button 
-                onClick={() => alert("Descargando: TZANiX_Integration_and_Pricing_Guide.pdf\n\nEste PDF contiene el paso a paso, precios post-prueba y manual de Centro de Mando.")}
-                className="w-full flex justify-center items-center py-3 border border-white/30 text-white font-mono text-xs uppercase tracking-widest hover:bg-white hover:text-black transition duration-300"
+              <a 
+                href="/Manual_Corporativo_TZANiX.txt" 
+                download
+                className="w-full flex justify-center items-center py-3 border border-white/30 text-white font-mono text-xs uppercase tracking-widest hover:bg-white hover:text-black transition duration-300 cursor-pointer"
               >
                 📄 DESCARGAR PDF: GUÍA Y TÉRMINOS LEGALES
-              </button>
+              </a>
             </div>
           </div>
 
