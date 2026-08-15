@@ -8,8 +8,7 @@ import MathBackground from './components/MathBackground';
 
 function App() {
   const [selectedTier, setSelectedTier] = useState(null);
-
-  const handleSelectTier = (tier) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);  const handleSelectTier = (tier) => {
     setSelectedTier(tier);
     setTimeout(() => {
       document.getElementById('onboarding-section')?.scrollIntoView({ behavior: 'smooth' });
@@ -40,24 +39,27 @@ function App() {
 
           <span className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">X</span>
         </a>
-        <nav className="hidden lg:flex items-center space-x-9 text-[12px] font-bold tracking-[0.22em] uppercase text-white/90">
-          <a href="#neural-gateway" className="hover:text-tzCyan transition">NEURAL GATEWAY</a>
-          <a href="#q-balam" className="hover:text-tzCyan transition">Q-BALAM</a>
-          <a href="#singularity" className="hover:text-tzCyan transition">SINGULARIDAD (DRONES)</a>
-          <a href="#edtech" className="hover:text-tzCyan transition">EDTECH CUÁNTICA</a>
-          <a href="#pricing" className="hover:text-tzCyan transition">DESPLIEGUE</a>
-        </nav>
-        <div className="flex items-center space-x-6">
-          <a href="#pricing" className="hidden sm:inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-white border-b-2 border-tzCyan pb-1 hover:text-tzCyan transition">
-            DESPLEGAR MÓDULO &rarr;
-          </a>
-          <button className="text-white space-y-1.5 focus:outline-none cursor-pointer">
-            <div className="w-6 h-0.5 bg-white"></div>
-            <div className="w-6 h-0.5 bg-white"></div>
-            <div className="w-6 h-0.5 bg-white"></div>
-          </button>
-        </div>
+        
+        {/* HAMBURGER BUTTON */}
+        <button 
+          className="text-white space-y-1.5 focus:outline-none cursor-pointer z-[60] relative"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <div className={`w-8 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
+          <div className={`w-8 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
+          <div className={`w-8 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
+        </button>
       </header>
+
+      {/* FULLSCREEN MENU OVERLAY */}
+      <div className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-10 transition-all duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <a href="#neural-gateway" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold tracking-[0.25em] uppercase text-white hover:text-tzCyan hover:scale-105 transition-all">NEURAL GATEWAY</a>
+        <a href="#q-balam" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold tracking-[0.25em] uppercase text-white hover:text-tzCyan hover:scale-105 transition-all">Q-BALAM</a>
+        <a href="#singularity" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold tracking-[0.25em] uppercase text-white hover:text-tzCyan hover:scale-105 transition-all">SINGULARIDAD (DRONES)</a>
+        <a href="#edtech" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold tracking-[0.25em] uppercase text-white hover:text-tzCyan hover:scale-105 transition-all">EDTECH CUÁNTICA</a>
+        <div className="w-24 h-px bg-white/20 my-4"></div>
+        <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="text-xl font-black tracking-[0.3em] uppercase text-tzCyan border-b-2 border-tzCyan pb-2 hover:text-white transition-all">DESPLEGAR MÓDULO &rarr;</a>
+      </div>
 
       {/* MAIN CONTAINER */}
       <main className="w-full">
