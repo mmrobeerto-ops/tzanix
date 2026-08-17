@@ -14,12 +14,12 @@ date: "Agosto 2026"
 ## 1. Resumen Ejecutivo
 En el actual panorama de infraestructura en la nube y modelos de Inteligencia Artificial (LLMs/Redes Neuronales), la capa de aplicación se ha convertido en el vector principal de vulnerabilidades críticas. Los Proxies y Firewalls tradicionales basados en reglas estáticas (WAFs) a menudo sufren degradación de rendimiento o colapso de red ante ráfagas sostenidas de inyecciones maliciosas de alta densidad.
 
-Este documento presenta los resultados de la prueba de estrés realizada sobre **TZANiX Neural Gateway (Q-Balam)**, operando bajo una arquitectura *Sidecar/Proxy Zero-Trust*. El objetivo principal de la prueba fue validar la capacidad del motor (desarrollado en Rust) para discriminar, aislar y rechazar tráfico malicioso sin incurrir en caídas de servicio (Denegación de Servicio), saturación de puertos, o degradación de la memoria RAM.
+Este documento presenta los resultados de la prueba de estrés realizada sobre **TZANiX Q-Balam**, operando bajo una arquitectura *Sidecar/Proxy Zero-Trust*. El objetivo principal de la prueba fue validar la capacidad del motor (desarrollado en Rust) para discriminar, aislar y rechazar tráfico malicioso sin incurrir en caídas de servicio (Denegación de Servicio), saturación de puertos, o degradación de la memoria RAM.
 
 ## 2. Entorno de la Prueba (Test Environment)
 La simulación fue ejecutada en un ambiente controlado de laboratorio, disparando tráfico contra un contenedor Docker inmutable.
 
-* **Objetivo (Target):** `http://localhost:8000/api/v1/query` (TZANiX Neural Gateway)
+* **Objetivo (Target):** `http://localhost:8000/api/v1/query` (TZANiX Q-Balam)
 * **Autenticación:** Inyección de JWT Criptográfico en cabeceras HTTP.
 * **Herramienta de Estrés:** Script concurrente asíncrono (Node.js) con generación dinámica de payloads (Inyecciones de Tensores y SQL Drop).
 * **Volumetría del Ataque:** 10,000 peticiones de capa 7 (Application Layer).
@@ -50,7 +50,7 @@ La métrica de **10,000 Bloqueos Exitosos** confirma que el motor TZANiX no dele
 El valor de **0 Conexiones Fallidas (Drops)** es la métrica más crítica para la continuidad del negocio. Demuestra que ante una saturación de 500 hilos concurrentes, el motor *nunca colapsó*. Los puertos se mantuvieron abiertos, el enrutador TCP no sufrió asfixia y el servidor no rechazó conexiones legítimas. Un WAF tradicional habitualmente interrumpe las conexiones bajo este nivel de estrés, generando un falso positivo que bloquea a los clientes reales.
 
 ### C. Rendimiento y Latencia
-Alcanzar un rendimiento sostenido de **423.14 inspecciones profundas por segundo** (req/sec) en un entorno de laboratorio demuestra la ultra-baja latencia del motor en Rust. TZANiX Neural Gateway es capaz de operar en la frontera de las APIs corporativas garantizando la seguridad inercial sin comprometer la velocidad de respuesta para el usuario final.
+Alcanzar un rendimiento sostenido de **423.14 inspecciones profundas por segundo** (req/sec) en un entorno de laboratorio demuestra la ultra-baja latencia del motor en Rust. TZANiX Q-Balam es capaz de operar en la frontera de las APIs corporativas garantizando la seguridad inercial sin comprometer la velocidad de respuesta para el usuario final.
 
 ### D. Auditoría de Recursos Nativos
 Para validar legítimamente el consumo mínimo de recursos de este motor en tiempo real, se invita a los auditores a ejecutar el siguiente comando de monitorización nativa de Docker en una segunda terminal durante la prueba de estrés:

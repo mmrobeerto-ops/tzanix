@@ -1,7 +1,7 @@
 const http = require('http');
 
 console.log("\x1b[35m%s\x1b[0m", "===============================================================");
-console.log("\x1b[35m%s\x1b[0m", "        TZANiX SINGULARITY CORE - STRESS TEST                  ");
+console.log("\x1b[35m%s\x1b[0m", "        TZANiX NEURAL GATEWAY (LIMPIEZA) - STRESS TEST                  ");
 console.log("\x1b[35m%s\x1b[0m", "===============================================================\n");
 
 const TARGET_URL = 'http://localhost:8002/process';
@@ -45,7 +45,7 @@ const sendMaliciousRequest = () => {
         };
 
         const req = http.request(options, (res) => {
-            // Singularity purifica los tensores y retorna HTTP 200 con el payload limpio
+            // Neural Gateway purifica los tensores y retorna HTTP 200 con el payload limpio
             // Un WAF normal dejaría pasar la carga o colapsaría. 
             if (res.statusCode === 200 || res.statusCode === 403 || res.statusCode === 400 || res.statusCode === 429) {
                 blockedRequests++;
@@ -101,7 +101,7 @@ const executeStressTest = async () => {
     console.log(`\x1b[32mBloqueadas Exitosamente: ${blockedRequests}\x1b[0m`);
     console.log(`\x1b[31mConexiones Fallidas:   ${failedConnections}\x1b[0m\n`);
     
-    console.log("\x1b[36m[CONCLUSIÓN]\x1b[0m El motor TZANiX Singularity mantuvo la integridad del sistema aislando la carga de tensores corruptos al 100%.\n");
+    console.log("\x1b[36m[CONCLUSIÓN]\x1b[0m El motor TZANiX Neural Gateway mantuvo la integridad del sistema aislando la carga de tensores corruptos al 100%.\n");
 };
 
 executeStressTest();
