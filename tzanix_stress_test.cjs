@@ -4,8 +4,9 @@ console.log("\x1b[36m%s\x1b[0m", "==============================================
 console.log("\x1b[36m%s\x1b[0m", "        TZANiX Q-BALAM / NEURAL GATEWAY - STRESS TEST          ");
 console.log("\x1b[36m%s\x1b[0m", "===============================================================\n");
 
-const API_KEY = process.env.TZANIX_API_KEY || "tzx_gw_DEMO_KEY_12345";
-const TARGET_URL = process.env.TARGET_URL || "http://localhost:8000/api/v1/tensor-inference";
+const TARGET_URL = 'http://localhost:8000/api/v1/query';
+const JWT_TOKEN = 'tzx_gw_eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGVtcHJlc2EuY29tIiwiaWF0IjoxNzg2OTU2MDAwLCJleHAiOjE3ODk4MDcyMDB9.ch9LunIy2kaL2WRyNC8fXhNBnsFluU3N7UoL_wPjaZPONW6q6gWbsdyoykzolEeegPUeeDtpRRTh-Nvx92mPTZO5ArVRrfdZF7Ql_o9-m2DWUiMDSKkafwAcT6ul3aqlqInjdqgGfk6ZLR47L9ot9ScmqYUdkhEnI1lp_AlqeLFaVsnPs-j5mCYdWSH6WX0pQofNj-PaPR1FftMqStFJJ5vAie_nHTn-AOtyL_0NnuoqYvIjlpl6JGHZdyKWApLlQ767W8Jrc8vaWTPJrNYl-0XiEc7a5dNyLk_-wt6eVosMjCxervhyLds0n_wqt5gFpCI_t8LeVfLlIJA6dzrM8g';
+
 const CONCURRENCY = 500; // Número de peticiones simultáneas
 const TOTAL_REQUESTS = 10000; // Total de peticiones a disparar
 
@@ -15,7 +16,7 @@ let failedConnections = 0;
 const startTime = Date.now();
 
 console.log(`\x1b[33m[TARGET]\x1b[0m ${TARGET_URL}`);
-console.log(`\x1b[33m[AUTH]\x1b[0m Usando JWT: ${API_KEY.substring(0, 15)}...`);
+console.log(`\x1b[33m[AUTH]\x1b[0m Usando JWT: ${JWT_TOKEN.substring(0, 15)}...`);
 console.log(`\x1b[33m[LOAD]\x1b[0m Disparando ${TOTAL_REQUESTS} peticiones maliciosas simuladas con concurrencia de ${CONCURRENCY} hilos.\n`);
 console.log("\x1b[31m[!] INICIANDO BOMBARDEO DE TRÁFICO...\x1b[0m\n");
 
@@ -31,7 +32,7 @@ function sendRequest() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`,
+                'Authorization': `Bearer ${JWT_TOKEN}`,
                 'Content-Length': Buffer.byteLength(payload)
             }
         };

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   // Solo permitimos POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
@@ -77,6 +77,30 @@ hXor432YhN/LP5RhS+R1clk=
     
     const prefix = prefixes[product] || 'tzx_lic_';
     
+    // Notificación a Web3Forms
+    try {
+      // Usar llave quemada o la del env para seguridad
+      const accessKey = process.env.WEB3FORMS_ACCESS_KEY || '72ab50e1-c1fc-4828-8f95-f2e20093d125';
+      if (accessKey) {
+        await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            access_key: accessKey,
+            subject: `🚀 NUEVO LEAD: ${email} ha descargado ${product.toUpperCase()}`,
+            email: email,
+            message: `¡Atención! Un nuevo cliente corporativo ha generado una llave de prueba para el motor TZANiX.\n\n📧 Correo: ${email}\n⚙️ Producto: ${product}\n🕒 Timestamp: ${new Date().toISOString()}\n\n🔑 Puedes contactarlos de inmediato para darles seguimiento técnico a su Prueba de Concepto.`,
+            from_name: "TZANiX Gateway",
+          })
+        });
+      }
+    } catch (e) {
+      console.error("No se pudo enviar notificación de lead: ", e);
+    }
+
     // Retornamos la API KEY que el usuario copiará
     return res.status(200).json({ 
       apiKey: `${prefix}${token}`
