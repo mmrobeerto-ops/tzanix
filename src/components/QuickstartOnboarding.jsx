@@ -138,8 +138,8 @@ const QuickstartOnboarding = ({ selectedTier }) => {
                 <Key className="w-4 h-4 mr-2" />
                 API Key de Prueba (33 Días)
               </label>
-              <div className="flex items-center bg-black/60 border border-cyan-500/20 rounded-lg p-1">
-                <code className="flex-1 text-slate-300 px-3 font-mono text-sm tracking-wider">
+              <div className="flex items-center bg-black/60 border border-cyan-500/20 rounded-lg p-1 overflow-hidden">
+                <code className="flex-1 text-slate-300 px-3 font-mono text-sm tracking-wider truncate">
                   {acceptedEula ? apiKey : 'BLOQUEADO'}
                 </code>
                 <button 
