@@ -9,7 +9,7 @@
 ### Paso 1: Generación de Credenciales (Sitio Web)
 1. Ingresa a [tzanix.com](https://tzanix.com) y navega a la sección **"HUB DE DESPLIEGUE DOCKER"**.
 2. Selecciona el motor que deseas evaluar.
-3. El sistema generará automáticamente una **API Key de Prueba (Válida por 3 meses)**. Esta llave tiene un prefijo único para cada producto (ej. `tzx_gw_...` para Gateway). Cópiala en un lugar seguro.
+3. El sistema generará automáticamente una **API Key de Prueba (Válida por 33 días)**. Esta llave tiene un prefijo único para cada producto (ej. `tzx_gw_...` para Gateway). Cópiala en un lugar seguro.
 
 ### Paso 2: Autenticación en el Registro Privado
 Antes de descargar los contenedores, debes autenticar tu entorno Docker con nuestro registro para validar que tienes permisos de extracción.
@@ -53,9 +53,9 @@ En lugar de ver una terminal vacía, accederás a la **Interfaz de Producción T
 
 ---
 
-## FASE 3: Esquema de Precios (Post-Prueba 3 Meses)
+## FASE 3: Esquema de Precios (Post-Prueba 33 Días)
 
-Al finalizar los 3 meses de prueba gratuita, el sistema bloqueará temporalmente el procesamiento hasta que selecciones un esquema de licenciamiento adecuado para tu escala comercial.
+Al finalizar los 33 días de prueba gratuita, el sistema bloqueará temporalmente el procesamiento hasta que selecciones un esquema de licenciamiento adecuado para tu escala comercial.
 
 ### 1. TZANiX Neural Gateway (FinOps IA)
 El modelo de cobro es **Por Uso (Pay-as-you-go)** basado en el volumen de datos purificados.

@@ -73,13 +73,13 @@ function App() {
 
           <div className="relative z-10 max-w-4xl space-y-4">
             <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
-              ARQUITECTURA DE SILICIO / RUST & ARM64
+              MICROSERVICIOS PERIMETRALES / RUST & ARM64
             </p>
             <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
               DE LA ENTROPÍA AL <br /> ORDEN MATEMÁTICO
             </h1>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              Desbloqueamos velocidad extrema y eficiencia de costos operando a nivel de máquina. Resolviendo problemas complejos de IA y ciberseguridad mediante matemáticas puras sin depender de infraestructura masiva en la nube.
+              Microservicios perimetrales de alto rendimiento programados en Rust, desplegables en contenedores (Docker / Kubernetes) como soluciones Proxy o Sidecar.
             </p>
             <div className="pt-4 flex flex-wrap gap-4">
               <a href="#neural-gateway" className="btn-spacex">
@@ -101,13 +101,13 @@ function App() {
 
           <div className="relative z-10 max-w-4xl space-y-4">
             <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
-              FINOPS & PURIFICACIÓN DE IA
+              CIBERSEGURIDAD INERCIAL & FINOPS
             </p>
             <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
               TZANiX NEURAL <br />GATEWAY
             </h2>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              Escudo tensorial programado en Rust. Purifica los flujos de datos antes de que toquen costosas granjas de GPUs, mitigando el envenenamiento de datos y reduciendo hasta un 40% la facturación en la nube.
+              Filtrado estadístico de ultra baja latencia y optimización FinOps para infraestructura crítica de datos y modelos de Inteligencia Artificial. Reduce el costo de las GPUs deteniendo el envenenamiento de datos.
             </p>
             <div className="pt-4">
               <a href="https://gateway.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
@@ -191,6 +191,23 @@ function App() {
                 <span>ABRIR EDTECH &rarr;</span>
               </a>
             </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* COMPLIANCE Y CONFIANZA                                                    */}
+        {/* ========================================================================= */}
+        <section className="relative z-10 w-full py-24 bg-zinc-950 border-t border-b border-white/10 px-8">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <p className="text-xs font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
+              CUMPLIMIENTO Y CONFIANZA
+            </p>
+            <h2 className="text-4xl sm:text-5xl font-black tracking-tight uppercase text-white">
+              SEGURIDAD DESDE EL DISEÑO
+            </h2>
+            <p className="text-slate-400 text-sm md:text-base font-light tracking-wide leading-relaxed pt-4 max-w-3xl mx-auto">
+              (Security by Design): Nuestras soluciones están diseñadas arquitectónicamente bajo los controles estrictos de SOC 2, ISO/IEC 42001 (AI Governance) y las normativas del EU AI Act. Proveemos un SBOM (Software Bill of Materials) transparente y pipelines validados con cargo audit para garantizar la seguridad de la cadena de suministro.
+            </p>
           </div>
         </section>
 
