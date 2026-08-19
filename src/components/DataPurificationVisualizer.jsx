@@ -51,17 +51,17 @@ export default function DataPurificationVisualizer() {
           <div className="absolute inset-0 overflow-hidden flex flex-col gap-8 pt-60 pl-10">
              <div className="flex gap-6">
                {[...Array(10)].map((_, i) => (
-                 <div key={clean1-${i} className="w-5 h-1 bg-tzCyan shadow-[0_0_8px_#00f0ff] opacity-80" style={{ animation: 'pulse 2s infinite' }}></div>
+                 <div key={`clean1-${i}`} className="w-5 h-1 bg-tzCyan shadow-[0_0_8px_#00f0ff] opacity-80" style={{ animation: 'pulse 2s infinite' }}></div>
                ))}
              </div>
              <div className="flex gap-6 ml-10">
                {[...Array(10)].map((_, i) => (
-                 <div key={clean2-${i} className="w-5 h-1 bg-tzCyan shadow-[0_0_8px_#00f0ff] opacity-50" style={{ animation: 'pulse 2s infinite 0.5s' }}></div>
+                 <div key={`clean2-${i}`} className="w-5 h-1 bg-tzCyan shadow-[0_0_8px_#00f0ff] opacity-50" style={{ animation: 'pulse 2s infinite 0.5s' }}></div>
                ))}
              </div>
              <div className="flex gap-6">
                {[...Array(10)].map((_, i) => (
-                 <div key={clean3-${i} className="w-5 h-1 bg-tzCyan shadow-[0_0_8px_#00f0ff] opacity-80" style={{ animation: 'pulse 2s infinite 0.2s' }}></div>
+                 <div key={`clean3-${i}`} className="w-5 h-1 bg-tzCyan shadow-[0_0_8px_#00f0ff] opacity-80" style={{ animation: 'pulse 2s infinite 0.2s' }}></div>
                ))}
              </div>
           </div>
