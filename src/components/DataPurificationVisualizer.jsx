@@ -23,9 +23,9 @@ export default function DataPurificationVisualizer() {
           <div className="absolute inset-0 overflow-hidden flex flex-wrap gap-2 pt-60 pr-10 content-start">
              {[...Array(50)].map((_, i) => (
                <div key={i} className="w-1.5 h-1.5 bg-[#ff0055]/80 rounded-full animate-bounce shadow-[0_0_8px_#ff0055]" style={{
-                 animationDuration: ${Math.random() * 0.4 + 0.1}s,
-                 animationDelay: ${Math.random()}s,
-                 marginLeft: ${Math.random() * 20}px
+                 animationDuration: `${Math.random() * 0.4 + 0.1}s`,
+                 animationDelay: `${Math.random()}s`,
+                 marginLeft: `${Math.random() * 20}px`
                }}></div>
              ))}
           </div>
