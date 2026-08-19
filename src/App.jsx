@@ -5,6 +5,7 @@ import SpacexBackground from './components/SpacexBackground';
 import MatrixBackground from './components/MatrixBackground';
 import FluidBackground from './components/FluidBackground';
 import MathBackground from './components/MathBackground';
+import DataPurificationVisualizer from './components/DataPurificationVisualizer';
 
 function App() {
   const [selectedTier, setSelectedTier] = useState(null);
@@ -96,11 +97,8 @@ function App() {
         {/* 2. TZANIX NEURAL GATEWAY (PURIFICACIÓN DE DATOS & FINOPS IA)              */}
         {/* ========================================================================= */}
         <section id="neural-gateway" className="spacex-section relative overflow-hidden">
-      <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-90">
-        <source src="/tzanix_web.mp4" type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 bg-black/20 z-0"></div>
-      <div className="video-overlay"></div>
+          <DataPurificationVisualizer />
+          <div className="video-overlay absolute inset-0 z-0 pointer-events-none"></div>
 
           <div className="relative z-10 max-w-4xl space-y-4">
             <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
