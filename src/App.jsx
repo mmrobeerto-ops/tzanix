@@ -96,10 +96,10 @@ function App() {
         {/* 2. TZANIX NEURAL GATEWAY (PURIFICACIÓN DE DATOS & FINOPS IA)              */}
         {/* ========================================================================= */}
         <section id="neural-gateway" className="spacex-section relative overflow-hidden">
-      <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-50 blur-[4px] scale-105">
+      <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-90">
         <source src="/tzanix_web.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-black/50 z-0"></div>
+      <div className="absolute inset-0 bg-black/20 z-0"></div>
       <div className="video-overlay"></div>
 
           <div className="relative z-10 max-w-4xl space-y-4">
