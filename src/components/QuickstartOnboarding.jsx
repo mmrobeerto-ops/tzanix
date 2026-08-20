@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Terminal, Copy, Key, Rocket, ArrowRight } from 'lucide-react';
 
 const QuickstartOnboarding = ({ selectedTier }) => {
@@ -8,28 +8,28 @@ const QuickstartOnboarding = ({ selectedTier }) => {
   const [email, setEmail] = useState('');
 
   // Configuraciones de Producto
-// ... (Configuración de Producto) ...
+// ... (ConfiguraciÃ³n de Producto) ...
   const productConfig = {
     gateway: {
       name: 'NEURAL GATEWAY',
       prefix: 'tzx_gw_',
-      image: 'ghcr.io/tzanix-deep-tech/neural-gateway:latest',
+      image: 'ghcr.io/mmrobeerto-ops/neural-gateway:latest',
       python: 'pip install tzanix-gateway',
-      eulaWarning: 'TZANiX se exonera por completo de cualquier brecha de red, pérdida de datos o saturación de servidores causada por una mala configuración en los flujos tensoriales.'
+      eulaWarning: 'TZANiX se exonera por completo de cualquier brecha de red, pÃ©rdida de datos o saturaciÃ³n de servidores causada por una mala configuraciÃ³n en los flujos tensoriales.'
     },
     qbalam: {
       name: 'Q-BALAM',
       prefix: 'tzx_qb_',
-      image: 'ghcr.io/tzanix-deep-tech/q-balam:latest',
+      image: 'ghcr.io/mmrobeerto-ops/q-balam:latest',
       python: 'pip install tzanix-qbalam',
-      eulaWarning: 'TZANiX se exonera por completo de cualquier intrusión, robo de datos o vulnerabilidad explotada en caso de que la red local del cliente esté previamente comprometida.'
+      eulaWarning: 'TZANiX se exonera por completo de cualquier intrusiÃ³n, robo de datos o vulnerabilidad explotada en caso de que la red local del cliente estÃ© previamente comprometida.'
     },
     singularity: {
       name: 'SINGULARITY CORE',
       prefix: 'tzx_sg_',
-      image: 'ghcr.io/tzanix-deep-tech/singularity-core:latest',
+      image: 'ghcr.io/mmrobeerto-ops/singularity-core:latest',
       python: 'pip install tzanix-singularity',
-      eulaWarning: 'TZANiX se exonera por completo de cualquier daño físico a hardware, colisión de drones/aeronaves, o pérdida de equipo autónomo derivado de la alteración de parámetros inerciales.'
+      eulaWarning: 'TZANiX se exonera por completo de cualquier daÃ±o fÃ­sico a hardware, colisiÃ³n de drones/aeronaves, o pÃ©rdida de equipo autÃ³nomo derivado de la alteraciÃ³n de parÃ¡metros inerciales.'
     }
   };
 
@@ -59,12 +59,12 @@ const QuickstartOnboarding = ({ selectedTier }) => {
       if (data.apiKey) {
         setApiKey(data.apiKey);
       } else {
-        setApiKey('ERROR DE FIRMA CRIPTOGRÁFICA');
+        setApiKey('ERROR DE FIRMA CRIPTOGRÃFICA');
       }
     })
     .catch(err => {
       console.error(err);
-      setApiKey('ERROR DE CONEXIÓN AL GATEWAY');
+      setApiKey('ERROR DE CONEXIÃ“N AL GATEWAY');
     });
   }, [selectedTier, acceptedEula, isValidEmail, email]);
 
@@ -91,7 +91,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
             HUB DE DESPLIEGUE DOCKER
           </h2>
           <p className="text-slate-400 font-mono text-xs tracking-wide max-w-2xl mx-auto">
-            Tus credenciales de prueba de 33 días están listas. Por ser tecnología de grado profundo que interactúa con infraestructura crítica, debes proporcionar un correo válido y aceptar los términos de exención de responsabilidad.
+            Tus credenciales de prueba de 33 dÃ­as estÃ¡n listas. Por ser tecnologÃ­a de grado profundo que interactÃºa con infraestructura crÃ­tica, debes proporcionar un correo vÃ¡lido y aceptar los tÃ©rminos de exenciÃ³n de responsabilidad.
           </p>
         </div>
 
@@ -99,7 +99,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
         <div className="max-w-2xl mx-auto mb-10 p-6 border border-white/10 bg-black/50 space-y-6">
           <div className="space-y-2">
             <label className="text-xs font-mono font-bold text-tzCyan uppercase tracking-widest">
-              Correo Electrónico Corporativo
+              Correo ElectrÃ³nico Corporativo
             </label>
             <input 
               type="email" 
@@ -123,7 +123,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
                 className="mt-1 w-4 h-4 rounded border-gray-300 text-[#ff0055] focus:ring-[#ff0055] bg-black disabled:bg-gray-800" 
               />
               <span className="text-xs font-mono text-slate-300 leading-relaxed">
-                <strong className="text-red-400">ACUERDO EULA (ZERO-LIABILITY):</strong> Entiendo que este software se proporciona "AS-IS" (Tal cual). Asumo toda la responsabilidad técnica y financiera por su integración en mis servidores o hardware. <strong className="text-white">{config.eulaWarning}</strong>
+                <strong className="text-red-400">ACUERDO EULA (ZERO-LIABILITY):</strong> Entiendo que este software se proporciona "AS-IS" (Tal cual). Asumo toda la responsabilidad tÃ©cnica y financiera por su integraciÃ³n en mis servidores o hardware. <strong className="text-white">{config.eulaWarning}</strong>
               </span>
             </label>
           </div>
@@ -136,7 +136,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
             <div className="space-y-2">
               <label className="text-xs font-mono font-bold text-tzCyan uppercase tracking-widest flex items-center">
                 <Key className="w-4 h-4 mr-2" />
-                API Key de Prueba (33 Días)
+                API Key de Prueba (33 DÃ­as)
               </label>
               <div className="flex items-center bg-black/60 border border-cyan-500/20 rounded-lg p-1 overflow-hidden">
                 <code className="flex-1 text-slate-300 px-3 font-mono text-sm tracking-wider truncate">
@@ -155,7 +155,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
             <div className="space-y-2">
               <label className="text-xs font-mono font-bold text-tzCyan uppercase tracking-widest flex items-center">
                 <Terminal className="w-4 h-4 mr-2" />
-                Integración Python (Opcional)
+                IntegraciÃ³n Python (Opcional)
               </label>
               <div className="relative group">
                 <pre className="bg-black/60 border border-cyan-500/20 rounded-lg p-4 overflow-x-auto text-sm font-mono text-slate-300 shadow-inner">
@@ -201,14 +201,14 @@ const QuickstartOnboarding = ({ selectedTier }) => {
               </div>
             </div>
             
-            {/* Nuevo Botón de PDF / Documentación */}
+            {/* Nuevo BotÃ³n de PDF / DocumentaciÃ³n */}
             <div className="pt-2">
               <a 
                 href="/Manual_Corporativo_TZANiX.txt" 
                 download
                 className="w-full flex justify-center items-center py-3 border border-white/30 text-white font-mono text-xs uppercase tracking-widest hover:bg-white hover:text-black transition duration-300 cursor-pointer"
               >
-                📄 DESCARGAR PDF: GUÍA Y TÉRMINOS LEGALES
+                ðŸ“„ DESCARGAR PDF: GUÃA Y TÃ‰RMINOS LEGALES
               </a>
             </div>
           </div>
