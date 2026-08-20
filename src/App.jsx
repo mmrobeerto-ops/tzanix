@@ -75,17 +75,17 @@ function App() {
 
           <div className="relative z-10 max-w-4xl space-y-4">
             <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
-              MICROSERVICIOS PERIMETRALES / RUST & ARM64
+              DEEP TECH CYBERSECURITY / RUST & PYTHON
             </p>
             <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
               DE LA ENTROPÍA AL <br /> ORDEN MATEMÁTICO
             </h1>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              Microservicios perimetrales de alto rendimiento programados en Rust, desplegables en contenedores (Docker / Kubernetes) como soluciones Proxy o Sidecar.
+              El matrimonio arquitectónico perfecto: Microservicios L7 orquestados con la flexibilidad de Python, pero ejecutando Topología 4D a la velocidad del silicio puro gracias a bindings nativos en Rust.
             </p>
             <div className="pt-4 flex flex-wrap gap-4">
               <a href="#neural-gateway" className="btn-spacex">
-                <span>EXPLORAR MÓDULOS &rarr;</span>
+                <span>EXPLORAR ARQUITECTURA &rarr;</span>
               </a>
               <a href="https://pypi.org/project/tzanix-core/" target="_blank" rel="noopener noreferrer" className="btn-spacex !border-white/30 text-white/70">
                 <span>SDK PYTHON (PyPI)</span>
@@ -103,17 +103,17 @@ function App() {
 
           <div className="relative z-10 max-w-4xl space-y-4">
             <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
-              CIBERSEGURIDAD INERCIAL & FINOPS
+              REVERSE PROXY L7 & FINOPS
             </p>
             <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
               TZANiX NEURAL <br />GATEWAY
             </h2>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              Filtrado estadístico de ultra baja latencia y optimización FinOps para infraestructura crítica de datos y modelos de Inteligencia Artificial. Reduce el costo de las GPUs deteniendo el envenenamiento de datos.
+              Purificación de datos Stateless en la periferia de tu red. Detén anomalías inerciales en ~0.56 milisegundos y reduce entre un 40% y 80% el consumo de CPU de tus servidores al destruir el tráfico basura antes de que toque tu aplicación.
             </p>
             <div className="pt-4">
               <a href="https://gateway.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
-                <span>ABRIR NEURAL GATEWAY &rarr;</span>
+                <span>VER DEMO INTERACTIVA &rarr;</span>
               </a>
             </div>
           </div>
@@ -128,17 +128,17 @@ function App() {
 
           <div className="relative z-10 max-w-4xl space-y-4">
             <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-[#ff0055]">
-              DEFENSA DE BASE DE DATOS & KERNEL
+              DEFENSA ZERO-TRUST & SHADOW MODE
             </p>
             <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
               TZANiX Q-BALAM
             </h2>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              Motor inercial sidecar para bases de datos. Análisis de entropía de Shannon a velocidad de línea con Kill-Switch autónomo en menos de 0.42 milisegundos con 0% de impacto sobre el servidor.
+              Arquitectura de mitigación de riesgos diseñada para SysAdmins. Despliégalo en Modo Auditoría para garantizar 0% de Falsos Positivos. Soporta diseño Fail-Open y permite Whitelists dinámicos para tráfico cifrado y JWT.
             </p>
-            <div className="pt-4">
+            <div className="pt-4 flex flex-wrap gap-4">
               <a href="https://qbalam.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
-                <span>ABRIR Q-BALAM &rarr;</span>
+                <span>VER DEMO INTERACTIVA &rarr;</span>
               </a>
             </div>
           </div>
