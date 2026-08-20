@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 export default function ScientificDocs() {
   return (
@@ -32,16 +32,17 @@ export default function ScientificDocs() {
             <h3 className="text-2xl font-bold text-white mb-4">2. El "Matrimonio" Rust-Python (maximizando el silicio)</h3>
             <p className="text-slate-300 font-light leading-relaxed mb-4">
               Python es el rey indiscutible en orquestación de IA, pero es cu�llo de botella en cálculos densos. Con TZANiX, CTOs y Arquitectos obtienen lo mejor de ambos mundos:
+              Python es el rey indiscutible en orquestación de IA, pero es cullo de botella en cálculos densos. Con TZANiX, CTOs y Arquitectos obtienen lo mejor de ambos mundos:
             </p>
             <ul className="list-disc list-inside text-slate-300 font-light space-y-2 mb-4">
               <li><strong>Papel de Python:</strong> Interfaz API, orquestación y conexión con modelos IA.</li>
               <li><strong>Papel de Rust:</strong> Bindings de bajo nivel (PyO3) que descargan la matemática pesada directamente al silicio de la CPU.</li>
             </ul>
             <div className="bg-black border border-tzCyan/30 p-4 font-mono text-xs text-tzCyan">
-              [BENCHMARK EMPIRE] - Ezecution Time (Shannon Entropy)<br/>
-              > Pure Python : 48,753,800 ns (48.75 ms)<br/>
-              > TZANiX Rust :  <*nbsp;561,700 ns (0.56 ms)<br/>
-              ===>> ACELERACIÓN: 86.8x (Rendimiento de grado militar)
+              [BENCHMARK EMPIRE] - Execution Time (Shannon Entropy)<br/>
+              &gt; Pure Python : 48,753,800 ns (48.75 ms)<br/>
+              &gt; TZANiX Rust : &nbsp;561,700 ns (0.56 ms)<br/>
+              ===&gt; ACELERACIÓN: 86.8x (Rendimiento de grado militar)
             </div>
           </div>
 
