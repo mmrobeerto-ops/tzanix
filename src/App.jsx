@@ -6,6 +6,7 @@ import MatrixBackground from './components/MatrixBackground';
 import FluidBackground from './components/FluidBackground';
 import MathBackground from './components/MathBackground';
 import DataPurificationVisualizer from './components/DataPurificationVisualizer';
+import ScientificDocs from './components/ScientificDocs';
 
 function App() {
   const [selectedTier, setSelectedTier] = useState(null);
@@ -211,6 +212,11 @@ function App() {
             </p>
           </div>
         </section>
+
+        {/* ========================================================================= */}
+        {/* DOCUMENTACIÓN CIENTÍFICA (RUST-PYTHON)                                   */}
+        {/* ========================================================================= */}
+        <ScientificDocs />
 
         {/* ========================================================================= */}
         {/* 6. SELECCIÓN DE PLANES Y DESPLIEGUE                                       */}
