@@ -1,11 +1,11 @@
-import React from 'react';
+﻿import React from 'react';
 import { Cpu, ShieldCheck, Sparkles, BookOpen } from 'lucide-react';
 
-const ProductDivisions = () => {
+const ProductDiVisións = () => {
   return (
     <section id="modules" className="relative z-10 max-w-7xl mx-auto px-4 py-20 space-y-12">
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <span className="text-xs font-mono font-bold text-tzCyan uppercase tracking-[0.25em] block shadow-sm">4 Divisiones de Ingeniería</span>
+        <span className="text-xs font-mono font-bold text-tzCyan uppercase tracking-[0.25em] block shadow-sm">4 DiVisiónes de Ingeniería</span>
         <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight drop-shadow-md">
           El Portafolio TZANiX
         </h2>
@@ -85,4 +85,4 @@ const ProductDivisions = () => {
   );
 };
 
-export default ProductDivisions;
+export default ProductDiVisións;

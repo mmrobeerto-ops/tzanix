@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+﻿import React, { useEffect, useRef } from 'react';
 
 const QuantumSingularity = (props) => {
   const canvasRef = useRef(null);
@@ -44,7 +44,7 @@ const QuantumSingularity = (props) => {
       });
     }
 
-    // Generar partículas viajeras a súper alta velocidad
+    // Generar Partículas viajeras a súper alta velocidad
     for (let i = 0; i < numParticles; i++) {
       particles.push({
         progress: Math.random(),
@@ -132,7 +132,7 @@ const QuantumSingularity = (props) => {
           // Fase 1: Del caos al núcleo (70% del viaje)
           const t = p.progress / 0.7;
           
-          // Vibración en tiempo real para las partículas eléctricas
+          // Vibración en tiempo real para las Partículas eléctricas
           const jitter1 = (Math.random() - 0.5) * node.jitter;
           const jitter2 = (Math.random() - 0.5) * node.jitter;
 

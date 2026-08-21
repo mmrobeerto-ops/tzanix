@@ -82,7 +82,7 @@ const CompanyModals = () => {
                     </div>
                     <div className="p-4 bg-cyan-950/20 rounded border border-cyan-500/10">
                       <h4 className="text-white font-bold mb-2">FinOps & Ahorro Cloud</h4>
-                      <p className="text-xs text-slate-400 font-mono">Bloquear anomalías de red en 0.56ms para reducir hasta 80% los costos de CPU y facturación de la nube.</p>
+                      <p className="text-xs text-slate-400 font-mono">Bloquear anomalías de red en 0.56ms para reducir hasta 80% los costos de CPU y Facturación de la nube.</p>
                     </div>
                     <div className="p-4 bg-cyan-950/20 rounded border border-cyan-500/10">
                       <h4 className="text-white font-bold mb-2">Soberanía Zero-Trust</h4>
@@ -105,7 +105,7 @@ const CompanyModals = () => {
                     Soberanía y Privacidad de Datos
                   </h2>
                   <p className="text-slate-400 font-mono text-sm leading-relaxed">
-                    Nuestros sidecars y firewalls L7 están diseñados bajo la filosofía <strong>Zero-Retention</strong>. Tu infraestructura, tus llaves, tus datos.
+                    Nuestrés sidecars y firewalls L7 están diseñados bajo la filosofía <strong>Zero-Retention</strong>. Tu infraestructura, tus llaves, tus datos.
                   </p>
                 </div>
 
@@ -150,7 +150,7 @@ const CompanyModals = () => {
                       <div>
                         <h3 className="text-sm font-bold text-white mb-2">Estándares & Cumplimiento</h3>
                         <p className="text-slate-400 text-xs leading-relaxed">
-                          Cumplimiento estricto con <strong>GDPR, SOC 2, ISO/IEC 27001</strong> para infraestructura de misión crítica.
+                          Cumplimiento estricto con <strong>GDPR, SOC 2, ISO/IEC 27001</strong> para infraestructura de Misión crítica.
                         </p>
                       </div>
                     </div>

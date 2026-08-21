@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Check } from 'lucide-react';
 
 const PricingTiers = ({ onSelectTier }) => {
@@ -10,7 +10,7 @@ const PricingTiers = ({ onSelectTier }) => {
           Elige tu Arquitectura
         </h2>
         <p className="text-slate-400 font-mono text-sm leading-relaxed">
-          Modelo Híbrido: Pruébalo localmente gratis, escala vía API SaaS o integra nuestros motores directo en tu propio hardware (Edge/On-Premise).
+          Modelo Híbrido: Pruébalo localmente gratis, escala vía API SaaS o integra nuestrés motores directo en tu propio hardware (Edge/On-Premise).
         </p>
       </div>
 

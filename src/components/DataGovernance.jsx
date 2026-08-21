@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Lock, EyeOff, ShieldAlert, FileKey2 } from 'lucide-react';
 
 const DataGovernance = () => {
@@ -15,7 +15,7 @@ const DataGovernance = () => {
           Soberanía y Privacidad de Datos
         </h2>
         <p className="text-slate-400 font-mono text-sm leading-relaxed">
-          Nuestros motores están diseñados bajo la filosofía <strong>Zero-Retention</strong>. Tu infraestructura, tus llaves, tus datos. Nosotros solo ponemos las matemáticas.
+          Nuestrés motores están diseñados bajo la filosofía <strong>Zero-Retention</strong>. Tu infraestructura, tus llaves, tus datos. Nosotros solo ponemos las matemáticas.
         </p>
       </div>
 
@@ -31,7 +31,7 @@ const DataGovernance = () => {
             <div>
               <h3 className="text-lg font-bold text-white mb-2">Arquitectura de Conocimiento Cero</h3>
               <p className="text-slate-400 text-xs leading-relaxed">
-                Los motores de TZANiX (Motor 4D, Neural Gateway y Q-Balam) operan estrictamente como procesadores de flujo matemático en memoria volátil (RAM). <strong>No almacenamos, no entrenamos modelos públicos, ni monetizamos</strong> el contenido de los tensores o bases de datos del cliente.
+                Los motores de TZANiX (Motor 4D, Neural Gateway y Q-Balam) operan estrictamente como procesadores de flujo matemático en memoria Volátil (RAM). <strong>No almacenamos, no entrenamos modelos públicos, ni monetizamos</strong> el contenido de los tensores o bases de datos del cliente.
               </p>
             </div>
           </div>
@@ -46,7 +46,7 @@ const DataGovernance = () => {
             <div>
               <h3 className="text-lg font-bold text-white mb-2">Procesamiento Volátil en Silicio</h3>
               <p className="text-slate-400 text-xs leading-relaxed">
-                La depuración (filtrado MAD) se ejecuta a nivel de máquina en memoria contigua en Rust, garantizando <strong>cero fugas de memoria (Zero-Memory Leaks)</strong>. La telemetría ocurre asíncronamente en bases de datos locales cifradas (SQLite WAL), controladas exclusivamente por ti.
+                La depuración (filtrado MAD) se ejecuta a nivel de máquina en memoria contigua en Rust, garantizando <strong>cero fugas de memoria (Zero-Memory Leaks)</strong>. La Telemetría ocurre asíncronamente en bases de datos locales cifradas (SQLite WAL), controladas exclusivamente por ti.
               </p>
             </div>
           </div>
@@ -89,7 +89,7 @@ const DataGovernance = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-tzCyan shadow-[0_0_20px_#00f0ff]"></div>
         <h3 className="text-xl sm:text-2xl font-black metallic-text mb-4">El Poder del Silencio Operativo</h3>
         <p className="text-slate-300 font-mono text-sm max-w-2xl mx-auto leading-relaxed">
-          "En TZANiX creemos que la mejor manera de proteger un dato, es nunca poseerlo. Construimos motores ciegos y veloces; procesan el caos y te entregan la verdad matemática, olvidándolo todo al siguiente milisegundo. Tu infraestructura es tu soberanía."
+          "En TZANiX creemos que la mejor manera de proteger un dato, es nunca poseerlo. Construimos motores ciegos y veloces; procesan el caos y te entregan la verdad matemática, olvidándolo todo al siguiente milisegundo. Tu infraestructura es tu Soberanía."
         </p>
         <p className="text-tzCyan font-mono font-bold text-xs mt-6 uppercase tracking-[0.2em]">
           — El Equipo de Ingeniería de TZANiX

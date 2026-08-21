@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 export default function ScientificDocs() {
   return (
@@ -10,7 +10,7 @@ export default function ScientificDocs() {
             Arquitectura & Documentación Científica
           </p>
           <h2 className="text-4xl sm:text-5xl font-black tracking-tight uppercase text-white">
-            Matemática Contra Entropía
+            matemática Contra Entropía
           </h2>
         </div>
 
@@ -18,7 +18,7 @@ export default function ScientificDocs() {
           
           {/* Sección 1 */}
           <div className="bg-zinc-900/50 border border-white/10 p-8">
-            <h3 className="text-21l font-bold text-white mb-4">1. Arquitectura Matemática 4D (Tensores)</h3>
+            <h3 className="text-21l font-bold text-white mb-4">1. Arquitectura matemática 4D (Tensores)</h3>
             <p className="text-slate-300 font-light leading-relaxed mb-4">
               El motor de TZANiX no utiliza reglas heurísticas tradicionales. Modelamos el tráfico de red como un <strong>flujo tensorial</strong> en un espacio topológico de 4 dimensiones. Cuando un ataque DDoS o una inyección ocurre, altera la gravedad matemática del tensor, produciendo una anomalía inercial que nuestro algoritmo detecta exactamente en 0.42 milisegundos.
             </p>

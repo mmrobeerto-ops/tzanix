@@ -1,11 +1,11 @@
-import React, { useRef, useMemo } from 'react';
+﻿import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 const ProceduralSnake = () => {
   const pointsRef = useRef();
   
-  // 5000 partículas para emular una densa nube de puntos (Point Cloud)
+  // 5000 Partículas para emular una densa nube de puntos (Point Cloud)
   const count = 5000;
   
   const { originalPositions, positions, phases } = useMemo(() => {
@@ -48,7 +48,7 @@ const ProceduralSnake = () => {
     const time = state.clock.getElapsedTime();
     const positionsArray = pointsRef.current.geometry.attributes.position.array;
     
-    // Matemática de Ondulación Viva (Sine Wave en el eje Y)
+    // matemática de Ondulación Viva (Sine Wave en el eje Y)
     for (let i = 0; i < count; i++) {
       const baseY = originalPositions[i*3+1];
       const phase = phases[i];
@@ -79,7 +79,7 @@ const ProceduralSnake = () => {
           itemSize={3}
         />
       </bufferGeometry>
-      {/* Shader Turquesa Neón con mezcla holográfica (AdditiveBlending) */}
+      {/* Shader Turquesa Neón con mezcla Holográfica (AdditiveBlending) */}
       <pointsMaterial
         size={0.035}
         color="#00f3ff"

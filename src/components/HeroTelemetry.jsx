@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Activity, Sparkles, ShieldCheck } from 'lucide-react';
 
 const HeroTelemetry = () => {
@@ -8,7 +8,7 @@ const HeroTelemetry = () => {
       <div className="text-center max-w-4xl mx-auto space-y-6 relative z-10">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-950/40 text-tzCyan text-xs font-mono shadow-[0_0_15px_rgba(0,240,255,0.15)]">
           <span className="w-2 h-2 rounded-full bg-tzCyan animate-pulse shadow-[0_0_8px_#00f0ff]"></span>
-          <span>INFRAESTRUCTURA EDGE & CÓMPUTO TENSORIAL EN SILICIO</span>
+          <span>INFRAESTRUCTURA EDGE & cómputo TENSORIAL EN SILICIO</span>
         </div>
         
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-tight text-white drop-shadow-lg">
@@ -32,7 +32,7 @@ const HeroTelemetry = () => {
         </div>
       </div>
 
-      {/* HUD DE SIMULACIÓN Y TELEMETRÍA */}
+      {/* HUD DE SIMULACIÓN Y Telemetría */}
       <section className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between pointer-events-none mt-32 mb-20 px-4">
         
         {/* HUD Izquierdo (Entropía) */}
