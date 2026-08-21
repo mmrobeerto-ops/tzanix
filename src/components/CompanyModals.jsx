@@ -56,7 +56,7 @@ const CompanyModals = () => {
                       <h3 className="text-xl font-bold uppercase tracking-widest">Nuestra MisiÃ³n</h3>
                     </div>
                     <p className="text-slate-300 text-sm leading-relaxed font-mono">
-                      Desbloquear velocidad extrema y eficiencia computacional operando a nivel de silicio. Erradicamos la dependencia de fuerza bruta y recursos redundantes en la nube mediante algoritmos matemÃ¡ticos puros, entregando infraestructura Edge de ultra-alto rendimiento para problemas complejos.
+                      Proteger y optimizar la infraestructura crítica global. Construimos soluciones de ciberseguridad L7 y FinOps que combinan la agilidad orquestal de Python con el rendimiento puro de Rust a nivel hardware. Ayudamos a las corporaciones a destruir el tráfico basura antes de que consuma sus recursos, garantizando la continuidad del negocio con Cero Falsos Positivos.
                     </p>
                   </div>
                   <div className="space-y-4">
@@ -178,4 +178,5 @@ const CompanyModals = () => {
 };
 
 export default CompanyModals;
+
 
