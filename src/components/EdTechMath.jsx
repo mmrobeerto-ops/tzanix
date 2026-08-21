@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+﻿import { X } from 'lucide-react';
+import React, { useState } from 'react';
 
 const EdTechMath = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,8 +15,21 @@ const EdTechMath = () => {
         </button>
       </div>
       
-      {isOpen && (
-        <div className="p-6 bg-zinc-900/90 border border-white/20 rounded max-w-3xl animate-fade-in backdrop-blur-md">
+            {isOpen && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+          onClick={() => setIsOpen(false)}
+        >
+          <div 
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto border border-white/20 bg-black p-8 sm:p-10 shadow-[0_0_50px_rgba(255,255,255,0.05)] text-left"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="absolute top-4 right-4 z-[150] p-2 text-white/70 hover:text-[#ff0055] bg-black/50 rounded-full transition-all"
+            >
+              <X className="w-6 h-6" />
+            </button>
           <h3 className="text-lg font-black text-white mb-4 uppercase tracking-widest text-tzCyan">El Holograma cuántico</h3>
           <p className="text-slate-300 text-sm leading-relaxed mb-4">
             La proyección holográfica interactiva de EdTech no es una simple animación 3D; es la representación visual en tiempo real de la <strong>Función de Onda de Schrödinger</strong>.
@@ -64,6 +78,7 @@ const EdTechMath = () => {
             <span className="px-2 py-1 bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 text-[10px] font-mono rounded-sm">Análisis de Fourier Complejo</span>
             <span className="px-2 py-1 bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 text-[10px] font-mono rounded-sm">Topología Diferencial</span>
           </div>
+                  </div>
         </div>
       )}
     </div>
