@@ -94,7 +94,7 @@ function App() {
         </section>
 
         {/* ========================================================================= */}
-        {/* 2. TZANIX NEURAL GATEWAY (PURIFICACIÃ“N DE DATOS & FINOPS IA)              */}
+        {/* 2. TZANIX NEURAL GATEWAY (PURIFICACIÓN DE DATOS & FINOPS IA)              */}
         {/* ========================================================================= */}
         <section id="neural-gateway" className="spacex-section relative overflow-hidden">
           <DataPurificationVisualizer />
@@ -108,7 +108,7 @@ function App() {
               TZANiX NEURAL <br />GATEWAY
             </h2>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              Purificación de datos Stateless en la periferia de tu red. Detén anomalías inerciales en ~0.56 milisegundos y reduce entre un 40% y 80% el consumo de CPU de tus servidores al destruir el tráfico basura antes de que toque tu aplicación.
+              PURIFICACIÓN DE DATOS Stateless en la periferia de tu red. Detén anomalías inerciales en ~0.56 milisegundos y reduce entre un 40% y 80% el consumo de CPU de tus servidores al destruir el tráfico basura antes de que toque tu aplicación.
             </p>
             <div className="pt-4">
               <a href="https://gateway.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
@@ -203,13 +203,13 @@ function App() {
               <h2 className="text-4xl sm:text-6xl font-black tracking-tight uppercase text-white">DESPLIEGA TUS MOTORES</h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {/* Tarjeta 1: Neural Gateway */}
               <div className="border border-white/20 p-8 flex flex-col justify-between space-y-8 bg-zinc-950/80 transition hover:border-white/50">
                 <div className="space-y-4">
-                  <div className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">PURIFICACIÃ“N DE DATOS</div>
+                  <div className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">PURIFICACIÓN DE DATOS</div>
                   <div className="text-4xl font-black text-white">NEURAL GATEWAY</div>
-                  <p className="text-slate-400 text-xs leading-relaxed">Escudo tensorial y FinOps para flujos IA. Reduce la facturaciÃ³n de tu GPU purificando datos en Rust antes de la inferencia.</p>
+                  <p className="text-slate-400 text-xs leading-relaxed">Escudo tensorial y FinOps para flujos IA. Reduce la facturación de tu GPU purificando datos en Rust antes de la inferencia.</p>
                 </div>
                 <button onClick={() => handleSelectTier('gateway')} className="btn-spacex w-full text-center">
                   <span>OBTENER LLAVE DE PRUEBA</span>
