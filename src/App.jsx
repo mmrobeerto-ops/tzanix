@@ -80,7 +80,7 @@ function App() {
               DE LA ENTROPÍA AL <br /> ORDEN MATEMÁTICO
             </h1>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              El matrimonio arquitectónico perfecto: Microservicios L7 orquestados con la flexibilidad de Python, pero ejecutando Topología 4D a la velocidad del silicio puro gracias a bindings nativos en Rust.
+              Microservicios L7 orquestados con la flexibilidad de Python, pero ejecutando Topología 4D a la velocidad del silicio puro gracias a bindings nativos en Rust.
             </p>
             <div className="pt-4 flex flex-wrap gap-4">
               <a href="#neural-gateway" className="btn-spacex">
