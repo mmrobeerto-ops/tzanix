@@ -13,7 +13,7 @@ const CompanyModals = () => {
           onClick={() => setActiveModal('mission')}
           className="btn-spacex"
         >
-          <span>MisiÃ³n, VisiÃ³n y Valores</span>
+          <span>Misión, Visión y Valores</span>
         </button>
         <button 
           onClick={() => setActiveModal('privacy')}
@@ -41,7 +41,7 @@ const CompanyModals = () => {
               <X className="w-8 h-8" />
             </button>
 
-            {/* CONTENIDO: MISIÃ“N, VISIÃ“N Y VALORES */}
+            {/* CONTENIDO: MISIÓN, VISIÓN Y VALORES */}
             {activeModal === 'mission' && (
               <div className="space-y-12">
                 <div className="text-center">
@@ -53,7 +53,7 @@ const CompanyModals = () => {
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3 text-tzCyan">
                       <Target className="w-6 h-6" />
-                      <h3 className="text-xl font-bold uppercase tracking-widest">Nuestra MisiÃ³n</h3>
+                        <h3 className="text-xl font-bold uppercase tracking-widest">Nuestra Misión</h3>
                     </div>
                     <p className="text-slate-300 text-sm leading-relaxed font-mono">
                       Proteger y optimizar la infraestructura crítica global. Construimos soluciones de ciberseguridad L7 y FinOps que combinan la agilidad orquestal de Python con el rendimiento puro de Rust a nivel hardware. Ayudamos a las corporaciones a destruir el tráfico basura antes de que consuma sus recursos, garantizando la continuidad del negocio con Cero Falsos Positivos.
@@ -62,7 +62,7 @@ const CompanyModals = () => {
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3 text-tzCyan">
                       <Rocket className="w-6 h-6" />
-                      <h3 className="text-xl font-bold uppercase tracking-widest">Nuestra VisiÃ³n</h3>
+                        <h3 className="text-xl font-bold uppercase tracking-widest">Nuestra Visión</h3>
                     </div>
                     <p className="text-slate-300 text-sm leading-relaxed font-mono">
                       Ser el estándar corporativo (Enterprise Deep-Tech) en ciberseguridad inercial y eficiencia Cloud. Aspiramos a un internet donde los ataques se neutralicen en microsegundos (Shadow Mode), logrando que las empresas paguen solo por el procesamiento de clientes reales (Zero-Waste CPU).
