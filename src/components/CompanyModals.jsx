@@ -150,7 +150,7 @@ const CompanyModals = () => {
                       <div>
                         <h3 className="text-sm font-bold text-white mb-2">Estándares & Cumplimiento</h3>
                         <p className="text-slate-400 text-xs leading-relaxed">
-                          Cumplimiento estricto con <strong>GDPR, SOC 2, ISO/IEC 27001</strong> para infraestructura de Misión crítica.
+                          Cumplimiento estricto con <strong>GDPR, SOC 2, ISO/IEC 27001</strong> para infraestructura de MISIÓN crítica.
                         </p>
                       </div>
                     </div>
