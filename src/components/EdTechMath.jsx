@@ -56,6 +56,14 @@ const EdTechMath = () => {
               </div>
             </div>
           </div>
+
+          <div className="mt-6 pt-4 border-t border-white/5 flex flex-wrap items-center gap-3">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">NÚCLEO MATEMÁTICO:</span>
+            <span className="px-2 py-1 bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 text-[10px] font-mono rounded-sm">Álgebra Lineal (Espacios de Hilbert)</span>
+            <span className="px-2 py-1 bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 text-[10px] font-mono rounded-sm">Cálculo Tensorial O(3)</span>
+            <span className="px-2 py-1 bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 text-[10px] font-mono rounded-sm">Análisis de Fourier Complejo</span>
+            <span className="px-2 py-1 bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 text-[10px] font-mono rounded-sm">Topología Diferencial</span>
+          </div>
         </div>
       )}
     </div>
