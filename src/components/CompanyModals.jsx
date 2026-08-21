@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { ShieldAlert, EyeOff, Lock, FileKey2, Rocket, Target, Zap, X } from 'lucide-react';
 
 const CompanyModals = () => {
@@ -13,7 +13,7 @@ const CompanyModals = () => {
           onClick={() => setActiveModal('mission')}
           className="btn-spacex"
         >
-          <span>Misión, Visión y Valores</span>
+          <span>MisiÃ³n, VisiÃ³n y Valores</span>
         </button>
         <button 
           onClick={() => setActiveModal('privacy')}
@@ -41,7 +41,7 @@ const CompanyModals = () => {
               <X className="w-8 h-8" />
             </button>
 
-            {/* CONTENIDO: MISIÓN, VISIÓN Y VALORES */}
+            {/* CONTENIDO: MISIÃ“N, VISIÃ“N Y VALORES */}
             {activeModal === 'mission' && (
               <div className="space-y-12">
                 <div className="text-center">
@@ -53,19 +53,19 @@ const CompanyModals = () => {
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3 text-tzCyan">
                       <Target className="w-6 h-6" />
-                      <h3 className="text-xl font-bold uppercase tracking-widest">Nuestra Misión</h3>
+                      <h3 className="text-xl font-bold uppercase tracking-widest">Nuestra MisiÃ³n</h3>
                     </div>
                     <p className="text-slate-300 text-sm leading-relaxed font-mono">
-                      Desbloquear velocidad extrema y eficiencia computacional operando a nivel de silicio. Erradicamos la dependencia de fuerza bruta y recursos redundantes en la nube mediante algoritmos matemáticos puros, entregando infraestructura Edge de ultra-alto rendimiento para problemas complejos.
+                      Desbloquear velocidad extrema y eficiencia computacional operando a nivel de silicio. Erradicamos la dependencia de fuerza bruta y recursos redundantes en la nube mediante algoritmos matemÃ¡ticos puros, entregando infraestructura Edge de ultra-alto rendimiento para problemas complejos.
                     </p>
                   </div>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3 text-tzCyan">
                       <Rocket className="w-6 h-6" />
-                      <h3 className="text-xl font-bold uppercase tracking-widest">Nuestra Visión</h3>
+                      <h3 className="text-xl font-bold uppercase tracking-widest">Nuestra VisiÃ³n</h3>
                     </div>
                     <p className="text-slate-300 text-sm leading-relaxed font-mono">
-                      Ser el estándar global (Deep-Tech) en purificación tensorial y ciberseguridad inercial. Aspiramos a un ecosistema digital donde el procesamiento de datos masivos se logre con Cero Desperdicio (Zero-Waste), democratizando el poder del cómputo cuántico e IA desde el dispositivo más pequeño.
+                      Ser el estándar corporativo (Enterprise Deep-Tech) en ciberseguridad inercial y eficiencia Cloud. Aspiramos a un internet donde los ataques se neutralicen en microsegundos (Shadow Mode), logrando que las empresas paguen solo por el procesamiento de clientes reales (Zero-Waste CPU).
                     </p>
                   </div>
                 </div>
@@ -77,16 +77,16 @@ const CompanyModals = () => {
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
                     <div className="p-4 bg-cyan-950/20 rounded border border-cyan-500/10">
-                      <h4 className="text-white font-bold mb-2">Soberanía Absoluta</h4>
-                      <p className="text-xs text-slate-400 font-mono">Respeto total por la infraestructura y datos del cliente. Zero-Retention por diseño.</p>
+                      <h4 className="text-white font-bold mb-2">Shadow Mode (Cero Riesgos)</h4>
+                      <p className="text-xs text-slate-400 font-mono">Despliegue seguro en Modo Auditoría que vigila sin romper la producción. 0% Falsos Positivos.</p>
                     </div>
                     <div className="p-4 bg-cyan-950/20 rounded border border-cyan-500/10">
-                      <h4 className="text-white font-bold mb-2">Elegancia Matemática</h4>
-                      <p className="text-xs text-slate-400 font-mono">Resolver los problemas más caóticos con la solución algorítmica más limpia y eficiente.</p>
+                      <h4 className="text-white font-bold mb-2">FinOps & Ahorro Cloud</h4>
+                      <p className="text-xs text-slate-400 font-mono">Bloquear anomalías de red en 0.56ms para reducir hasta 80% los costos de CPU y facturación de la nube.</p>
                     </div>
                     <div className="p-4 bg-cyan-950/20 rounded border border-cyan-500/10">
-                      <h4 className="text-white font-bold mb-2">Rendimiento Extremo</h4>
-                      <p className="text-xs text-slate-400 font-mono">Operar en submilisegundos, reducir costos de nube y optimizar cada ciclo de reloj.</p>
+                      <h4 className="text-white font-bold mb-2">Soberanía Zero-Trust</h4>
+                      <p className="text-xs text-slate-400 font-mono">La mejor forma de proteger un dato es procesarlo en RAM (State-less) y destruirlo en nanosegundos. No hay retención.</p>
                     </div>
                   </div>
                 </div>
@@ -105,7 +105,7 @@ const CompanyModals = () => {
                     Soberanía y Privacidad de Datos
                   </h2>
                   <p className="text-slate-400 font-mono text-sm leading-relaxed">
-                    Nuestros motores están diseñados bajo la filosofía <strong>Zero-Retention</strong>. Tu infraestructura, tus llaves, tus datos.
+                    Nuestros sidecars y firewalls L7 están diseñados bajo la filosofía <strong>Zero-Retention</strong>. Tu infraestructura, tus llaves, tus datos.
                   </p>
                 </div>
 
@@ -117,7 +117,7 @@ const CompanyModals = () => {
                       <div>
                         <h3 className="text-sm font-bold text-white mb-2">Arquitectura de Conocimiento Cero</h3>
                         <p className="text-slate-400 text-xs leading-relaxed">
-                          Procesadores de flujo matemático en RAM. <strong>No almacenamos, no entrenamos modelos, ni monetizamos</strong> tus tensores o datos.
+                          Procesadores de seguridad corriendo 100% en RAM. <strong>No almacenamos peticiones, no entrenamos modelos, ni monetizamos</strong> tus datos.
                         </p>
                       </div>
                     </div>
@@ -128,7 +128,7 @@ const CompanyModals = () => {
                       <div>
                         <h3 className="text-sm font-bold text-white mb-2">Procesamiento Volátil</h3>
                         <p className="text-slate-400 text-xs leading-relaxed">
-                          Ejecución a nivel de máquina en memoria contigua garantizando <strong>Zero-Memory Leaks</strong>. Telemetría en BD locales (SQLite WAL) controladas por ti.
+                          Ejecución a nivel de Kernel en memoria contigua garantizando <strong>Zero-Memory Leaks</strong>. Telemetría de ataques guardada solo en tu servidor local.
                         </p>
                       </div>
                     </div>
@@ -139,7 +139,7 @@ const CompanyModals = () => {
                       <div>
                         <h3 className="text-sm font-bold text-white mb-2">Soberanía & Despliegue Aislado</h3>
                         <p className="text-slate-400 text-xs leading-relaxed">
-                          En Sidecar, Docker o ARM64 mantienes el control. Ningún dato sensible abandona tu perímetro privado.
+                          En formato Reverse Proxy, Sidecar o Docker, tú mantienes el control absoluto. Ningún dato sensible abandona tu red interna.
                         </p>
                       </div>
                     </div>
@@ -150,7 +150,7 @@ const CompanyModals = () => {
                       <div>
                         <h3 className="text-sm font-bold text-white mb-2">Estándares & Cumplimiento</h3>
                         <p className="text-slate-400 text-xs leading-relaxed">
-                          Cumplimiento estricto con <strong>GDPR, CCPA e ISO/IEC 27001</strong> para sectores de misión crítica.
+                          Cumplimiento estricto con <strong>GDPR, SOC 2, ISO/IEC 27001</strong> para infraestructura de misión crítica.
                         </p>
                       </div>
                     </div>
@@ -161,10 +161,10 @@ const CompanyModals = () => {
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-tzCyan shadow-[0_0_20px_#00f0ff]"></div>
                   <h3 className="text-lg font-black metallic-text mb-3">El Poder del Silencio Operativo</h3>
                   <p className="text-slate-300 font-mono text-xs max-w-2xl mx-auto leading-relaxed italic">
-                    "En TZANiX creemos que la mejor manera de proteger un dato, es nunca poseerlo. Construimos motores ciegos y veloces; procesan el caos y te entregan la verdad matemática, olvidándolo todo al siguiente milisegundo."
+                    "En TZANiX creemos que la mejor manera de proteger un dato, es nunca poseerlo. Construimos motores ciegos y veloces; procesan el caos inercial y te entregan tráfico 100% limpio, olvidándolo todo al siguiente milisegundo."
                   </p>
                   <p className="text-tzCyan font-mono font-bold text-[10px] mt-4 uppercase tracking-[0.2em]">
-                    — El Equipo de Ingeniería de TZANiX
+                    â€” El Equipo de Ingeniería de TZANiX
                   </p>
                 </div>
               </div>
@@ -178,3 +178,4 @@ const CompanyModals = () => {
 };
 
 export default CompanyModals;
+
