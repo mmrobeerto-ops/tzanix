@@ -150,7 +150,7 @@ const CompanyModals = () => {
                       <div>
                         <h3 className="text-sm font-bold text-white mb-2">Estándares & Cumplimiento</h3>
                         <p className="text-slate-400 text-xs leading-relaxed">
-                          Cumplimiento estricto con <strong>GDPR, SOC 2, ISO/IEC 27001</strong> para infraestructura de MISIÓN crítica.
+                          Arquitectura <strong>Zero-Retention</strong> diseñada para ser compatible con GDPR y blindar las auditorías de SOC 2 e ISO 27001 de tus servidores.
                         </p>
                       </div>
                     </div>
@@ -164,7 +164,7 @@ const CompanyModals = () => {
                     "En TZANiX creemos que la mejor manera de proteger un dato, es nunca poseerlo. Construimos motores ciegos y veloces; procesan el caos inercial y te entregan tráfico 100% limpio, olvidándolo todo al siguiente milisegundo."
                   </p>
                   <p className="text-tzCyan font-mono font-bold text-[10px] mt-4 uppercase tracking-[0.2em]">
-                    â€” El Equipo de Ingeniería de TZANiX
+                    — Mario R.
                   </p>
                 </div>
               </div>
