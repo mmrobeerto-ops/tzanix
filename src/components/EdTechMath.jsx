@@ -33,7 +33,29 @@ const EdTechMath = () => {
               <span className="text-tzCyan font-bold uppercase mb-1">3. Colapso por Observación:</span>
               <span>Al interactuar con la figura, el usuario fuerza un evento de "medición" simulado. Esto altera la Entropía de Shannon del modelo, forzando a la geometría a reaccionar físicamente.</span>
             </li>
-          </ul>
+                    </ul>
+
+          <div className="mt-8 pt-6 border-t border-white/10">
+            <h4 className="text-sm font-black text-white mb-4 uppercase tracking-widest text-tzCyan">Parámetros de Telemetría:</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono text-slate-400">
+              <div className="bg-black/40 p-4 border border-white/5 rounded">
+                <span className="text-white font-bold block mb-2">CAPACITY (Amplitud de Probabilidad)</span>
+                Representa el límite dimensional del espacio de Hilbert. Al aumentarla, expandes el radio de la nube de probabilidad (la figura absorbe energía y crece físicamente).
+              </div>
+              <div className="bg-black/40 p-4 border border-white/5 rounded">
+                <span className="text-white font-bold block mb-2">FREQUENCY (Energía / Oscilación)</span>
+                Define la constante vibratoria de la onda estacionaria. Al moverla, aceleras o frenas radicalmente la velocidad a la que "vibran" los tensores en el plano 3D.
+              </div>
+              <div className="bg-black/40 p-4 border border-white/5 rounded">
+                <span className="text-white font-bold block mb-2">PHASE 1 (Desfase Angular - Eje X/Y)</span>
+                Modifica el ángulo del número complejo asociado a la onda. Cambiarlo induce interferencia constructiva, "doblando" la geometría del holograma horizontalmente.
+              </div>
+              <div className="bg-black/40 p-4 border border-white/5 rounded">
+                <span className="text-white font-bold block mb-2">PHASE 2 (Desfase de Profundidad - Eje Z)</span>
+                Controla la interferencia en la profundidad. Al combinar Phase 1 y Phase 2, desestabilizas la simetría del sistema creando nodos de caos inercial visibles en la malla.
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
