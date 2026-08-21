@@ -77,10 +77,10 @@ function App() {
               DEEP TECH CYBERSECURITY / RUST & PYTHON
             </p>
             <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
-              DE LA ENTROPÃA AL <br /> ORDEN MATEMÃTICO
+              DE LA ENTROPÍA AL <br /> ORDEN MATEMÁTICO
             </h1>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              El matrimonio arquitectÃ³nico perfecto: Microservicios L7 orquestados con la flexibilidad de Python, pero ejecutando TopologÃ­a 4D a la velocidad del silicio puro gracias a bindings nativos en Rust.
+              El matrimonio arquitectónico perfecto: Microservicios L7 orquestados con la flexibilidad de Python, pero ejecutando Topología 4D a la velocidad del silicio puro gracias a bindings nativos en Rust.
             </p>
             <div className="pt-4 flex flex-wrap gap-4">
               <a href="#neural-gateway" className="btn-spacex">
@@ -108,7 +108,7 @@ function App() {
               TZANiX NEURAL <br />GATEWAY
             </h2>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              PurificaciÃ³n de datos Stateless en la periferia de tu red. DetÃ©n anomalÃ­as inerciales en ~0.56 milisegundos y reduce entre un 40% y 80% el consumo de CPU de tus servidores al destruir el trÃ¡fico basura antes de que toque tu aplicaciÃ³n.
+              Purificación de datos Stateless en la periferia de tu red. Detén anomalías inerciales en ~0.56 milisegundos y reduce entre un 40% y 80% el consumo de CPU de tus servidores al destruir el tráfico basura antes de que toque tu aplicación.
             </p>
             <div className="pt-4">
               <a href="https://gateway.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
@@ -133,7 +133,7 @@ function App() {
               TZANiX Q-BALAM
             </h2>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              Arquitectura de mitigaciÃ³n de riesgos diseÃ±ada para SysAdmins. DespliÃ©galo en Modo AuditorÃ­a para garantizar 0% de Falsos Positivos. Soporta diseÃ±o Fail-Open y permite Whitelists dinÃ¡micos para trÃ¡fico cifrado y JWT.
+              Arquitectura de mitigación de riesgos diseñada para SysAdmins. Despliégalo en Modo Auditoría para garantizar 0% de Falsos Positivos. Soporta diseño Fail-Open y permite Whitelists dinámicos para tráfico cifrado y JWT.
             </p>
             <div className="pt-4 flex flex-wrap gap-4">
               <a href="https://qbalam.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
@@ -182,7 +182,7 @@ function App() {
               SEGURIDAD DESDE EL DISEÃ‘O
             </h2>
             <p className="text-slate-400 text-sm md:text-base font-light tracking-wide leading-relaxed pt-4 max-w-3xl mx-auto">
-              (Security by Design): Nuestras soluciones estÃ¡n diseÃ±adas arquitectÃ³nicamente bajo los controles estrictos de SOC 2, ISO/IEC 42001 (AI Governance) y las normativas del EU AI Act. Proveemos un SBOM (Software Bill of Materials) transparente y pipelines validados con cargo audit para garantizar la seguridad de la cadena de suministro.
+              (Security by Design): Nuestras soluciones están diseñadas arquitectónicamente bajo los controles estrictos de SOC 2, ISO/IEC 42001 (AI Governance) y las normativas del EU AI Act. Proveemos un SBOM (Software Bill of Materials) transparente y pipelines validados con cargo audit para garantizar la seguridad de la cadena de suministro.
             </p>
           </div>
         </section>
@@ -221,7 +221,7 @@ function App() {
                 <div className="space-y-4">
                   <div className="text-xs font-mono font-bold tracking-widest text-[#ff0055] uppercase">CIBERSEGURIDAD INERCIAL</div>
                   <div className="text-4xl font-black text-white">Q-BALAM CORE</div>
-                  <p className="text-slate-300 text-xs leading-relaxed">Motor de anÃ¡lisis de entropÃ­a de Shannon y Kill-Switch a nivel de Kernel (0.42ms). ProtecciÃ³n anti-exfiltraciÃ³n de datos.</p>
+                  <p className="text-slate-300 text-xs leading-relaxed">Motor de análisis de entropía de Shannon y Kill-Switch a nivel de Kernel (0.42ms). Protección anti-exfiltración de datos.</p>
                 </div>
                 <button onClick={() => handleSelectTier('qbalam')} className="btn-spacex w-full text-center !bg-white !text-black hover:!bg-transparent hover:!text-white">
                   <span>DESPLEGAR DOCKER</span>
