@@ -1,6 +1,7 @@
 ﻿import React, { useState } from 'react';
 import QuickstartOnboarding from './components/QuickstartOnboarding';
 import CompanyModals from './components/CompanyModals';
+import EdTechMath from './components/EdTechMath';
 import SpacexBackground from './components/SpacexBackground';
 import MatrixBackground from './components/MatrixBackground';
 import FluidBackground from './components/FluidBackground';
@@ -162,11 +163,7 @@ function App() {
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
               Plataforma interactiva para docentes e investigadores. VisualizaciÃ³n del principio de incertidumbre de Heisenberg, efectos de observador y osciloscopÃ­a dual en tiempo real.
             </p>
-            <div className="pt-4">
-              <a href="https://edtech.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
-                <span>ABRIR EDTECH &rarr;</span>
-              </a>
-            </div>
+            <EdTechMath />
           </div>
         </section>
 
