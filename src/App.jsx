@@ -109,7 +109,7 @@ function App() {
               TZANiX NEURAL <br />GATEWAY
             </h2>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              purificación DE DATOS Stateless en la periferia de tu red. Detén anomalías inerciales en ~0.56 milisegundos y reduce entre un 40% y 80% el consumo de CPU de tus servidores al destruir el tráfico basura antes de que toque tu aplicación.
+              Purificación DE DATOS Stateless en la periferia de tu red. Detén anomalías inerciales en ~0.56 milisegundos y reduce entráfico basura antes de que toque tu aplicación.
             </p>
             <div className="pt-4">
               <a href="https://gateway.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
