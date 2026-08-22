@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Lock, EyeOff, ShieldAlert, FileKey2 } from 'lucide-react';
 
 const DataGovernance = () => {

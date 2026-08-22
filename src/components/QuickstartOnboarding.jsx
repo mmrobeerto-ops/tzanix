@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Terminal, Copy, Key, Rocket, ArrowRight } from 'lucide-react';
 
 const QuickstartOnboarding = ({ selectedTier }) => {

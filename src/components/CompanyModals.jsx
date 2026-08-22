@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { ShieldAlert, EyeOff, Lock, FileKey2, Rocket, Target, Zap, X } from 'lucide-react';
 
 const CompanyModals = () => {

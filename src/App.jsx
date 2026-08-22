@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import QuickstartOnboarding from './components/QuickstartOnboarding';
 import CompanyModals from './components/CompanyModals';
 import EdTechMath from './components/EdTechMath';

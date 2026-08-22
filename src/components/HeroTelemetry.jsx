@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Activity, Sparkles, ShieldCheck } from 'lucide-react';
 
 const HeroTelemetry = () => {
