@@ -67,7 +67,7 @@ function App() {
       <main className="w-full">
         
         {/* ========================================================================= */}
-        {/* 1. HERO PRINCIPAL: DE LA ENTROPÃƒÂA AL ORDEN MATEMÃƒÂTICO                     */}
+        {/* 1. HERO PRINCIPAL: DE LA ENTROPÍA AL ORDEN MATEMÁTICO                     */}
         {/* ========================================================================= */}
         <section id="hero" className="spacex-section">
           <SpacexBackground />
@@ -78,10 +78,10 @@ function App() {
               DEEP TECH CYBERSECURITY / RUST & PYTHON
             </p>
             <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
-              DE LA ENTROPÃA AL <br /> ORDEN MATEMÃTICO
+              DE LA ENTROPÍA AL <br /> ORDEN MATEMÁTICO
             </h1>
             <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              Microservicios L7 orquestados con la flexibilidad de Python, pero ejecutando TopologÃ­a 4D a la velocidad del silicio puro gracias a bindings nativos en Rust.
+              Microservicios L7 orquestados con la flexibilidad de Python, pero ejecutando Topología 4D a la velocidad del silicio puro gracias a bindings nativos en Rust.
             </p>
             <div className="pt-4 flex flex-wrap gap-4">
               <a href="#neural-gateway" className="btn-spacex">
@@ -218,7 +218,7 @@ function App() {
                 <div className="space-y-4">
                   <div className="text-xs font-mono font-bold tracking-widest text-[#ff0055] uppercase">CIBERSEGURIDAD INERCIAL</div>
                   <div className="text-4xl font-black text-white">Q-BALAM CORE</div>
-                  <p className="text-slate-300 text-xs leading-relaxed">Motor de anÃ¡lisis de entropÃ­a de Shannon y Kill-Switch a nivel de Kernel (0.42ms). ProtecciÃ³n anti-exfiltraciÃ³n de datos.</p>
+                  <p className="text-slate-300 text-xs leading-relaxed">Motor de análisis de entropía de Shannon y Kill-Switch a nivel de Kernel (0.42ms). Protección anti-exfiltración de datos.</p>
                 </div>
                 <button onClick={() => handleSelectTier('qbalam')} className="btn-spacex w-full text-center !bg-white !text-black hover:!bg-transparent hover:!text-white">
                   <span>DESPLEGAR DOCKER</span>
