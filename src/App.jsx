@@ -155,7 +155,7 @@ function App() {
 
           <div className="relative z-10 max-w-4xl space-y-4">
             <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
-              EDUCACIíƒâ€œN CUíƒÂNTICA & OBSERVABILIDAD
+              EDUCACIÓN CUÁNTICA & OBSERVABILIDAD
             </p>
             <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
               TZANiX EDTECH
@@ -176,7 +176,7 @@ function App() {
               CUMPLIMIENTO Y CONFIANZA
             </p>
             <h2 className="text-4xl sm:text-5xl font-black tracking-tight uppercase text-white">
-              SEGURIDAD DESDE EL DISEíƒâ€˜O
+              SEGURIDAD DESDE EL DISEÑO
             </h2>
             <p className="text-slate-400 text-sm md:text-base font-light tracking-wide leading-relaxed pt-4 max-w-3xl mx-auto">
               (Security by Design): Nuestrés soluciónes están diseñadas arquitectónicamente bajo los controles estrictos de SOC 2, ISO/IEC 42001 (AI Governance) y las normativas del EU AI Act. Proveemos un SBOM (Software Bill of Materials) transparente y pipelines validados con cargo audit para garantizar la seguridad de la cadena de suministro.
