@@ -1,6 +1,6 @@
 # TZANiX Deep-Tech: Guía de Integración y Esquema de Precios (SaaS / Sovereign)
 
-¡Bienvenido al ecosistema TZANiX! Este documento es tu hoja de ruta completa para probar, integrar y desplegar nuestros motores de alto rendimiento (Neural Gateway, Q-Balam y Singularity Core).
+¡Bienvenido al ecosistema TZANiX! Este documento es tu hoja de ruta completa para probar, integrar y desplegar nuestros motores de alto rendimiento (Neural Gateway y Q-Balam).
 
 ---
 
@@ -31,11 +31,6 @@ docker run -d -p 8000:8000 -e TZANIX_API_KEY="tzx_gw_..." ghcr.io/tzanix-deep-te
 docker run -d -p 8000:8000 -e TZANIX_API_KEY="tzx_qb_..." ghcr.io/tzanix-deep-tech/q-balam:latest
 ```
 
-**Para Singularity Core (Robótica / Drones):**
-```bash
-docker run -d -p 8000:8000 -e TZANIX_API_KEY="tzx_sg_..." ghcr.io/tzanix-deep-tech/singularity-core:latest
-```
-
 > [!IMPORTANT]
 > **Sin API Key Válida, el Contenedor entrará en modo "Kill-Switch" y se apagará.** 
 > El motor valida criptográficamente la llave contra nuestros servidores de licencia globales.
@@ -48,7 +43,7 @@ Una vez que el contenedor esté corriendo (`docker ps`), abre tu navegador y dir
 
 En lugar de ver una terminal vacía, accederás a la **Interfaz de Producción TZANiX**, donde podrás:
 * Ver el Holograma de Telemetría en vivo (Osciloscopio, Matriz de Filtrado o Red Ciber).
-* Conectar tu clúster de GPUs o Flota de Drones.
+* Conectar tu clúster de GPUs.
 * Monitorear el ahorro de dinero o mitigación de ataques en tiempo real.
 
 ---
@@ -68,12 +63,6 @@ El modelo de cobro es por **Nodo Protegido (SaaS)** o por ancho de banda analiza
 * **Costo por Servidor:** $150 USD mensuales por cada máquina/nodo ejecutando el Kill-Switch.
 * *Opcional:* Si el tráfico supera los 5 TB mensuales por nodo, se factura a $0.02 USD por GB adicional.
 * **Licencia Sovereign (Banca/Defensa):** Contactar ventas. Instalación Air-Gapped (sin conexión a internet).
-
-### 3. TZANiX Singularity Core (Robótica/Drones)
-El modelo de cobro es por **Licencia Física (Por Unidad)**.
-* **Costo por Dron:** $15 USD mensuales por licencia de vuelo activa.
-* **Plan de Flota (Startups):** $1,200 USD mensuales para flotas de hasta 100 drones simultáneos.
-* *Beneficio:* Incluye acceso total al **Centro de Mando de Flota (Swarm Grid)** y alertas de mantenimiento predictivo (prevención de falla de rotores por armónicos).
 
 ---
 

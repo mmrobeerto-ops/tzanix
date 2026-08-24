@@ -71,8 +71,7 @@ hXor432YhN/LP5RhS+R1clk=
     // Añadimos el prefijo según el producto para mantener tu estética
     const prefixes = {
       'gateway': 'tzx_gw_',
-      'qbalam': 'tzx_qb_',
-      'singularity': 'tzx_sg_'
+      'qbalam': 'tzx_qb_'
     };
     
     const prefix = prefixes[product] || 'tzx_lic_';

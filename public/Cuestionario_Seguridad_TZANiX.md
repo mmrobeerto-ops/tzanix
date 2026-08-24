@@ -1,7 +1,7 @@
 # CUESTIONARIO TÉCNICO DE SEGURIDAD PARA PROVEEDORES (VSAQ / SIG)
 **TZANiX SIGNAL TECHNOLOGIES - VERSIÓN 1.0**
 
-Este documento proporciona respuestas estándar a los departamentos de TI, Compras y Seguridad de la Información (CISO) para agilizar la revisión técnica de las soluciones Q-Balam, Neural Gateway y Singularity Core.
+Este documento proporciona respuestas estándar a los departamentos de TI, Compras y Seguridad de la Información (CISO) para agilizar la revisión técnica de las soluciones Q-Balam y Neural Gateway.
 
 ---
 

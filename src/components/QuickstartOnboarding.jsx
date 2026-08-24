@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Copy, Key, Rocket, ArrowRight } from 'lucide-react';
+import { Terminal, Copy, Key, Rocket, ArrowRight, FileText } from 'lucide-react';
 
 const QuickstartOnboarding = ({ selectedTier }) => {
   const [apiKey, setApiKey] = useState('Generando TZX_API_KEY...');
@@ -23,13 +23,6 @@ const QuickstartOnboarding = ({ selectedTier }) => {
       image: 'ghcr.io/mmrobeerto-ops/q-balam:latest',
       python: 'pip install tzanix-qbalam',
       eulaWarning: 'TZANiX se exonera por completo de cualquier intrusión, robo de datos o vulnerabilidad explotada en caso de que la red local del cliente esté previamente comprometida.'
-    },
-    singularity: {
-      name: 'SINGULARITY CORE',
-      prefix: 'tzx_sg_',
-      image: 'ghcr.io/mmrobeerto-ops/singularity-core:latest',
-      python: 'pip install tzanix-singularity',
-      eulaWarning: 'TZANiX se exonera por completo de cualquier daño físico a hardware, colisión de drones/aeronaves, o pérdida de equipo autónomo derivado de la alteración de parámetros inerciales.'
     }
   };
 
@@ -187,7 +180,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
                     <span className="text-slate-500"># Iniciar Motor Localmente</span><br/>
                     <span className="text-tzCyan">$</span> {acceptedEula ? dockerCommand.split('\\').map((line, i) => (
                       <React.Fragment key={i}>
-                        {line} {i !== 2 && <span className="text-slate-500">\\</span>}<br/>
+                        {line} {i !== 2 && <span className="text-slate-500">{" \\"}</span>}<br/>
                       </React.Fragment>
                     )) : 'BLOQUEADO'}
                   </code>
@@ -206,9 +199,10 @@ const QuickstartOnboarding = ({ selectedTier }) => {
               <a 
                 href="/Manual_Corporativo_TZANiX.txt" 
                 download
-                className="w-full flex justify-center items-center py-3 border border-white/30 text-white font-mono text-xs uppercase tracking-widest hover:bg-white hover:text-black transition duration-300 cursor-pointer"
+                className="w-full flex justify-center items-center py-3 border border-white/30 text-white font-mono text-xs uppercase tracking-widest hover:bg-white hover:text-black transition duration-300 cursor-pointer gap-2"
               >
-                ðŸ“„ DESCARGAR PDF: GUÍA Y Tí‰RMINOS LEGALES
+                <FileText className="w-4 h-4" />
+                DESCARGAR GUÍA Y TÉRMINOS LEGALES
               </a>
             </div>
           </div>

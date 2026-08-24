@@ -53,8 +53,8 @@ export default function ScientificDocs() {
               Nuestro motor Quantum Q Balam opera en la Capa 3 (Ls), garantizando zero-drop rate bajo cargas de estrés extremas (10,000 req/s simuladas). 
               Al integrar<span className="font-mono border border-white/20 bg-zinc-800 px-1 mx-1">SCCUBE</span> (1.01 ms), la infraestructura se vuelve inmune a ataques volumétricos y exfiltración de datos silenciosa.
             </p>
-            <a href="https://github.com/mmrobeerto-ops/tzanix-singularity-core" target="_blank" rel="noopener noreferrer" className="btn-spacex text-xs mb-2 inline-block">
-              <span>VER BENCHMARKS EN GITHUB &rtarr;</span>
+            <a href="https://github.com/mmrobeerto-ops/tzanix" target="_blank" rel="noopener noreferrer" className="btn-spacex text-xs mb-2 inline-block">
+              <span>VER BENCHMARKS EN GITHUB &rarr;</span>
             </a>
           </div>
           
