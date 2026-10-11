@@ -15,7 +15,7 @@ const DataGovernance = () => {
           Soberanía y Privacidad de Datos
         </h2>
         <p className="text-slate-400 font-mono text-sm leading-relaxed">
-          Nuestrés motores están diseñados bajo la filosofía <strong>Zero-Retention</strong>. Tu infraestructura, tus llaves, tus datos. Nosotros solo ponemos las matemáticas.
+          Nuestros motores están diseñados bajo la filosofía <strong>Zero-Retention</strong>. Tu infraestructura, tus llaves, tus datos. Nosotros solo ponemos las matemáticas.
         </p>
       </div>
 

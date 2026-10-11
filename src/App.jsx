@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import QuickstartOnboarding from './components/QuickstartOnboarding';
 import CompanyModals from './components/CompanyModals';
 import EdTechMath from './components/EdTechMath';
@@ -22,20 +22,18 @@ function App() {
     <div className="font-sans antialiased relative min-h-screen">
       
       {/* HEADER / NAVBAR ESTILO SPACEX */}
-      <header className="absolute top-0 left-0 w-full z-50 px-8 py-7 flex items-center justify-between">
-        <a href="#hero" className="flex items-center text-[34px] font-black tracking-[0.4em] transform scale-x-[1.25] origin-left transition-all hover:scale-x-[1.3] group mr-16 lg:mr-24">
+      <header className="absolute top-0 left-0 w-full z-50 px-4 sm:px-8 py-4 sm:py-7 flex items-center justify-between">
+        <a href="#hero" className="flex items-center text-2xl sm:text-[34px] font-black tracking-[0.22em] sm:tracking-[0.4em] transform scale-x-[1.08] sm:scale-x-[1.25] origin-left transition-all hover:scale-x-[1.3] group mr-4 sm:mr-16 lg:mr-24">
           <span className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">TZAN</span>
           
-          {/* Custom SVG 'i' basado en tu diseño */}
-          <svg viewBox="0 0 24 42" className="h-[32px] w-auto ml-1 mr-3 relative z-10 -translate-y-[4px]">
+          {/* Custom SVG 'i' */}
+          <svg viewBox="0 0 24 42" className="h-[24px] sm:h-[32px] w-auto ml-1 mr-2 sm:mr-3 relative z-10 -translate-y-[2px] sm:-translate-y-[4px]">
             {/* Punto Cyan */}
             <circle cx="12" cy="6" r="6" fill="#00f0ff" style={{ filter: 'drop-shadow(0px 0px 8px #00f0ff)' }} />
             
             {/* Tallo geométrico blanco */}
             <g fill="white" style={{ filter: 'drop-shadow(0px 0px 10px rgba(255,255,255,0.2))' }}>
-              {/* Triíƒ¡ngulo superior */}
               <path d="M 8 16 L 18 16 L 18 34 L 7 17.5 Q 6 16 8 16 Z" />
-              {/* Triíƒ¡ngulo inferior */}
               <path d="M 16 42 L 6 42 L 6 24 L 17 40.5 Q 18 42 16 42 Z" />
             </g>
           </svg>
@@ -45,22 +43,23 @@ function App() {
         
         {/* HAMBURGER BUTTON */}
         <button 
-          className="text-white space-y-1.5 focus:outline-none cursor-pointer z-[60] relative"
+          className="text-white space-y-1.5 focus:outline-none cursor-pointer z-[60] relative p-2"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Abrir menú"
         >
-          <div className={`w-8 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-          <div className={`w-8 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
-          <div className={`w-8 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
+          <div className={`w-7 sm:w-8 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
+          <div className={`w-7 sm:w-8 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
+          <div className={`w-7 sm:w-8 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
         </button>
       </header>
 
       {/* FULLSCREEN MENU OVERLAY */}
-      <div className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-10 transition-all duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <a href="#neural-gateway" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold tracking-[0.25em] uppercase text-white hover:text-tzCyan hover:scale-105 transition-all">NEURAL GATEWAY</a>
-        <a href="#q-balam" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold tracking-[0.25em] uppercase text-white hover:text-tzCyan hover:scale-105 transition-all">Q-BALAM</a>
-        <a href="#edtech" onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold tracking-[0.25em] uppercase text-white hover:text-tzCyan hover:scale-105 transition-all">EDTECH CUíƒÂNTICA</a>
-        <div className="w-24 h-px bg-white/20 my-4"></div>
-        <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="text-xl font-black tracking-[0.3em] uppercase text-tzCyan border-b-2 border-tzCyan pb-2 hover:text-white transition-all">DESPLEGAR Míƒâ€œDULO &rarr;</a>
+      <div className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8 sm:space-y-10 px-6 text-center transition-all duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <a href="#neural-gateway" onClick={() => setIsMenuOpen(false)} className="text-xl sm:text-2xl font-bold tracking-[0.25em] uppercase text-white hover:text-tzCyan hover:scale-105 transition-all">NEURAL GATEWAY</a>
+        <a href="#q-balam" onClick={() => setIsMenuOpen(false)} className="text-xl sm:text-2xl font-bold tracking-[0.25em] uppercase text-white hover:text-tzCyan hover:scale-105 transition-all">Q-BALAM</a>
+        <a href="#edtech" onClick={() => setIsMenuOpen(false)} className="text-xl sm:text-2xl font-bold tracking-[0.25em] uppercase text-white hover:text-tzCyan hover:scale-105 transition-all">EDTECH CUÁNTICA</a>
+        <div className="w-24 h-px bg-white/20 my-2 sm:my-4"></div>
+        <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-xl font-black tracking-[0.3em] uppercase text-tzCyan border-b-2 border-tzCyan pb-2 hover:text-white transition-all">DESPLEGAR MÓDULO &rarr;</a>
       </div>
 
       {/* MAIN CONTAINER */}
@@ -73,21 +72,21 @@ function App() {
           <SpacexBackground />
           <div className="video-overlay"></div>
 
-          <div className="relative z-10 max-w-4xl space-y-4">
-            <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
+          <div className="relative z-10 max-w-4xl space-y-3 sm:space-y-4">
+            <p className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.25em] sm:tracking-[0.35em] uppercase text-tzCyan">
               DEEP TECH CYBERSECURITY / RUST & PYTHON
             </p>
-            <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
-              DE LA ENTROPÍA AL <br /> ORDEN MATEMÁTICO
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight uppercase leading-[0.95] sm:leading-[0.92] text-white">
+              DE LA ENTROPÍA AL <br className="hidden sm:inline" /> ORDEN MATEMÁTICO
             </h1>
-            <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
+            <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-1 sm:pt-2">
               Microservicios L7 orquestados con la flexibilidad de Python, pero ejecutando Topología 4D a la velocidad del silicio puro gracias a bindings nativos en Rust.
             </p>
-            <div className="pt-4 flex flex-wrap gap-4">
-              <a href="#neural-gateway" className="btn-spacex">
+            <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <a href="#neural-gateway" className="btn-spacex w-full sm:w-auto text-center">
                 <span>EXPLORAR ARQUITECTURA &rarr;</span>
               </a>
-              <a href="https://pypi.org/project/tzanix-core/" target="_blank" rel="noopener noreferrer" className="btn-spacex !border-white/30 text-white/70">
+              <a href="https://pypi.org/project/tzanix-core/" target="_blank" rel="noopener noreferrer" className="btn-spacex !border-white/30 text-white/70 w-full sm:w-auto text-center">
                 <span>SDK PYTHON (PyPI)</span>
               </a>
             </div>
@@ -95,24 +94,24 @@ function App() {
         </section>
 
         {/* ========================================================================= */}
-        {/* 2. TZANIX NEURAL GATEWAY (purificación DE DATOS & FINOPS IA)              */}
+        {/* 2. TZANIX NEURAL GATEWAY (PURIFICACIÓN DE DATOS & FINOPS IA)              */}
         {/* ========================================================================= */}
         <section id="neural-gateway" className="spacex-section relative overflow-hidden">
           <DataPurificationVisualizer />
           <div className="video-overlay absolute inset-0 z-0 pointer-events-none"></div>
 
-          <div className="relative z-10 max-w-4xl space-y-4">
-            <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
+          <div className="relative z-10 max-w-4xl space-y-3 sm:space-y-4">
+            <p className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.25em] sm:tracking-[0.35em] uppercase text-tzCyan">
               REVERSE PROXY L7 & FINOPS
             </p>
-            <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
-              TZANiX NEURAL <br />GATEWAY
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight uppercase leading-[0.95] sm:leading-[0.92] text-white">
+              TZANiX NEURAL <br className="hidden sm:inline" />GATEWAY
             </h2>
-            <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
-              Purificación DE DATOS Stateless en la periferia de tu red. Detén anomalías inerciales en ~0.56 milisegundos y reduce entráfico basura antes de que toque tu aplicación.
+            <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-1 sm:pt-2">
+              Purificación de datos Stateless en la periferia de tu red. Detén anomalías inerciales en ~0.56 milisegundos y reduce el tráfico basura antes de que toque tu aplicación.
             </p>
-            <div className="pt-4">
-              <a href="https://gateway.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
+            <div className="pt-3 sm:pt-4">
+              <a href="https://gateway.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex w-full sm:w-auto text-center">
                 <span>VER DEMO INTERACTIVA &rarr;</span>
               </a>
             </div>
@@ -120,47 +119,45 @@ function App() {
         </section>
 
         {/* ========================================================================= */}
-        {/* 3. TZANIX Q-BALAM (CIBERSEGURIDAD INERCIAL & ANTI-EXFILTRACIíƒâ€œN)           */}
+        {/* 3. TZANIX Q-BALAM (CIBERSEGURIDAD INERCIAL & ANTI-EXFILTRACIÓN)           */}
         {/* ========================================================================= */}
         <section id="q-balam" className="spacex-section">
           <MatrixBackground />
           <div className="video-overlay"></div>
 
-          <div className="relative z-10 max-w-4xl space-y-4">
-            <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-[#ff0055]">
+          <div className="relative z-10 max-w-4xl space-y-3 sm:space-y-4">
+            <p className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.25em] sm:tracking-[0.35em] uppercase text-[#ff0055]">
               DEFENSA ZERO-TRUST & SHADOW MODE
             </p>
-            <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight uppercase leading-[0.95] sm:leading-[0.92] text-white">
               TZANiX Q-BALAM
             </h2>
-            <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
+            <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-1 sm:pt-2">
               Arquitectura de mitigación de riesgos diseñada para SysAdmins. Despliégalo en Modo Auditoría para garantizar 0% de Falsos Positivos. Soporta diseño Fail-Open y permite Whitelists dinámicos para tráfico cifrado y JWT.
             </p>
-            <div className="pt-4 flex flex-wrap gap-4">
-              <a href="https://qbalam.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex">
+            <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <a href="https://qbalam.tzanix.com/" target="_blank" rel="noopener noreferrer" className="btn-spacex w-full sm:w-auto text-center">
                 <span>VER DEMO INTERACTIVA &rarr;</span>
               </a>
             </div>
           </div>
         </section>
 
-        
-
         {/* ========================================================================= */}
-        {/* 5. TZANIX EDTECH (PIZARRAS Y SIMULACIONES CUíƒÂNTICAS INTERACTIVAS)         */}
+        {/* 4. TZANIX EDTECH (PIZARRAS Y SIMULACIONES CUÁNTICAS INTERACTIVAS)         */}
         {/* ========================================================================= */}
         <section id="edtech" className="spacex-section">
           <MathBackground />
           <div className="video-overlay"></div>
 
-          <div className="relative z-10 max-w-4xl space-y-4">
-            <p className="text-xs md:text-sm font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
+          <div className="relative z-10 max-w-4xl space-y-3 sm:space-y-4">
+            <p className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.25em] sm:tracking-[0.35em] uppercase text-tzCyan">
               EDUCACIÓN CUÁNTICA & OBSERVABILIDAD
             </p>
-            <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight uppercase leading-[0.92] text-white">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight uppercase leading-[0.95] sm:leading-[0.92] text-white">
               TZANiX EDTECH
             </h2>
-            <p className="text-slate-300 text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-2">
+            <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-xl font-light tracking-wide leading-relaxed pt-1 sm:pt-2">
               Plataforma interactiva para docentes e investigadores. Visualización del principio de incertidumbre de Heisenberg, efectos de observador y osciloscopía dual en tiempo real.
             </p>
             <EdTechMath />
@@ -170,27 +167,27 @@ function App() {
         {/* ========================================================================= */}
         {/* COMPLIANCE Y CONFIANZA                                                    */}
         {/* ========================================================================= */}
-        <section className="relative z-10 w-full py-24 bg-zinc-950 border-t border-b border-white/10 px-8">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
+        <section className="relative z-10 w-full py-16 sm:py-24 bg-zinc-950 border-t border-b border-white/10 px-5 sm:px-8">
+          <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6">
             <p className="text-xs font-mono font-bold tracking-[0.35em] uppercase text-tzCyan">
               CUMPLIMIENTO Y CONFIANZA
             </p>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight uppercase text-white">
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase text-white">
               SEGURIDAD DESDE EL DISEÑO
             </h2>
-            <p className="text-slate-400 text-sm md:text-base font-light tracking-wide leading-relaxed pt-4 max-w-3xl mx-auto">
-              (Security by Design): Nuestrés soluciónes están diseñadas arquitectónicamente bajo los controles estrictos de SOC 2, ISO/IEC 42001 (AI Governance) y las normativas del EU AI Act. Proveemos un SBOM (Software Bill of Materials) transparente y pipelines validados con cargo audit para garantizar la seguridad de la cadena de suministro.
+            <p className="text-slate-400 text-xs sm:text-sm md:text-base font-light tracking-wide leading-relaxed pt-2 sm:pt-4 max-w-3xl mx-auto">
+              (Security by Design): Nuestras soluciones están diseñadas arquitectónicamente bajo los controles estrictos de SOC 2, ISO/IEC 42001 (AI Governance) y las normativas del EU AI Act. Proveemos un SBOM (Software Bill of Materials) transparente y pipelines validados con cargo audit para garantizar la seguridad de la cadena de suministro.
             </p>
           </div>
         </section>
 
         {/* ========================================================================= */}
-        {/* DOCUMENTACIíƒâ€œN CIENTíƒÂFICA (RUST-PYTHON)                                   */}
+        {/* DOCUMENTACIÓN CIENTÍFICA (RUST-PYTHON)                                    */}
         {/* ========================================================================= */}
         <ScientificDocs />
 
         {/* ========================================================================= */}
-        {/* 6. SELECCIíƒâ€œN DE PLANES Y DESPLIEGUE                                       */}
+        {/* 6. SELECCIÓN DE PLANES Y DESPLIEGUE                                       */}
         {/* ========================================================================= */}
         <section id="pricing" className="spacex-section !h-auto min-h-screen !justify-center py-24 bg-black">
           <div className="relative z-10 max-w-7xl mx-auto w-full space-y-16">
@@ -237,7 +234,7 @@ function App() {
           </div>
         </section>
 
-        {/* MODALES OCULTOS DE PRIVACIDAD Y MISIíƒâ€œN */}
+        {/* MODALES OCULTOS DE PRIVACIDAD Y MISIÓN */}
         <section className="w-full bg-black py-10">
           <CompanyModals />
         </section>
@@ -245,9 +242,9 @@ function App() {
       </main>
 
       {/* FOOTER CORPORATIVO */}
-      <footer className="relative z-10 w-full border-t border-white/10 px-8 py-10 bg-black text-xs font-mono text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-6">
-        <div>TZANiX SIGNAL TECHNOLOGIES í‚Â© 2026</div>
-        <div className="flex space-x-8 uppercase tracking-widest text-slate-400">
+      <footer className="relative z-10 w-full border-t border-white/10 px-5 sm:px-8 py-8 sm:py-10 bg-black text-xs font-mono text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-6 text-center sm:text-left">
+        <div>TZANiX SIGNAL TECHNOLOGIES &copy; 2026</div>
+        <div className="flex flex-wrap justify-center gap-6 sm:gap-8 uppercase tracking-widest text-slate-400">
           <a href="#" className="hover:text-white transition">PRIVACIDAD ZERO-RETENTION</a>
           <a href="https://github.com/mm_robeerto7" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">GITHUB</a>
           <a href="https://wa.me/526647247803" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">CONTACTO</a>

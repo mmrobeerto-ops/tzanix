@@ -12,9 +12,9 @@
 }
 
 @layer components {
-  /* Sección Fullscreen 100vh */
+  /* Sección Fullscreen adaptable a móviles y desktop */
   .spacex-section {
-    @apply relative w-[100vw] h-[100vh] flex flex-col justify-end px-[4vw] pb-[8vh] overflow-hidden;
+    @apply relative w-full min-h-[100dvh] md:h-screen flex flex-col justify-end px-5 sm:px-[4vw] pt-24 md:pt-0 pb-12 md:pb-[8vh] overflow-hidden;
   }
 
   /* Video de Fondo Fullscreen */
@@ -29,9 +29,9 @@
     background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.92) 100%);
   }
 
-  /* Botón Oficial Estilo SpaceX */
+  /* Botón Oficial Estilo SpaceX adaptable */
   .btn-spacex {
-    @apply relative inline-flex items-center justify-center px-[38px] py-[16px] text-[11px] font-[800] tracking-[0.25em] uppercase text-white border-2 border-white/85 bg-transparent cursor-pointer transition-all duration-300 overflow-hidden no-underline w-fit;
+    @apply relative inline-flex items-center justify-center px-6 sm:px-[38px] py-3.5 sm:py-[16px] text-[10px] sm:text-[11px] font-[800] tracking-[0.2em] sm:tracking-[0.25em] uppercase text-white border-2 border-white/85 bg-transparent cursor-pointer transition-all duration-300 overflow-hidden no-underline w-fit;
   }
 
   .btn-spacex::before {
@@ -48,7 +48,7 @@
   }
 
   .btn-spacex span {
-    @apply relative z-20 flex items-center gap-[12px];
+    @apply relative z-20 flex items-center justify-center gap-[10px] sm:gap-[12px];
   }
 }
 
@@ -77,6 +77,22 @@
   /* Resplandor del núcleo */
   .core-glow {
     box-shadow: 0 0 50px #00f0ff, 0 0 100px rgba(0, 240, 255, 0.4);
+  }
+
+  /* Scrollbar estilizado para modales y paneles */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 240, 255, 0.35);
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 240, 255, 0.7);
   }
 }
 

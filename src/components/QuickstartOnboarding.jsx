@@ -57,7 +57,7 @@ const QuickstartOnboarding = ({ selectedTier }) => {
     })
     .catch(err => {
       console.error(err);
-      setApiKey('ERROR DE CONEXIí“N AL GATEWAY');
+      setApiKey('ERROR DE CONEXIÓN AL GATEWAY');
     });
   }, [selectedTier, acceptedEula, isValidEmail, email]);
 
