@@ -45,42 +45,42 @@ export default function CompanyModals() {
       )
     },
     privacidad: {
-      tag: 'ARQUITECTURA ZERO-RETENTION // CUMPLIMIENTO HIPAA, PCI-DSS & GDPR',
-      title: 'Privacidad por Diseño y Cumplimiento Normativo',
+      tag: 'ARQUITECTURA ZERO-RETENTION // PRIVACIDAD EN TRÁNSITO',
+      title: 'Privacidad por Diseño (Sin Almacenamiento de Datos)',
       body: (
         <div className="space-y-4 text-slate-300 leading-relaxed text-sm">
           <p>
-            En sectores altamente regulados como <strong className="text-white">Software Médico (HIPAA)</strong>, <strong className="text-white">Banca y Finanzas (PCI-DSS / SOC2)</strong> e infraestructura gubernamental, la privacidad de los datos en tránsito es innegociable.
+            Para empresas de <strong className="text-white">Software Médico</strong>, <strong className="text-white">Desarrollo de Negocios</strong> y servicios digitales, la privacidad de los datos en tránsito es prioritaria.
           </p>
           <ul className="space-y-3 bg-[#06090F] p-5 border border-slate-800 font-mono text-xs">
             <li className="flex items-start space-x-3">
               <span className="text-[#38BDF8] font-bold">[01]</span>
-              <span><strong>Zero-Payload Storage:</strong> TZANIX Æther-Core evalúa la distribución matemática de entropía y el espectro de frecuencias en registros volátiles de silicio (BRAM). Jamás almacena ni copia expedientes clínicos, claves privadas ni datos personales en disco.</span>
+              <span><strong>Zero-Payload Storage:</strong> TZANIX Æther-Core evalúa únicamente la distribución matemática de entropía y el espectro de frecuencias en memoria volátil. Jamás almacena ni copia expedientes clínicos, contraseñas ni datos personales en disco.</span>
             </li>
             <li className="flex items-start space-x-3">
               <span className="text-[#38BDF8] font-bold">[02]</span>
-              <span><strong>Ejecución On-Premise Air-Gapped:</strong> El contenedor Docker y el bitstream FPGA operan 100% dentro del perímetro del cliente sin depender de nubes de terceros para tomar decisiones de bloqueo.</span>
+              <span><strong>Ejecución Local Aislada:</strong> El contenedor Docker opera 100% dentro del servidor del cliente sin enviar tráfico privado a nubes de terceros.</span>
             </li>
             <li className="flex items-start space-x-3">
               <span className="text-[#38BDF8] font-bold">[03]</span>
-              <span><strong>Auditoría Forense Certificada:</strong> Los reportes JSON generados documentan únicamente metadatos de red (IP atacante, ASN, vector de ataque, umbral CSR Q16.16 y marca de tiempo en nanosegundos) listos para auditorías regulatorias.</span>
+              <span><strong>Bitácora Técnica Transparente:</strong> Los registros JSON generados en fase de pruebas documentan únicamente métricas técnicas de red (entropía Q16.16, espectro FFT-16 y contadores de paquetes).</span>
             </li>
           </ul>
         </div>
       )
     },
     contacto: {
-      tag: 'CANAL EJECUTIVO DIRECTO // INGENIERÍA & VENTAS ENTERPRISE',
-      title: 'Contacto Directo & Despliegue de Pruebas de Concepto (PoC)',
+      tag: 'CANAL EJECUTIVO DIRECTO // INGENIERÍA & PRUEBAS PILOTO (PoC)',
+      title: 'Contacto Directo & Despliegue de Pruebas Piloto (PoC)',
       body: (
         <div className="space-y-5 text-slate-300 text-sm">
           <p>
-            Nuestro equipo de arquitectura de silicio y ciberseguridad atiende directamente a directores de tecnología (CTO), oficiales de seguridad (CISO), hospitales, plataformas médicas y centros de datos para configurar demostraciones en vivo y despliegues en el mismo día.
+            Atendemos directamente a empresas de software médico, desarrollo de negocios e infraestructura digital para configurar demostraciones técnicas en vivo y despliegues piloto en fase de evaluación.
           </p>
 
           <div className="bg-[#06090F] p-5 border border-slate-800 space-y-3 font-mono text-xs">
             <div className="flex flex-col sm:flex-row sm:justify-between border-b border-slate-800 pb-2 gap-1">
-              <span className="text-slate-500">CORREO DIRECTO DE INGENIERÍA Y LICENCIAS:</span>
+              <span className="text-slate-500">CORREO DIRECTO DE INGENIERÍA Y PILOTOS:</span>
               <a href="mailto:mmrobeerto@gmail.com" className="text-[#38BDF8] hover:underline font-bold">mmrobeerto@gmail.com</a>
             </div>
             <div className="flex flex-col sm:flex-row sm:justify-between border-b border-slate-800 pb-2 gap-1">
@@ -88,24 +88,24 @@ export default function CompanyModals() {
               <a href="https://wa.me/526647247803" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#38BDF8] font-bold">+52 664 724 7803</a>
             </div>
             <div className="flex flex-col sm:flex-row sm:justify-between border-b border-slate-800 pb-2 gap-1">
-              <span className="text-slate-500">TIEMPO DE RESPUESTA INGENIERÍA (SLA):</span>
-              <span className="text-[#38BDF8]">&lt; 2 Horas (Soporte Directo 24/7)</span>
+              <span className="text-slate-500">FASE ACTUAL DEL PROYECTO:</span>
+              <span className="text-[#38BDF8]">Piloto Técnico / Pruebas de Concepto (PoC Beta)</span>
             </div>
             <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
               <span className="text-slate-500">MODALIDADES DISPONIBLES:</span>
-              <span className="text-white">Contenedor Docker / Librería C-FFI / Appliance FPGA+DPU</span>
+              <span className="text-white">Contenedor Docker / Librería C-FFI / Simulación RTL</span>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <a
-              href="mailto:mmrobeerto@gmail.com?subject=Solicitud%20de%20Licencia%20PoC%20TZANIX%20Aether-Core&body=Hola%20equipo%20TZANIX%2C%0A%0ANos%20interesa%20evaluar%20TZANIX%20Aether-Core%20en%20nuestra%20infraestructura.%0A%0AEmpresa%3A%20%0AServidores%20a%20proteger%3A%20%0ATel%C3%A9fono%3A%20"
+              href="mailto:mmrobeerto@gmail.com?subject=Solicitud%20de%20Prueba%20Piloto%20TZANIX%20Aether-Core&body=Hola%20equipo%20TZANIX%2C%0A%0ANos%20interesa%20evaluar%20una%20prueba%20piloto%20de%20TZANIX%20Aether-Core%20en%20nuestra%20infraestructura.%0A%0AEmpresa%3A%20%0AServidores%20a%20proteger%3A%20%0ATel%C3%A9fono%3A%20"
               className="block w-full text-center py-3.5 bg-[#38BDF8] hover:bg-white text-[#06090F] font-mono font-bold text-xs uppercase tracking-widest transition"
             >
               Enviar Correo a Ingeniería
             </a>
             <a
-              href="https://wa.me/526647247803?text=Hola%2C%20me%20interesa%20una%20demostraci%C3%B3n%20y%20licencia%20PoC%20de%20TZANIX%20Aether-Core%20para%20nuestro%20servidor."
+              href="https://wa.me/526647247803?text=Hola%2C%20me%20interesa%20una%20demostraci%C3%B3n%20y%20prueba%20piloto%20de%20TZANIX%20Aether-Core%20para%20nuestro%20servidor."
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center py-3.5 bg-[#06090F] hover:bg-slate-800 text-white border border-slate-700 font-mono font-bold text-xs uppercase tracking-widest transition"
@@ -127,10 +127,10 @@ export default function CompanyModals() {
           <div className="border-b border-slate-800 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <p className="text-xs font-mono font-semibold tracking-[0.3em] uppercase text-[#38BDF8] mb-2">
-                IDENTIDAD CORPORATIVA · GOBERNANZA · CONTACTO EJECUTIVO
+                IDENTIDAD CORPORATIVA · ARQUITECTURA ZERO-RETENTION · CONTACTO DIRECTO
               </p>
               <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight uppercase text-white">
-                MISIÓN, VISIÓN Y COMPROMISO SOBERANO
+                MISIÓN, VISIÓN Y PRIVACIDAD POR DISEÑO
               </h2>
             </div>
             <div className="flex flex-wrap gap-3 font-mono text-xs">
@@ -144,7 +144,7 @@ export default function CompanyModals() {
                 onClick={() => setActiveModal('privacidad')}
                 className="px-4 py-2 border border-slate-700 hover:border-[#38BDF8] text-slate-300 hover:text-white transition uppercase cursor-pointer"
               >
-                Política Zero-Retention
+                Arquitectura Zero-Retention
               </button>
             </div>
           </div>
@@ -159,7 +159,7 @@ export default function CompanyModals() {
                 Defensa Determinista en Tiempo Real
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Proteger la continuidad operativa de hospitales, plataformas médicas, instituciones financieras y centros de datos eliminando ataques DDoS, botnets y anomalías de red en <strong className="text-white">10.0 nanosegundos</strong>, antes de que consuman un solo ciclo de CPU del servidor.
+                Proteger la continuidad operativa de plataformas de software médico, sistemas empresariales y centros de datos filtrando ataques DDoS, botnets y anomalías de red en nanosegundos antes de que saturen la CPU del servidor.
               </p>
             </div>
 
@@ -168,10 +168,10 @@ export default function CompanyModals() {
                 02 // NUESTRA VISIÓN
               </div>
               <h3 className="text-2xl font-bold text-white uppercase tracking-tight">
-                Estándar Global de Silicio Autónomo
+                Seguridad de Nueva Generación en Silicio
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Liderar la transición mundial desde los firewalls de software lentos hacia la <strong className="text-white">Arquitectura Tridente en Silicio (FPGA + GPU + RDMA)</strong>, dotando a cada infraestructura crítica de inmunidad colectiva instantánea y cero falsos positivos.
+                Evolucionar desde los firewalls de software tradicionales hacia la <strong className="text-white">Arquitectura Tridente (FPGA + GPU + RDMA)</strong>, brindando a cada servidor empresarial detección matemática ultrarrápida sin falsos positivos.
               </p>
             </div>
 
@@ -180,10 +180,10 @@ export default function CompanyModals() {
                 03 // FILOSOFÍA ZERO-RETENTION
               </div>
               <h3 className="text-2xl font-bold text-white uppercase tracking-tight">
-                Privacidad Absoluta (HIPAA &amp; PCI-DSS)
+                Privacidad en Tránsito (Cero Datos Guardados)
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Inspeccionamos la física matemática del paquete (entropía Q16.16 y espectro FFT-16) sin almacenar jamás datos confidenciales ni historiales médicos. Cumplimiento nativo para auditorías <strong className="text-white">SOC2 Type II, ISO-27001 y HIPAA</strong>.
+                Nuestro motor evalúa únicamente la física matemática del paquete (entropía Q16.16 y espectro FFT-16) en memoria volátil, <strong className="text-white">sin almacenar jamás expedientes médicos, contraseñas ni información privada</strong> de tus clientes.
               </p>
             </div>
           </div>

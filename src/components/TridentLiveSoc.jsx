@@ -93,14 +93,14 @@ export default function TridentLiveSoc() {
 
   const exportForensicJson = () => {
     const report = {
-      report_id: `TZANIX-FORENSIC-${Date.now()}`,
+      report_id: `TZANIX-LAB-TEST-${Date.now()}`,
       generated_at_utc: new Date().toISOString(),
-      engine: 'TZANIX Aether-Core v1.0.0-silicon (Trident Architecture)',
-      compliance_frameworks: ['SOC2 Type II', 'ISO/IEC 27001', 'HIPAA Zero-Retention', 'PCI-DSS 4.0'],
+      engine: 'TZANIX Aether-Core v0.9-beta (Trident Architecture - Entorno de Pruebas)',
+      status: 'Fase de Pruebas de Laboratorio & Validación PoC (Sin certificaciones externas aún)',
       hardware_pipeline: {
         vertex_1_fpga: 'Q16.16 Fixed-Point Shannon BRAM (2 KB, 16-Port @ 400 MHz, 10.0 ns Cut-Through)',
         vertex_2_gpu: 'Radix-2 DIT FFT-16 (Nyquist Bin #8 Anomaly Hunter)',
-        vertex_3_rdma: 'RoCEv2 32-Byte Descriptor Sync across 8 BlueField DPU Nodes',
+        vertex_3_rdma: 'RoCEv2 32-Byte Descriptor Sync across 8 DPU Nodes (Simulación de Clúster)',
       },
       telemetry_snapshot: {
         throughput_mpps: 16.86,
@@ -109,7 +109,7 @@ export default function TridentLiveSoc() {
         gpu_fft16_inspections: grayZone,
         active_csr_threshold_q16_16: csrThreshold,
         active_csr_hex: `0x000${Math.round(csrThreshold * 65536).toString(16).toUpperCase()}`,
-        roc_auc_certified: 0.9937,
+        roc_auc_lab_test: 0.9937,
         false_positive_rate: 0.0,
       },
       forensic_incidents: forensicRows,
@@ -118,7 +118,7 @@ export default function TridentLiveSoc() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `tzanix-forensic-report-${Date.now()}.json`;
+    a.download = `tzanix-lab-report-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -134,10 +134,10 @@ export default function TridentLiveSoc() {
           <div>
             <div className="inline-flex items-center gap-2.5 text-xs font-mono font-semibold uppercase tracking-[0.28em] text-[#38BDF8] mb-2">
               <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
-              <span>TELEMETRÍA DE SILICIO EN TIEMPO REAL · AUDITORÍA FORENSE</span>
+              <span>ENTORNO DE DEMOSTRACIÓN AISLADO (SANDBOX) · TELEMETRÍA DE PRUEBAS</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight uppercase text-white">
-              CONSOLA TÁCTICA SOC &amp; FORENSE
+              SIMULADOR TÁCTICO SOC (FASE BETA)
             </h2>
           </div>
 
@@ -177,13 +177,13 @@ export default function TridentLiveSoc() {
               onClick={run10MAvalanche}
               className="px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider bg-[#0F172A] text-slate-200 border border-slate-700 hover:border-[#38BDF8] hover:text-white transition-all"
             >
-              Certificación 10M Flits
+              Prueba Estrés 10M Flits
             </button>
             <button
               onClick={exportForensicJson}
               className="px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider border border-[#38BDF8]/60 bg-[#38BDF8]/10 text-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#06090F] transition-all"
             >
-              Exportar Reporte Forense (.JSON)
+              Exportar Log de Prueba (.JSON)
             </button>
           </div>
         </div>
@@ -360,10 +360,10 @@ export default function TridentLiveSoc() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4 mb-4">
             <div>
               <h3 className="text-sm sm:text-base font-bold uppercase tracking-wider text-white">
-                INTELIGENCIA DE AMENAZAS FORENSE (GEOIP · ASN · TAXONOMÍA DE ATAQUE)
+                SIMULACIÓN DE INTELIGENCIA DE AMENAZAS (GEOIP · ASN · TAXONOMÍA DE ATAQUE)
               </h3>
               <p className="text-xs text-slate-400 font-mono">
-                Clasificación automática en línea para cumplimiento SOC2, ISO-27001, HIPAA y aseguradoras cibernéticas
+                Demostración en entorno de pruebas de cómo el motor clasifica vectores de red en tiempo real
               </p>
             </div>
             <span className="text-xs font-mono text-slate-300">

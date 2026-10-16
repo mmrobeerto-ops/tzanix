@@ -8,13 +8,13 @@ export default function ScientificDocs() {
         {/* CABECERA EJECUTIVA */}
         <div className="space-y-4 border-b border-slate-800 pb-8">
           <div className="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-[0.28em] text-[#38BDF8]">
-            <span>ESPECIFICACIÓN DE SILICIO &amp; BENCHMARK CERTIFICADO</span>
+            <span>ESPECIFICACIÓN DE ARQUITECTURA &amp; BENCHMARK DE LABORATORIO</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase">
             ARQUITECTURA TRIDENTE (<span className="text-[#38BDF8]">#&#33;[no_std]</span>)
           </h2>
           <p className="text-slate-400 max-w-3xl text-sm sm:text-base font-normal leading-relaxed">
-            Diseñado para operar en la capa física y de enlace (<strong className="text-slate-200">Fast-Path</strong>), TZANIX Æther-Core elimina por completo la latencia del kernel de Linux, el recolector de basura y la unidad de punto flotante (FPU), logrando un rendimiento determinista de <strong className="text-white">16.86 millones de paquetes por segundo (Mpps)</strong> con una latencia fija en silicio de <strong className="text-[#38BDF8]">10.0 nanosegundos</strong>.
+            Diseñado para operar en la capa de acceso a la red (<strong className="text-slate-200">Fast-Path</strong>), TZANIX Æther-Core elimina por completo la latencia del kernel de Linux, el recolector de basura y la unidad de punto flotante (FPU), alcanzando en pruebas de estrés un rendimiento determinista de <strong className="text-white">16.86 millones de paquetes por segundo (Mpps)</strong> y una latencia proyectada en silicio FPGA de <strong className="text-[#38BDF8]">10.0 nanosegundos</strong>.
           </p>
         </div>
 
@@ -86,14 +86,14 @@ export default function ScientificDocs() {
 
         </div>
 
-        {/* CERTIFICACIÓN DE RENDIMIENTO: AVALANCHA DE 10M FLITS */}
+        {/* PRUEBA DE ESTRÉS DE LABORATORIO: AVALANCHA DE 10M FLITS */}
         <div className="bg-[#0B111E] border border-slate-800 p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-6 space-y-4">
             <div className="text-xs font-mono text-[#38BDF8] uppercase tracking-[0.25em]">
-              CERTIFICACIÓN EMPÍRICA // TESTS/TRIDENT_AVALANCHE_STRESS.RS
+              PRUEBA DE ESTRÉS INTERNA // TESTS/TRIDENT_AVALANCHE_STRESS.RS
             </div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-white uppercase tracking-tight">
-              Avalancha Concurrente de 10,000,000 de Flits
+              Benchmark de Laboratorio: 10,000,000 de Flits
             </h3>
             <p className="text-slate-400 text-sm leading-relaxed">
               Sometido a un bombardeo mixto de 10 millones de flits simultáneos (70% tráfico corporativo legítimo, 29.99% ataques volumétricos DDoS y 0.01% botnets sigilosas en Zona Gris), el motor mantuvo <strong className="text-white">100.0% de precisión en el Fast-Path</strong> con un área bajo la curva <strong className="text-[#38BDF8]">ROC AUC = 0.9937</strong>.
