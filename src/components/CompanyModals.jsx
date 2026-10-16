@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldAlert, EyeOff, Lock, FileKey2, Rocket, Target, Zap, X } from 'lucide-react';
+import { ShieldAlert, EyeOff, Lock, FileKey2, Rocket, Target, Zap, X, Mail, Phone, Globe } from 'lucide-react';
 
 const CompanyModals = () => {
   const [activeModal, setActiveModal] = useState(null);
 
   const closeModal = () => setActiveModal(null);
 
-  // Bloquear el scroll del body y permitir cerrar con tecla Escape
   useEffect(() => {
     if (activeModal) {
       document.body.style.overflow = 'hidden';
@@ -24,179 +23,190 @@ const CompanyModals = () => {
   }, [activeModal]);
 
   return (
-    <section className="relative z-10 max-w-7xl mx-auto px-4 py-8 sm:py-12 border-t border-cyan-500/10">
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
-        <button 
-          onClick={() => setActiveModal('mission')}
-          className="btn-spacex w-full sm:w-auto text-center"
-        >
-          <span>Misión, Visión y Valores</span>
-        </button>
-        <button 
-          onClick={() => setActiveModal('privacy')}
-          className="btn-spacex !border-white/30 text-white/70 w-full sm:w-auto text-center"
-        >
-          <span>Privacidad y Seguridad</span>
-        </button>
+    <section id="corporate-dna" className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-20 border-t border-white/10 space-y-16">
+      {/* SECCIÓN VISIBLE DE MISIÓN, VISIÓN, VALORES Y CONTACTO EJECUTIVO ESTILO SPACEX */}
+      <div className="border-b border-white/20 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <p className="text-xs font-mono font-bold tracking-[0.35em] uppercase text-[#00F0FF] mb-2">
+            CORPORATIVO // SOBERANÍA TECNOLÓGICA
+          </p>
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase text-white">
+            MISIÓN, VISIÓN Y GOBERNANZA
+          </h2>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <button
+            onClick={() => setActiveModal('mission')}
+            className="btn-spacex text-xs"
+          >
+            <span>ADN CORPORATIVO DETALLADO</span>
+          </button>
+          <button
+            onClick={() => setActiveModal('privacy')}
+            className="btn-spacex !border-white/30 text-white/80 text-xs"
+          >
+            <span>POLÍTICA ZERO-RETENTION</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Tarjetas Visibles de Misión, Visión y Valores */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="bg-[#141419] border border-[#2A2A35] p-8 space-y-4 hover:border-[#00F0FF]/50 transition">
+          <div className="flex items-center gap-3 text-[#00F0FF]">
+            <Target className="w-6 h-6" />
+            <h3 className="text-lg font-black uppercase tracking-wider text-white">Nuestra Misión</h3>
+          </div>
+          <p className="text-slate-300 text-sm leading-relaxed font-light">
+            Blindar la infraestructura crítica mundial a la velocidad física de la luz en el silicio. Desarrollamos motores deterministas de defensa cibernética (<strong>TZANiX Æther-Core</strong>) que erradican ataques DDoS volumétricos y botnets sigilosas en <strong>10.0 nanosegundos</strong>, garantizando continuidad operativa absoluta con <strong>0.00% de falsos positivos</strong>.
+          </p>
+        </div>
+
+        <div className="bg-[#141419] border border-[#2A2A35] p-8 space-y-4 hover:border-[#D4AF37]/60 transition">
+          <div className="flex items-center gap-3 text-[#FFB703]">
+            <Rocket className="w-6 h-6" />
+            <h3 className="text-lg font-black uppercase tracking-wider text-white">Nuestra Visión</h3>
+          </div>
+          <p className="text-slate-300 text-sm leading-relaxed font-light">
+            Convertir a <strong>TZANiX</strong> en el estándar global de defensa autónoma en el <em>Fast-Path</em> para centros de datos, instituciones financieras (HFT/FinTech), redes hospitalarias y telecomunicaciones, reemplazando los firewalls lentos basados en sistema operativo por inteligencia matemática en FPGA, GPU y RDMA.
+          </p>
+        </div>
+
+        <div className="bg-[#141419] border border-[#2A2A35] p-8 space-y-4 hover:border-[#00FF66]/50 transition">
+          <div className="flex items-center gap-3 text-[#00FF66]">
+            <Zap className="w-6 h-6" />
+            <h3 className="text-lg font-black uppercase tracking-wider text-white">Filosofía Zero-Retention</h3>
+          </div>
+          <p className="text-slate-300 text-sm leading-relaxed font-light">
+            La forma más segura de proteger los datos de una corporación es nunca almacenarlos. Nuestro motor opera 100% en registros de silicio y memoria volátil (<code>#![no_std]</code>, Zero-Heap), inspeccionando la geometría y entropía de cada paquete sin tocar jamás la privacidad del payload del cliente.
+          </p>
+        </div>
+      </div>
+
+      {/* Bloque Directo de Contacto Ejecutivo & Adquisición B2B */}
+      <div id="contacto" className="bg-gradient-to-r from-[#141419] via-[#0E131F] to-[#141419] border border-[#00F0FF]/40 p-8 sm:p-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 shadow-[0_0_50px_rgba(0,240,255,0.08)]">
+        <div className="space-y-3 max-w-2xl">
+          <span className="text-xs font-mono font-bold tracking-[0.3em] uppercase text-[#00F0FF]">
+            CONTACTO CORPORATIVO // LICENCIAMIENTO ENTERPRISE &amp; APPLIANCES
+          </span>
+          <h3 className="text-2xl sm:text-4xl font-black uppercase text-white tracking-tight">
+            BLINDA TU INFRAESTRUCTURA HOY MISMO
+          </h3>
+          <p className="text-slate-300 text-sm leading-relaxed">
+            Agenda una demostración técnica en vivo con ingeniería, solicita una Prueba de Concepto (PoC) guiada en tus servidores o cotiza licencias anuales para Docker, SmartNIC NVIDIA BlueField y tarjetas FPGA.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row lg:flex-col gap-4 w-full lg:w-auto font-mono text-xs">
+          <a
+            href="mailto:mmrobeerto@gmail.com?subject=Solicitud%20PoC%20Enterprise%20-%20TZANiX%20Aether-Core"
+            className="flex items-center justify-center gap-3 px-6 py-4 bg-[#00F0FF] text-black font-bold uppercase tracking-widest hover:brightness-110 transition shadow-[0_0_20px_rgba(0,240,255,0.35)]"
+          >
+            <Mail className="w-4 h-4" />
+            <span>mmrobeerto@gmail.com</span>
+          </a>
+          <a
+            href="https://wa.me/526647247803?text=Hola,%20me%20interesa%20una%20demo%20corporativa%20de%20TZANiX%20Aether-Core"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-3 px-6 py-4 border border-white/30 bg-black/70 text-white font-bold uppercase tracking-widest hover:border-[#00FF66] hover:text-[#00FF66] transition"
+          >
+            <Phone className="w-4 h-4" />
+            <span>LÍNEA DIRECTA: +52 664 724 7803</span>
+          </a>
+        </div>
       </div>
 
       {/* MODAL OVERLAY */}
       {activeModal && (
-        <div 
+        <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/95 backdrop-blur-xl animate-fadeIn"
           onClick={closeModal}
         >
-          <div 
-            className="relative w-full max-w-4xl max-h-[92vh] sm:max-h-[88vh] flex flex-col border border-white/20 bg-zinc-950 shadow-[0_0_60px_rgba(0,240,255,0.12)] rounded-lg overflow-hidden"
+          <div
+            className="relative w-full max-w-4xl max-h-[90vh] flex flex-col border border-white/20 bg-zinc-950 shadow-[0_0_60px_rgba(0,240,255,0.15)] rounded-lg overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            
-            {/* Header Sticky con botón de cerrar siempre accesible */}
-            <div className="flex items-center justify-between px-5 sm:px-8 py-4 border-b border-white/10 bg-black/90 backdrop-blur z-20">
-              <span className="text-xs font-mono font-bold tracking-[0.25em] text-tzCyan uppercase">
-                {activeModal === 'mission' ? 'ADN TZANiX // CORPORATIVO' : 'DATA GOVERNANCE // ZERO-KNOWLEDGE'}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/90">
+              <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#00F0FF] uppercase">
+                {activeModal === 'mission' ? 'ADN TZANiX // ARQUITECTURA TRIDENTE' : 'GOBERNANZA DE DATOS // ZERO-KNOWLEDGE'}
               </span>
-              <button 
+              <button
                 onClick={closeModal}
-                className="p-1.5 text-white/70 hover:text-[#ff0055] hover:bg-white/5 rounded-full transition-all focus:outline-none"
+                className="p-1.5 text-white/70 hover:text-[#FF3366] rounded-full transition"
                 aria-label="Cerrar ventana"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
-            {/* Contenido scrolleable con scrollbar estilizado */}
-            <div className="overflow-y-auto p-5 sm:p-10 custom-scrollbar space-y-8">
-
-              {/* CONTENIDO: MISIÓN, VISIÓN Y VALORES */}
+            <div className="overflow-y-auto p-6 sm:p-10 space-y-8">
               {activeModal === 'mission' && (
-                <div className="space-y-10">
-                  <div className="text-center">
-                    <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">ADN TZANiX</h2>
-                    <div className="w-20 h-1 bg-tzCyan mx-auto mt-3 shadow-[0_0_15px_#00f0ff]"></div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-                    <div className="space-y-3 bg-black/40 p-5 sm:p-6 border border-white/10 rounded-lg">
-                      <div className="flex items-center space-x-3 text-tzCyan">
-                        <Target className="w-5 h-5 sm:w-6 sm:h-6" />
-                        <h3 className="text-base sm:text-lg font-bold uppercase tracking-wider">Nuestra Misión</h3>
-                      </div>
+                <div className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3 bg-black/60 p-6 border border-white/10 rounded-lg">
+                      <h3 className="text-lg font-bold text-[#00F0FF] uppercase">Misión Institucional</h3>
                       <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-mono">
-                        Proteger y optimizar la infraestructura crítica global. Construimos soluciones de ciberseguridad L7 y FinOps que combinan la agilidad orquestal de Python con el rendimiento puro de Rust a nivel hardware. Ayudamos a las corporaciones a destruir el tráfico basura antes de que consuma sus recursos, garantizando la continuidad del negocio con Cero Falsos Positivos.
+                        Erradicar la latencia y la vulnerabilidad en las redes críticas del planeta mediante motores matemáticos deterministas en Rust (#![no_std]) y silicio (FPGA/GPU/RDMA), bloqueando ataques en 10.0 nanosegundos con cero falsos positivos.
                       </p>
                     </div>
-                    <div className="space-y-3 bg-black/40 p-5 sm:p-6 border border-white/10 rounded-lg">
-                      <div className="flex items-center space-x-3 text-tzCyan">
-                        <Rocket className="w-5 h-5 sm:w-6 sm:h-6" />
-                        <h3 className="text-base sm:text-lg font-bold uppercase tracking-wider">Nuestra Visión</h3>
-                      </div>
+                    <div className="space-y-3 bg-black/60 p-6 border border-white/10 rounded-lg">
+                      <h3 className="text-lg font-bold text-[#FFB703] uppercase">Visión Tecnológica</h3>
                       <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-mono">
-                        Ser el estándar corporativo (Enterprise Deep-Tech) en ciberseguridad inercial y eficiencia Cloud. Aspiramos a un internet donde los ataques se neutralicen en microsegundos (Shadow Mode), logrando que las empresas paguen solo por el procesamiento de clientes reales (Zero-Waste CPU).
+                        Liderar la transición global desde firewalls de software obsoletos hacia la Arquitectura Tridente: defensa autónoma en línea donde cada paquete se valida a velocidad de cable y cada clúster comparte inmunidad instantánea en microsegundos.
                       </p>
                     </div>
                   </div>
-
-                  <div className="space-y-6 pt-6 border-t border-cyan-500/20">
-                    <div className="flex items-center justify-center space-x-3 text-tzCyan">
-                      <Zap className="w-5 h-5 sm:w-6 sm:h-6" />
-                      <h3 className="text-base sm:text-lg font-bold uppercase tracking-widest">Valores Centrales</h3>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center">
-                      <div className="p-4 bg-cyan-950/20 rounded border border-cyan-500/10">
-                        <h4 className="text-white font-bold text-sm mb-2">Shadow Mode (Cero Riesgos)</h4>
-                        <p className="text-[11px] sm:text-xs text-slate-400 font-mono">Despliegue seguro en Modo Auditoría que vigila sin romper la producción. 0% Falsos Positivos.</p>
-                      </div>
-                      <div className="p-4 bg-cyan-950/20 rounded border border-cyan-500/10">
-                        <h4 className="text-white font-bold text-sm mb-2">FinOps & Ahorro Cloud</h4>
-                        <p className="text-[11px] sm:text-xs text-slate-400 font-mono">Bloquear anomalías de red en 0.56ms para reducir hasta 80% los costos de CPU y facturación de la nube.</p>
-                      </div>
-                      <div className="p-4 bg-cyan-950/20 rounded border border-cyan-500/10">
-                        <h4 className="text-white font-bold text-sm mb-2">Soberanía Zero-Trust</h4>
-                        <p className="text-[11px] sm:text-xs text-slate-400 font-mono">La mejor forma de proteger un dato es procesarlo en RAM (Stateless) y destruirlo en nanosegundos. Cero retención.</p>
-                      </div>
-                    </div>
+                  <div className="p-6 bg-black/60 border border-white/10 rounded-lg font-mono text-xs text-slate-300 space-y-2">
+                    <div className="text-white font-bold uppercase">Contacto Comercial y Alianzas Estratégicas:</div>
+                    <div>• Email Oficial: <span className="text-[#00F0FF]">mmrobeerto@gmail.com</span></div>
+                    <div>• Dominio Oficial: <span className="text-[#00FF66]">https://www.tzanix.com</span></div>
                   </div>
                 </div>
               )}
 
-              {/* CONTENIDO: PRIVACIDAD Y SEGURIDAD */}
               {activeModal === 'privacy' && (
-                <div className="space-y-8 sm:space-y-10">
-                  <div className="text-center max-w-2xl mx-auto space-y-3">
-                    <span className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-red-500/30 bg-red-950/20 text-red-400 text-[10px] sm:text-xs font-mono shadow-[0_0_15px_rgba(255,0,60,0.1)]">
-                      <EyeOff className="w-3.5 h-3.5" />
-                      <span>ZERO-KNOWLEDGE DATA GOVERNANCE</span>
-                    </span>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight">
-                      Soberanía y Privacidad de Datos
-                    </h2>
-                    <p className="text-slate-400 font-mono text-xs sm:text-sm leading-relaxed">
-                      Nuestros sidecars y firewalls L7 están diseñados bajo la filosofía <strong>Zero-Retention</strong>. Tu infraestructura, tus llaves, tus datos.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Puntos Clave de Privacidad */}
-                    <div className="glass-panel p-5 sm:p-6 rounded-xl border-l-2 border-l-red-500/50 bg-black/40">
-                      <div className="flex items-start space-x-4">
-                        <div className="p-2 bg-red-950/30 rounded text-red-400 flex-shrink-0"><EyeOff className="w-5 h-5 sm:w-6 sm:h-6" /></div>
-                        <div>
-                          <h3 className="text-sm font-bold text-white mb-2">Arquitectura de Conocimiento Cero</h3>
-                          <p className="text-slate-400 text-xs leading-relaxed">
-                            Procesadores de seguridad corriendo 100% en RAM. <strong>No almacenamos peticiones, no entrenamos modelos, ni monetizamos</strong> tus datos.
-                          </p>
-                        </div>
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="p-6 rounded-xl border border-white/10 bg-black/50 space-y-2">
+                      <div className="flex items-center gap-2 text-[#FF3366] font-bold text-sm">
+                        <EyeOff className="w-5 h-5" />
+                        <span>Conocimiento Cero (Zero-Knowledge)</span>
                       </div>
+                      <p className="text-slate-400 text-xs leading-relaxed">
+                        TZANiX Æther-Core evalúa tensores de cabeceras y entropía de Shannon en registros de CPU/FPGA sin almacenar ni inspeccionar datos privados de tus usuarios o pacientes.
+                      </p>
                     </div>
-                    <div className="glass-panel p-5 sm:p-6 rounded-xl border-l-2 border-l-cyan-500/50 bg-black/40">
-                      <div className="flex items-start space-x-4">
-                        <div className="p-2 bg-cyan-950/30 rounded text-tzCyan flex-shrink-0"><Lock className="w-5 h-5 sm:w-6 sm:h-6" /></div>
-                        <div>
-                          <h3 className="text-sm font-bold text-white mb-2">Procesamiento Volátil</h3>
-                          <p className="text-slate-400 text-xs leading-relaxed">
-                            Ejecución a nivel de Kernel en memoria contigua garantizando <strong>Zero-Memory Leaks</strong>. Telemetría de ataques guardada solo en tu servidor local.
-                          </p>
-                        </div>
+                    <div className="p-6 rounded-xl border border-white/10 bg-black/50 space-y-2">
+                      <div className="flex items-center gap-2 text-[#00F0FF] font-bold text-sm">
+                        <Lock className="w-5 h-5" />
+                        <span>Ejecución Determinista sin Heap</span>
                       </div>
+                      <p className="text-slate-400 text-xs leading-relaxed">
+                        Diseñado bajo estrictas directivas <code>#![no_std]</code> y memoria estática alineada a caché L1 (64 bytes), eliminando fugas de memoria y vulnerabilidades de desbordamiento.
+                      </p>
                     </div>
-                    <div className="glass-panel p-5 sm:p-6 rounded-xl border-l-2 border-l-cyan-500/50 bg-black/40">
-                      <div className="flex items-start space-x-4">
-                        <div className="p-2 bg-cyan-950/30 rounded text-tzCyan flex-shrink-0"><ShieldAlert className="w-5 h-5 sm:w-6 sm:h-6" /></div>
-                        <div>
-                          <h3 className="text-sm font-bold text-white mb-2">Soberanía & Despliegue Aislado</h3>
-                          <p className="text-slate-400 text-xs leading-relaxed">
-                            En formato Reverse Proxy, Sidecar o Docker, tú mantienes el control absoluto. Ningún dato sensible abandona tu red interna.
-                          </p>
-                        </div>
+                    <div className="p-6 rounded-xl border border-white/10 bg-black/50 space-y-2">
+                      <div className="flex items-center gap-2 text-[#00FF66] font-bold text-sm">
+                        <ShieldAlert className="w-5 h-5" />
+                        <span>Soberanía On-Premise &amp; Cloud</span>
                       </div>
+                      <p className="text-slate-400 text-xs leading-relaxed">
+                        Se despliega íntegramente dentro de tu propio servidor o centro de datos. Ninguna métrica ni paquete sale hacia nubes de terceros.
+                      </p>
                     </div>
-                    <div className="glass-panel p-5 sm:p-6 rounded-xl border-l-2 border-l-cyan-500/50 bg-black/40">
-                      <div className="flex items-start space-x-4">
-                        <div className="p-2 bg-cyan-950/30 rounded text-tzCyan flex-shrink-0"><FileKey2 className="w-5 h-5 sm:w-6 sm:h-6" /></div>
-                        <div>
-                          <h3 className="text-sm font-bold text-white mb-2">Estándares & Cumplimiento</h3>
-                          <p className="text-slate-400 text-xs leading-relaxed">
-                            Arquitectura <strong>Zero-Retention</strong> diseñada para ser compatible con GDPR y blindar las auditorías de SOC 2 e ISO 27001 de tus servidores.
-                          </p>
-                        </div>
+                    <div className="p-6 rounded-xl border border-white/10 bg-black/50 space-y-2">
+                      <div className="flex items-center gap-2 text-[#FFB703] font-bold text-sm">
+                        <FileKey2 className="w-5 h-5" />
+                        <span>Auditoría Forense SOC2 / ISO-27001 / HIPAA</span>
                       </div>
+                      <p className="text-slate-400 text-xs leading-relaxed">
+                        Generación instantánea de reportes forenses JSON firmados con ID de incidente, ASN, GeoIP y taxonomía del vector bloqueado para cumplimiento regulatorio.
+                      </p>
                     </div>
-                  </div>
-
-                  <div className="text-center p-5 sm:p-6 glass-panel rounded-xl bg-gradient-to-b from-transparent to-cyan-950/20 border-b border-cyan-500/30 relative">
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-1 bg-tzCyan shadow-[0_0_20px_#00f0ff]"></div>
-                    <h3 className="text-base sm:text-lg font-black metallic-text mb-2 sm:mb-3">El Poder del Silencio Operativo</h3>
-                    <p className="text-slate-300 font-mono text-xs max-w-2xl mx-auto leading-relaxed italic">
-                      "En TZANiX creemos que la mejor manera de proteger un dato, es nunca poseerlo. Construimos motores ciegos y veloces; procesan el caos inercial y te entregan tráfico 100% limpio, olvidándolo todo al siguiente milisegundo."
-                    </p>
-                    <p className="text-tzCyan font-mono font-bold text-[10px] mt-3 uppercase tracking-[0.2em]">
-                      — Mario R.
-                    </p>
                   </div>
                 </div>
               )}
-              
             </div>
           </div>
         </div>
@@ -206,5 +216,3 @@ const CompanyModals = () => {
 };
 
 export default CompanyModals;
-
-
