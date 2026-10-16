@@ -1,218 +1,260 @@
-import React, { useState, useEffect } from 'react';
-import { ShieldAlert, EyeOff, Lock, FileKey2, Rocket, Target, Zap, X, Mail, Phone, Globe } from 'lucide-react';
+import React, { useState } from 'react';
 
-const CompanyModals = () => {
+export default function CompanyModals() {
   const [activeModal, setActiveModal] = useState(null);
 
-  const closeModal = () => setActiveModal(null);
+  const modalsContent = {
+    mision: {
+      tag: 'PROPÓSITO CORPORATIVO // DEFENSA DE INFRAESTRUCTURA CRÍTICA',
+      title: 'Nuestra Misión y Visión',
+      body: (
+        <div className="space-y-6 text-slate-300 leading-relaxed text-sm">
+          <div className="p-5 bg-[#06090F] border-l-4 border-[#38BDF8]">
+            <h4 className="text-[#38BDF8] font-mono text-xs uppercase tracking-widest mb-2">
+              NUESTRA MISIÓN
+            </h4>
+            <p className="text-white text-base font-medium leading-relaxed">
+              Erradicar el tiempo de inactividad y blindar las infraestructuras digitales más críticas del planeta (hospitales, sistemas financieros HFT, telecomunicaciones y centros de datos soberanos) mediante defensa cibernética determinista en silicio que neutraliza ataques en nanosegundos antes de que toquen el sistema operativo.
+            </p>
+          </div>
 
-  useEffect(() => {
-    if (activeModal) {
-      document.body.style.overflow = 'hidden';
-      const handleKeyDown = (e) => {
-        if (e.key === 'Escape') closeModal();
-      };
-      window.addEventListener('keydown', handleKeyDown);
-      return () => {
-        document.body.style.overflow = '';
-        window.removeEventListener('keydown', handleKeyDown);
-      };
-    } else {
-      document.body.style.overflow = '';
+          <div className="p-5 bg-[#06090F] border-l-4 border-[#38BDF8]">
+            <h4 className="text-[#38BDF8] font-mono text-xs uppercase tracking-widest mb-2">
+              NUESTRA VISIÓN 2030
+            </h4>
+            <p className="text-white text-base font-medium leading-relaxed">
+              Convertir la Arquitectura Tridente de TZANIX en el estándar mundial de seguridad en capa física (Fast-Path) integrado en cada tarjeta de red SmartNIC, DPU y switch de centro de datos, logrando una Internet inmune por diseño a ataques volumétricos y anomalías de Inteligencia Artificial.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            <div className="p-4 bg-[#06090F] border border-slate-800">
+              <div className="text-xs font-mono text-[#38BDF8] uppercase mb-1">Determinismo Físico</div>
+              <p className="text-xs text-slate-400">Cero recolector de basura, cero asignaciones en el Heap (#![no_std]) y latencia garantizada de 10.0 ns en FPGA.</p>
+            </div>
+            <div className="p-4 bg-[#06090F] border border-slate-800">
+              <div className="text-xs font-mono text-[#38BDF8] uppercase mb-1">Precisión Matemática</div>
+              <p className="text-xs text-slate-400">Entropía de Shannon en punto fijo Q16.16 combinada con análisis espectral Radix-2 FFT-16 en GPU.</p>
+            </div>
+            <div className="p-4 bg-[#06090F] border border-slate-800">
+              <div className="text-xs font-mono text-[#38BDF8] uppercase mb-1">Inmunidad Colectiva</div>
+              <p className="text-xs text-slate-400">Sincronización de estado vía RDMA RoCEv2 entre clústeres completos sin intervención de la CPU.</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    privacidad: {
+      tag: 'ARQUITECTURA ZERO-RETENTION // CUMPLIMIENTO HIPAA, PCI-DSS & GDPR',
+      title: 'Privacidad por Diseño y Cumplimiento Normativo',
+      body: (
+        <div className="space-y-4 text-slate-300 leading-relaxed text-sm">
+          <p>
+            En sectores altamente regulados como <strong className="text-white">Software Médico (HIPAA)</strong>, <strong className="text-white">Banca y Finanzas (PCI-DSS / SOC2)</strong> e infraestructura gubernamental, la privacidad de los datos en tránsito es innegociable.
+          </p>
+          <ul className="space-y-3 bg-[#06090F] p-5 border border-slate-800 font-mono text-xs">
+            <li className="flex items-start space-x-3">
+              <span className="text-[#38BDF8] font-bold">[01]</span>
+              <span><strong>Zero-Payload Storage:</strong> TZANIX Æther-Core evalúa la distribución matemática de entropía y el espectro de frecuencias en registros volátiles de silicio (BRAM). Jamás almacena ni copia expedientes clínicos, claves privadas ni datos personales en disco.</span>
+            </li>
+            <li className="flex items-start space-x-3">
+              <span className="text-[#38BDF8] font-bold">[02]</span>
+              <span><strong>Ejecución On-Premise Air-Gapped:</strong> El contenedor Docker y el bitstream FPGA operan 100% dentro del perímetro del cliente sin depender de nubes de terceros para tomar decisiones de bloqueo.</span>
+            </li>
+            <li className="flex items-start space-x-3">
+              <span className="text-[#38BDF8] font-bold">[03]</span>
+              <span><strong>Auditoría Forense Certificada:</strong> Los reportes JSON generados documentan únicamente metadatos de red (IP atacante, ASN, vector de ataque, umbral CSR Q16.16 y marca de tiempo en nanosegundos) listos para auditorías regulatorias.</span>
+            </li>
+          </ul>
+        </div>
+      )
+    },
+    contacto: {
+      tag: 'CANAL EJECUTIVO DIRECTO // INGENIERÍA & VENTAS ENTERPRISE',
+      title: 'Contacto Directo & Despliegue de Pruebas de Concepto (PoC)',
+      body: (
+        <div className="space-y-5 text-slate-300 text-sm">
+          <p>
+            Nuestro equipo de arquitectura de silicio y ciberseguridad atiende directamente a directores de tecnología (CTO), oficiales de seguridad (CISO), hospitales, plataformas médicas y centros de datos para configurar demostraciones en vivo y despliegues en el mismo día.
+          </p>
+
+          <div className="bg-[#06090F] p-5 border border-slate-800 space-y-3 font-mono text-xs">
+            <div className="flex flex-col sm:flex-row sm:justify-between border-b border-slate-800 pb-2 gap-1">
+              <span className="text-slate-500">CORREO DIRECTO DE INGENIERÍA Y LICENCIAS:</span>
+              <a href="mailto:mmrobeerto@gmail.com" className="text-[#38BDF8] hover:underline font-bold">mmrobeerto@gmail.com</a>
+            </div>
+            <div className="flex flex-col sm:flex-row sm:justify-between border-b border-slate-800 pb-2 gap-1">
+              <span className="text-slate-500">LÍNEA DIRECTA / WHATSAPP EMPRESARIAL:</span>
+              <a href="https://wa.me/526647247803" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#38BDF8] font-bold">+52 664 724 7803</a>
+            </div>
+            <div className="flex flex-col sm:flex-row sm:justify-between border-b border-slate-800 pb-2 gap-1">
+              <span className="text-slate-500">TIEMPO DE RESPUESTA INGENIERÍA (SLA):</span>
+              <span className="text-[#38BDF8]">&lt; 2 Horas (Soporte Directo 24/7)</span>
+            </div>
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+              <span className="text-slate-500">MODALIDADES DISPONIBLES:</span>
+              <span className="text-white">Contenedor Docker / Librería C-FFI / Appliance FPGA+DPU</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <a
+              href="mailto:mmrobeerto@gmail.com?subject=Solicitud%20de%20Licencia%20PoC%20TZANIX%20Aether-Core&body=Hola%20equipo%20TZANIX%2C%0A%0ANos%20interesa%20evaluar%20TZANIX%20Aether-Core%20en%20nuestra%20infraestructura.%0A%0AEmpresa%3A%20%0AServidores%20a%20proteger%3A%20%0ATel%C3%A9fono%3A%20"
+              className="block w-full text-center py-3.5 bg-[#38BDF8] hover:bg-white text-[#06090F] font-mono font-bold text-xs uppercase tracking-widest transition"
+            >
+              Enviar Correo a Ingeniería
+            </a>
+            <a
+              href="https://wa.me/526647247803?text=Hola%2C%20me%20interesa%20una%20demostraci%C3%B3n%20y%20licencia%20PoC%20de%20TZANIX%20Aether-Core%20para%20nuestro%20servidor."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center py-3.5 bg-[#06090F] hover:bg-slate-800 text-white border border-slate-700 font-mono font-bold text-xs uppercase tracking-widest transition"
+            >
+              Contactar por WhatsApp Directo
+            </a>
+          </div>
+        </div>
+      )
     }
-  }, [activeModal]);
+  };
 
   return (
-    <section id="corporate-dna" className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-20 border-t border-white/10 space-y-16">
-      {/* SECCIÓN VISIBLE DE MISIÓN, VISIÓN, VALORES Y CONTACTO EJECUTIVO ESTILO SPACEX */}
-      <div className="border-b border-white/20 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <p className="text-xs font-mono font-bold tracking-[0.35em] uppercase text-[#00F0FF] mb-2">
-            CORPORATIVO // SOBERANÍA TECNOLÓGICA
-          </p>
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase text-white">
-            MISIÓN, VISIÓN Y GOBERNANZA
-          </h2>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <button
-            onClick={() => setActiveModal('mission')}
-            className="btn-spacex text-xs"
-          >
-            <span>ADN CORPORATIVO DETALLADO</span>
-          </button>
-          <button
-            onClick={() => setActiveModal('privacy')}
-            className="btn-spacex !border-white/30 text-white/80 text-xs"
-          >
-            <span>POLÍTICA ZERO-RETENTION</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Tarjetas Visibles de Misión, Visión y Valores */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="bg-[#141419] border border-[#2A2A35] p-8 space-y-4 hover:border-[#00F0FF]/50 transition">
-          <div className="flex items-center gap-3 text-[#00F0FF]">
-            <Target className="w-6 h-6" />
-            <h3 className="text-lg font-black uppercase tracking-wider text-white">Nuestra Misión</h3>
-          </div>
-          <p className="text-slate-300 text-sm leading-relaxed font-light">
-            Blindar la infraestructura crítica mundial a la velocidad física de la luz en el silicio. Desarrollamos motores deterministas de defensa cibernética (<strong>TZANiX Æther-Core</strong>) que erradican ataques DDoS volumétricos y botnets sigilosas en <strong>10.0 nanosegundos</strong>, garantizando continuidad operativa absoluta con <strong>0.00% de falsos positivos</strong>.
-          </p>
-        </div>
-
-        <div className="bg-[#141419] border border-[#2A2A35] p-8 space-y-4 hover:border-[#D4AF37]/60 transition">
-          <div className="flex items-center gap-3 text-[#FFB703]">
-            <Rocket className="w-6 h-6" />
-            <h3 className="text-lg font-black uppercase tracking-wider text-white">Nuestra Visión</h3>
-          </div>
-          <p className="text-slate-300 text-sm leading-relaxed font-light">
-            Convertir a <strong>TZANiX</strong> en el estándar global de defensa autónoma en el <em>Fast-Path</em> para centros de datos, instituciones financieras (HFT/FinTech), redes hospitalarias y telecomunicaciones, reemplazando los firewalls lentos basados en sistema operativo por inteligencia matemática en FPGA, GPU y RDMA.
-          </p>
-        </div>
-
-        <div className="bg-[#141419] border border-[#2A2A35] p-8 space-y-4 hover:border-[#00FF66]/50 transition">
-          <div className="flex items-center gap-3 text-[#00FF66]">
-            <Zap className="w-6 h-6" />
-            <h3 className="text-lg font-black uppercase tracking-wider text-white">Filosofía Zero-Retention</h3>
-          </div>
-          <p className="text-slate-300 text-sm leading-relaxed font-light">
-            La forma más segura de proteger los datos de una corporación es nunca almacenarlos. Nuestro motor opera 100% en registros de silicio y memoria volátil (<code>#![no_std]</code>, Zero-Heap), inspeccionando la geometría y entropía de cada paquete sin tocar jamás la privacidad del payload del cliente.
-          </p>
-        </div>
-      </div>
-
-      {/* Bloque Directo de Contacto Ejecutivo & Adquisición B2B */}
-      <div id="contacto" className="bg-gradient-to-r from-[#141419] via-[#0E131F] to-[#141419] border border-[#00F0FF]/40 p-8 sm:p-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 shadow-[0_0_50px_rgba(0,240,255,0.08)]">
-        <div className="space-y-3 max-w-2xl">
-          <span className="text-xs font-mono font-bold tracking-[0.3em] uppercase text-[#00F0FF]">
-            CONTACTO CORPORATIVO // LICENCIAMIENTO ENTERPRISE &amp; APPLIANCES
-          </span>
-          <h3 className="text-2xl sm:text-4xl font-black uppercase text-white tracking-tight">
-            BLINDA TU INFRAESTRUCTURA HOY MISMO
-          </h3>
-          <p className="text-slate-300 text-sm leading-relaxed">
-            Agenda una demostración técnica en vivo con ingeniería, solicita una Prueba de Concepto (PoC) guiada en tus servidores o cotiza licencias anuales para Docker, SmartNIC NVIDIA BlueField y tarjetas FPGA.
-          </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row lg:flex-col gap-4 w-full lg:w-auto font-mono text-xs">
-          <a
-            href="mailto:mmrobeerto@gmail.com?subject=Solicitud%20PoC%20Enterprise%20-%20TZANiX%20Aether-Core"
-            className="flex items-center justify-center gap-3 px-6 py-4 bg-[#00F0FF] text-black font-bold uppercase tracking-widest hover:brightness-110 transition shadow-[0_0_20px_rgba(0,240,255,0.35)]"
-          >
-            <Mail className="w-4 h-4" />
-            <span>mmrobeerto@gmail.com</span>
-          </a>
-          <a
-            href="https://wa.me/526647247803?text=Hola,%20me%20interesa%20una%20demo%20corporativa%20de%20TZANiX%20Aether-Core"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-3 px-6 py-4 border border-white/30 bg-black/70 text-white font-bold uppercase tracking-widest hover:border-[#00FF66] hover:text-[#00FF66] transition"
-          >
-            <Phone className="w-4 h-4" />
-            <span>LÍNEA DIRECTA: +52 664 724 7803</span>
-          </a>
-        </div>
-      </div>
-
-      {/* MODAL OVERLAY */}
-      {activeModal && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/95 backdrop-blur-xl animate-fadeIn"
-          onClick={closeModal}
-        >
-          <div
-            className="relative w-full max-w-4xl max-h-[90vh] flex flex-col border border-white/20 bg-zinc-950 shadow-[0_0_60px_rgba(0,240,255,0.15)] rounded-lg overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/90">
-              <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#00F0FF] uppercase">
-                {activeModal === 'mission' ? 'ADN TZANiX // ARQUITECTURA TRIDENTE' : 'GOBERNANZA DE DATOS // ZERO-KNOWLEDGE'}
-              </span>
+    <>
+      {/* SECCIÓN VISIBLE EN PÁGINA: MISIÓN, VISIÓN, PRIVACIDAD Y CONTACTO ESTILO SPACEX */}
+      <section id="corporate-dna" className="w-full py-28 px-5 sm:px-[4vw] bg-[#06090F] border-t border-slate-800/90 scroll-mt-20">
+        <div className="max-w-7xl mx-auto space-y-16">
+          
+          <div className="border-b border-slate-800 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-mono font-semibold tracking-[0.3em] uppercase text-[#38BDF8] mb-2">
+                IDENTIDAD CORPORATIVA · GOBERNANZA · CONTACTO EJECUTIVO
+              </p>
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight uppercase text-white">
+                MISIÓN, VISIÓN Y COMPROMISO SOBERANO
+              </h2>
+            </div>
+            <div className="flex flex-wrap gap-3 font-mono text-xs">
               <button
-                onClick={closeModal}
-                className="p-1.5 text-white/70 hover:text-[#FF3366] rounded-full transition"
-                aria-label="Cerrar ventana"
+                onClick={() => setActiveModal('mision')}
+                className="px-4 py-2 border border-slate-700 hover:border-[#38BDF8] text-slate-300 hover:text-white transition uppercase cursor-pointer"
               >
-                <X className="w-6 h-6" />
+                Ver Manifiesto Completo
+              </button>
+              <button
+                onClick={() => setActiveModal('privacidad')}
+                className="px-4 py-2 border border-slate-700 hover:border-[#38BDF8] text-slate-300 hover:text-white transition uppercase cursor-pointer"
+              >
+                Política Zero-Retention
               </button>
             </div>
+          </div>
 
-            <div className="overflow-y-auto p-6 sm:p-10 space-y-8">
-              {activeModal === 'mission' && (
-                <div className="space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-3 bg-black/60 p-6 border border-white/10 rounded-lg">
-                      <h3 className="text-lg font-bold text-[#00F0FF] uppercase">Misión Institucional</h3>
-                      <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-mono">
-                        Erradicar la latencia y la vulnerabilidad en las redes críticas del planeta mediante motores matemáticos deterministas en Rust (#![no_std]) y silicio (FPGA/GPU/RDMA), bloqueando ataques en 10.0 nanosegundos con cero falsos positivos.
-                      </p>
-                    </div>
-                    <div className="space-y-3 bg-black/60 p-6 border border-white/10 rounded-lg">
-                      <h3 className="text-lg font-bold text-[#FFB703] uppercase">Visión Tecnológica</h3>
-                      <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-mono">
-                        Liderar la transición global desde firewalls de software obsoletos hacia la Arquitectura Tridente: defensa autónoma en línea donde cada paquete se valida a velocidad de cable y cada clúster comparte inmunidad instantánea en microsegundos.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="p-6 bg-black/60 border border-white/10 rounded-lg font-mono text-xs text-slate-300 space-y-2">
-                    <div className="text-white font-bold uppercase">Contacto Comercial y Alianzas Estratégicas:</div>
-                    <div>• Email Oficial: <span className="text-[#00F0FF]">mmrobeerto@gmail.com</span></div>
-                    <div>• Dominio Oficial: <span className="text-[#00FF66]">https://www.tzanix.com</span></div>
-                  </div>
-                </div>
-              )}
+          {/* 3 PILARES CORPORATIVOS VISIBLES (PALETA UNIFICADA) */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="bg-[#0B111E] border border-slate-800 p-8 space-y-4 hover:border-[#38BDF8]/60 transition-colors">
+              <div className="text-xs font-mono font-semibold text-[#38BDF8] tracking-[0.25em] uppercase">
+                01 // NUESTRA MISIÓN
+              </div>
+              <h3 className="text-2xl font-bold text-white uppercase tracking-tight">
+                Defensa Determinista en Tiempo Real
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Proteger la continuidad operativa de hospitales, plataformas médicas, instituciones financieras y centros de datos eliminando ataques DDoS, botnets y anomalías de red en <strong className="text-white">10.0 nanosegundos</strong>, antes de que consuman un solo ciclo de CPU del servidor.
+              </p>
+            </div>
 
-              {activeModal === 'privacy' && (
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="p-6 rounded-xl border border-white/10 bg-black/50 space-y-2">
-                      <div className="flex items-center gap-2 text-[#FF3366] font-bold text-sm">
-                        <EyeOff className="w-5 h-5" />
-                        <span>Conocimiento Cero (Zero-Knowledge)</span>
-                      </div>
-                      <p className="text-slate-400 text-xs leading-relaxed">
-                        TZANiX Æther-Core evalúa tensores de cabeceras y entropía de Shannon en registros de CPU/FPGA sin almacenar ni inspeccionar datos privados de tus usuarios o pacientes.
-                      </p>
-                    </div>
-                    <div className="p-6 rounded-xl border border-white/10 bg-black/50 space-y-2">
-                      <div className="flex items-center gap-2 text-[#00F0FF] font-bold text-sm">
-                        <Lock className="w-5 h-5" />
-                        <span>Ejecución Determinista sin Heap</span>
-                      </div>
-                      <p className="text-slate-400 text-xs leading-relaxed">
-                        Diseñado bajo estrictas directivas <code>#![no_std]</code> y memoria estática alineada a caché L1 (64 bytes), eliminando fugas de memoria y vulnerabilidades de desbordamiento.
-                      </p>
-                    </div>
-                    <div className="p-6 rounded-xl border border-white/10 bg-black/50 space-y-2">
-                      <div className="flex items-center gap-2 text-[#00FF66] font-bold text-sm">
-                        <ShieldAlert className="w-5 h-5" />
-                        <span>Soberanía On-Premise &amp; Cloud</span>
-                      </div>
-                      <p className="text-slate-400 text-xs leading-relaxed">
-                        Se despliega íntegramente dentro de tu propio servidor o centro de datos. Ninguna métrica ni paquete sale hacia nubes de terceros.
-                      </p>
-                    </div>
-                    <div className="p-6 rounded-xl border border-white/10 bg-black/50 space-y-2">
-                      <div className="flex items-center gap-2 text-[#FFB703] font-bold text-sm">
-                        <FileKey2 className="w-5 h-5" />
-                        <span>Auditoría Forense SOC2 / ISO-27001 / HIPAA</span>
-                      </div>
-                      <p className="text-slate-400 text-xs leading-relaxed">
-                        Generación instantánea de reportes forenses JSON firmados con ID de incidente, ASN, GeoIP y taxonomía del vector bloqueado para cumplimiento regulatorio.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
+            <div className="bg-[#0B111E] border border-slate-800 p-8 space-y-4 hover:border-[#38BDF8]/60 transition-colors">
+              <div className="text-xs font-mono font-semibold text-[#38BDF8] tracking-[0.25em] uppercase">
+                02 // NUESTRA VISIÓN
+              </div>
+              <h3 className="text-2xl font-bold text-white uppercase tracking-tight">
+                Estándar Global de Silicio Autónomo
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Liderar la transición mundial desde los firewalls de software lentos hacia la <strong className="text-white">Arquitectura Tridente en Silicio (FPGA + GPU + RDMA)</strong>, dotando a cada infraestructura crítica de inmunidad colectiva instantánea y cero falsos positivos.
+              </p>
+            </div>
+
+            <div className="bg-[#0B111E] border border-slate-800 p-8 space-y-4 hover:border-[#38BDF8]/60 transition-colors">
+              <div className="text-xs font-mono font-semibold text-[#38BDF8] tracking-[0.25em] uppercase">
+                03 // FILOSOFÍA ZERO-RETENTION
+              </div>
+              <h3 className="text-2xl font-bold text-white uppercase tracking-tight">
+                Privacidad Absoluta (HIPAA &amp; PCI-DSS)
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Inspeccionamos la física matemática del paquete (entropía Q16.16 y espectro FFT-16) sin almacenar jamás datos confidenciales ni historiales médicos. Cumplimiento nativo para auditorías <strong className="text-white">SOC2 Type II, ISO-27001 y HIPAA</strong>.
+              </p>
+            </div>
+          </div>
+
+          {/* BLOQUE DE CONTACTO EJECUTIVO DIRECTO */}
+          <div id="contacto" className="bg-[#0B111E] border border-slate-800 p-8 sm:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 scroll-mt-24">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 text-xs font-mono text-[#38BDF8] uppercase tracking-[0.25em]">
+                <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
+                <span>ATENCIÓN DIRECTA A EMPRESAS, HOSPITALES Y CENTROS DE DATOS</span>
+              </div>
+              <h3 className="text-2xl sm:text-4xl font-extrabold text-white uppercase tracking-tight">
+                ¿LISTO PARA BLINDAR TU INFRAESTRUCTURA HOY MISMO?
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Agenda una demostración técnica en vivo o solicita tu licencia PoC de 14 días para desplegar <strong className="text-white">TZANIX Æther-Core</strong> en tus servidores en menos de 5 minutos.
+              </p>
+              <div className="pt-2 flex flex-wrap gap-6 font-mono text-xs text-slate-300">
+                <span>CORREO: <strong className="text-[#38BDF8]">mmrobeerto@gmail.com</strong></span>
+                <span>TEL / WHATSAPP: <strong className="text-white">+52 664 724 7803</strong></span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+              <a
+                href="mailto:mmrobeerto@gmail.com?subject=Solicitud%20Comercial%20TZANIX%20Aether-Core"
+                className="btn-spacex text-center justify-center"
+              >
+                <span>CONTACTAR POR CORREO &rarr;</span>
+              </a>
+              <button
+                onClick={() => setActiveModal('contacto')}
+                className="btn-spacex !border-[#38BDF8] !text-[#38BDF8] hover:!bg-[#38BDF8] hover:!text-[#06090F] text-center justify-center"
+              >
+                <span>ABRIR FICHA DE CONTACTO</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* MODAL FLOTANTE PARA DETALLES */}
+      {activeModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+          onClick={() => setActiveModal(null)}
+        >
+          <div
+            className="relative w-full max-w-2xl bg-[#0B111E] border border-slate-700 p-6 sm:p-8 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setActiveModal(null)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white font-mono text-xs px-2.5 py-1 border border-slate-700 cursor-pointer"
+            >
+              [ESC / CERRAR]
+            </button>
+
+            <div className="space-y-4">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#38BDF8]">
+                {modalsContent[activeModal].tag}
+              </span>
+              <h3 className="text-2xl font-bold text-white border-b border-slate-800 pb-3 uppercase">
+                {modalsContent[activeModal].title}
+              </h3>
+              <div className="pt-2">{modalsContent[activeModal].body}</div>
             </div>
           </div>
         </div>
       )}
-    </section>
+    </>
   );
-};
-
-export default CompanyModals;
+}

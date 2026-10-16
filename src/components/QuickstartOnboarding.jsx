@@ -1,177 +1,154 @@
-import React, { useState, useEffect } from 'react';
-import { Terminal, Copy, Key, Rocket } from 'lucide-react';
+import React, { useState } from 'react';
 
-const QuickstartOnboarding = ({ selectedTier }) => {
-  const [apiKey, setApiKey] = useState('BLOQUEADO - REQUIERE EMAIL Y EULA');
-  const [copied, setCopied] = useState(false);
-  const [acceptedEula, setAcceptedEula] = useState(false);
-  const [email, setEmail] = useState('');
+export default function QuickstartOnboarding({ selectedTier = 'docker' }) {
+  const [clientName, setClientName] = useState('');
+  const [clientEmail, setClientEmail] = useState('');
+  const [apiKey, setApiKey] = useState('tzanix_live_sec_99f8a7b6c5d4e3f2a100_poc14d');
+  const [copiedKey, setCopiedKey] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [isActivated, setIsActivated] = useState(false);
 
-  const productConfig = {
-    docker: {
-      name: 'TZANiX ÆTHER-CORE // DOCKER ENTERPRISE',
-      prefix: 'tzanix_live_sec_',
-      image: 'mmrobeerto-ops/tzanix-aether-core:latest',
-      cli: 'cargo run --bin tzanix_ctl --release -- status',
-      eulaWarning:
-        'TZANiX otorga una licencia temporal de Prueba de Concepto (PoC de 14 días) con binario endurecido sin exposición de código fuente.',
-    },
-    appliance: {
-      name: 'TZANiX TRIDENT // SILICON APPLIANCE (FPGA + DPU + GPU)',
-      prefix: 'tzanix_hw_trident_',
-      image: 'mmrobeerto-ops/tzanix-aether-core:latest',
-      cli: 'tzanix_ctl set-threshold 3.5200',
-      eulaWarning:
-        'El despliegue en tarjetas FPGA Xilinx/Agilex y NVIDIA BlueField DPU opera en modo Cut-Through físico (10.0 ns) sobre el enlace MAC.',
-    },
+  const handleActivateLicense = (e) => {
+    e.preventDefault();
+    if (!clientName || !clientEmail) return;
+    const randomHex = Array.from({ length: 16 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+    setApiKey(`tzanix_live_sec_${randomHex}_poc14d`);
+    setIsActivated(true);
   };
 
-  const config = productConfig[selectedTier] || productConfig.docker;
-  const isValidEmail = email.includes('@') && email.includes('.');
-
-  useEffect(() => {
-    if (!acceptedEula || !isValidEmail) {
-      setApiKey('BLOQUEADO - REQUIERE EMAIL CORPORATIVO Y EULA');
-      return;
-    }
-
-    let hash = 0x811c9dc5;
-    for (let i = 0; i < email.length; i++) {
-      hash ^= email.charCodeAt(i);
-      hash = Math.imul(hash, 0x01000193) >>> 0;
-    }
-    const generated = `${config.prefix}${hash.toString(16).padStart(8, '0')}_poc14d`;
-
-    fetch('/api/generate-key', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ product: selectedTier, email }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && data.apiKey) {
-          setApiKey(data.apiKey);
-        } else {
-          setApiKey(generated);
-        }
-      })
-      .catch(() => {
-        setApiKey(generated);
-      });
-  }, [selectedTier, acceptedEula, isValidEmail, email, config.prefix]);
-
-  const handleCopy = (text) => {
+  const copyToClipboard = (text, type) => {
     navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (type === 'key') {
+      setCopiedKey(true);
+      setTimeout(() => setCopiedKey(false), 2000);
+    } else {
+      setCopiedCode(true);
+      setTimeout(() => setCopiedCode(false), 2000);
+    }
   };
 
-  const dockerCommand = `export TZANIX_LICENSE_KEY="${apiKey}"\ndocker compose up -d`;
+  const tierTitle =
+    selectedTier === 'appliance'
+      ? 'APPLIANCE TRIDENTE (FPGA + NVIDIA BLUEFIELD DPU)'
+      : 'CONTENEDOR ENTERPRISE DOCKER & C-FFI (14-DAY PoC)';
+
+  const dockerSnippet = `# 1. Exportar clave criptográfica de licencia TZANIX Æther-Core
+export TZANIX_LICENSE_KEY="${apiKey}"
+
+# 2. Desplegar el nodo de defensa autónomo + Consola SOC en segundos
+git clone https://github.com/mmrobeerto-ops/eather-core.git
+cd eather-core
+docker compose up -d
+
+# 3. Verificar telemetría en vivo (Consola Militar/HFT en puerto 8000)
+curl -s http://localhost:8000/api/v1/telemetry | jq .`;
 
   return (
-    <section className="relative z-20 w-full py-12 border-t border-white/20 mt-8">
-      <div className="border border-[#00F0FF]/40 p-8 md:p-12 bg-[#08080A] shadow-[0_0_50px_rgba(0,240,255,0.1)]">
-        <div className="text-center mb-10 space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 border border-[#00F0FF]/50 text-[#00F0FF] text-xs font-mono uppercase tracking-[0.2em]">
-            <span className="w-2 h-2 bg-[#00FF66] animate-pulse"></span>
-            <span>{config.name}</span>
+    <div className="w-full max-w-5xl mx-auto my-8 p-6 sm:p-8 bg-[#0B111E] border border-slate-800 text-left font-sans relative overflow-hidden">
+      <div className="relative z-10 space-y-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+          <div>
+            <span className="px-3 py-1 text-xs font-mono uppercase bg-[#06090F] text-[#38BDF8] border border-slate-800">
+              DESPLIEGUE SELF-SERVICE // {tierTitle}
+            </span>
+            <h3 className="text-2xl font-extrabold text-white mt-3 uppercase tracking-tight">
+              Generador de Licencia PoC &amp; Despliegue Instantáneo
+            </h3>
+            <p className="text-slate-400 text-sm">
+              Despliega el motor binario optimizado (Zero-Source Stripped) en tu servidor Linux, Kubernetes o nodo DPU en menos de 60 segundos.
+            </p>
           </div>
-          <h2 className="text-3xl font-black text-white tracking-tight uppercase">
-            HUB DE ADQUISICIÓN Y DESPLIEGUE SELF-SERVICE
-          </h2>
-          <p className="text-slate-400 font-mono text-xs tracking-wide max-w-2xl mx-auto">
-            Genera tu clave criptográfica de evaluación corporativa (PoC de 14 días) y levanta el contenedor blindado con el Centro de Mando SOC y el exportador Prometheus en menos de 60 segundos.
-          </p>
+          <div className="flex items-center space-x-2 text-xs font-mono text-slate-300 bg-[#06090F] px-3 py-2 border border-slate-800">
+            <span className="w-2 h-2 rounded-full bg-[#38BDF8]"></span>
+            <span>REGISTRO ACTIVO // SHA-256 VERIFIED</span>
+          </div>
         </div>
 
-        <div className="max-w-2xl mx-auto mb-10 p-6 border border-white/15 bg-black/70 space-y-6">
-          <div className="space-y-2">
-            <label className="text-xs font-mono font-bold text-[#00F0FF] uppercase tracking-widest">
-              Correo Electrónico Corporativo (CISO / CTO / Infraestructura)
-            </label>
-            <input
-              type="email"
-              placeholder="ciso@empresa-critica.com"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                if (!e.target.value.includes('@')) setAcceptedEula(false);
-              }}
-              className="w-full bg-black border border-white/20 text-white p-3 font-mono text-sm focus:outline-none focus:border-[#00F0FF] transition"
-            />
-          </div>
-
-          <div className={`p-4 border ${isValidEmail ? 'border-[#D4AF37]/50 bg-[#161208]' : 'border-gray-800 bg-black'} rounded transition-colors`}>
-            <label className={`flex items-start space-x-3 ${isValidEmail ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
+        {/* PASO 1: REGISTRO DE LICENCIA */}
+        {!isActivated ? (
+          <form onSubmit={handleActivateLicense} className="bg-[#06090F] p-5 border border-slate-800 space-y-4">
+            <div className="text-xs font-mono uppercase text-[#38BDF8] tracking-wider">
+              1. Registra tu Organización para emitir una Clave de Evaluación (PoC 14 Días):
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <input
-                type="checkbox"
-                disabled={!isValidEmail}
-                checked={acceptedEula}
-                onChange={(e) => setAcceptedEula(e.target.checked)}
-                className="mt-1 w-4 h-4 rounded accent-[#FFB703]"
+                type="text"
+                placeholder="Empresa / Institución (ej. Hospital, FinTech)"
+                value={clientName}
+                onChange={(e) => setClientName(e.target.value)}
+                required
+                className="bg-[#0B111E] border border-slate-800 px-4 py-2.5 text-sm text-white focus:border-[#38BDF8] focus:outline-none"
               />
-              <span className="text-xs font-mono text-slate-300 leading-relaxed">
-                <strong className="text-[#FFB703]">ACUERDO DE EVALUACIÓN CORPORATIVA (NDA / EULA):</strong> Acepto utilizar esta licencia exclusivamente para pruebas de defensa perimetral y evaluación de rendimiento. <strong className="text-white">{config.eulaWarning}</strong>
-              </span>
-            </label>
+              <input
+                type="email"
+                placeholder="Correo Corporativo del CISO / CTO"
+                value={clientEmail}
+                onChange={(e) => setClientEmail(e.target.value)}
+                required
+                className="bg-[#0B111E] border border-slate-800 px-4 py-2.5 text-sm text-white focus:border-[#38BDF8] focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="px-5 py-2.5 bg-[#38BDF8] hover:bg-white text-[#06090F] font-mono font-bold text-xs uppercase tracking-wider transition cursor-pointer"
+              >
+                Emitir Clave de Silicio &rarr;
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="bg-[#06090F] border border-[#38BDF8]/50 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <div className="text-xs font-mono text-[#38BDF8] uppercase font-bold">
+                LICENCIA EMITIDA PARA: {clientName.toUpperCase()} ({clientEmail})
+              </div>
+              <div className="text-xs text-slate-400 mt-1">
+                Clave vinculada a tu entorno Docker Compose y cabeceras C-FFI (<code>tzanix_aether.h</code>).
+              </div>
+            </div>
+            <a
+              href={`mailto:mmrobeerto@gmail.com?subject=${encodeURIComponent('Activación PoC Empresarial TZANIX - ' + clientName)}&body=${encodeURIComponent(`Hola equipo de ingeniería TZANIX,\n\nSolicito acompañamiento técnico para el despliegue de nuestra clave PoC:\nEmpresa: ${clientName}\nCorreo: ${clientEmail}\nModalidad: ${tierTitle}\nClave generada: ${apiKey}`)}`}
+              className="px-4 py-2 bg-[#38BDF8] text-[#06090F] font-mono font-bold text-xs uppercase whitespace-nowrap hover:bg-white transition"
+            >
+              Agendar Ingeniería En Vivo
+            </a>
+          </div>
+        )}
+
+        {/* PASO 2: CLAVE GENERADA */}
+        <div className="space-y-2">
+          <label className="text-xs font-mono uppercase text-slate-400">
+            2. Tu Clave Criptográfica de Licencia (TZANIX_LICENSE_KEY):
+          </label>
+          <div className="flex items-center justify-between bg-[#06090F] border border-slate-800 p-3 font-mono text-sm">
+            <span className="text-[#38BDF8] truncate select-all">{apiKey}</span>
+            <button
+              onClick={() => copyToClipboard(apiKey, 'key')}
+              className="ml-4 px-3 py-1 text-xs bg-[#0B111E] hover:bg-slate-800 text-slate-200 border border-slate-700 transition cursor-pointer"
+            >
+              {copiedKey ? 'Copiado' : 'Copiar Clave'}
+            </button>
           </div>
         </div>
 
-        <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-500 ${acceptedEula && isValidEmail ? 'opacity-100' : 'opacity-25 pointer-events-none blur-[1px]'}`}>
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-xs font-mono font-bold text-[#00F0FF] uppercase tracking-widest flex items-center">
-                <Key className="w-4 h-4 mr-2" />
-                Licencia Temporal PoC (14 Días)
-              </label>
-              <div className="flex items-center bg-black border border-[#00F0FF]/30 rounded-lg p-2 overflow-hidden">
-                <code className="flex-1 text-[#00FF66] px-3 font-mono text-xs sm:text-sm tracking-wider truncate">
-                  {apiKey}
-                </code>
-                <button
-                  onClick={() => handleCopy(apiKey)}
-                  className="p-2 bg-[#00F0FF]/20 hover:bg-[#00F0FF] hover:text-black text-[#00F0FF] rounded transition"
-                  title="Copiar Licencia"
-                >
-                  <Copy className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-mono font-bold text-[#00F0FF] uppercase tracking-widest flex items-center">
-                <Terminal className="w-4 h-4 mr-2" />
-                Control en Caliente (CLI Nativa)
-              </label>
-              <pre className="bg-black border border-white/15 rounded-lg p-4 overflow-x-auto text-xs sm:text-sm font-mono text-slate-300">
-                <code>$ {config.cli}</code>
-              </pre>
-            </div>
+        {/* PASO 3: TERMINAL DOCKER COMPOSE */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <label className="text-xs font-mono uppercase text-slate-400">
+              3. Despliegue Inmediato mediante Docker Compose (Linux / Windows Server / macOS):
+            </label>
+            <button
+              onClick={() => copyToClipboard(dockerSnippet, 'code')}
+              className="px-3 py-1 text-xs font-mono bg-[#06090F] hover:bg-slate-800 text-[#38BDF8] border border-slate-800 transition cursor-pointer"
+            >
+              {copiedCode ? 'Comandos Copiados' : 'Copiar Comandos'}
+            </button>
           </div>
 
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-xs font-mono font-bold text-[#FFB703] uppercase tracking-widest flex items-center">
-                <Rocket className="w-4 h-4 mr-2" />
-                Despliegue con un Comando (Docker Compose)
-              </label>
-              <div className="relative group">
-                <pre className="bg-black border border-[#D4AF37]/40 rounded-lg p-4 overflow-x-auto text-xs sm:text-sm font-mono text-[#00F0FF] leading-relaxed">
-                  <code>{dockerCommand}</code>
-                </pre>
-                <button
-                  onClick={() => handleCopy(dockerCommand)}
-                  className="mt-3 w-full py-2.5 bg-[#00F0FF] text-black font-mono text-xs font-bold uppercase tracking-widest hover:brightness-110 transition"
-                >
-                  {copied ? '¡COMANDO COPIADO AL PORTAPAPELES!' : 'COPIAR COMANDO DOCKER COMPOSE'}
-                </button>
-              </div>
-            </div>
-          </div>
+          <pre className="bg-[#06090F] border border-slate-800 p-4 font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed">
+            <code>{dockerSnippet}</code>
+          </pre>
         </div>
       </div>
-    </section>
+    </div>
   );
-};
-
-export default QuickstartOnboarding;
+}

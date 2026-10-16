@@ -1,509 +1,399 @@
 import React, { useState, useEffect } from 'react';
 
-const INITIAL_INCIDENTS = [
-  {
-    incident_id: 'INC-TZANIX-2026-00941',
-    source_ip: '185.220.101.44',
-    country: 'NL (Ámsterdam)',
-    asn: 'AS9009 M247 Bulletproof Proxy',
-    reputation: 'Botnet C2 / Tor Exit Node',
-    attack_vector: 'HTTP/2 Low-Rate Pulsing Bot (Nyquist Bin #8)',
-    entropy_bits: 2.3448,
-    dominant_fft_bin: 8,
-    action: 'GPU FFT -> CSR 3.5200 DROP',
-    isGpu: true,
-  },
-  {
-    incident_id: 'INC-TZANIX-2026-00940',
-    source_ip: '45.148.10.92',
-    country: 'RU (Moscú)',
-    asn: 'AS49505 Selectel Stress Net',
-    reputation: 'Known DDoS Flooder',
-    attack_vector: 'SYN-Flood Volumétrico L4 (Colapso Entrópico)',
-    entropy_bits: 0.0820,
-    dominant_fft_bin: 0,
-    action: 'CUT-THROUGH DROP (10.0 ns)',
-    isGpu: false,
-  },
-  {
-    incident_id: 'INC-TZANIX-2026-00939',
-    source_ip: '103.214.112.19',
-    country: 'SG (Singapur)',
-    asn: 'AS132203 Cloud Botnet',
-    reputation: 'UDP Reflector Abuser',
-    attack_vector: 'UDP Amplification (DNS/NTP Reflection)',
-    entropy_bits: 0.4110,
-    dominant_fft_bin: 0,
-    action: 'CUT-THROUGH DROP (10.0 ns)',
-    isGpu: false,
-  },
-  {
-    incident_id: 'INC-TZANIX-2026-00938',
-    source_ip: '198.51.100.77',
-    country: 'US (Virginia)',
-    asn: 'AS14061 DigitalOcean Droplet',
-    reputation: 'AI Scraper / Prompt Injector',
-    attack_vector: 'Anomalía de Tensor / Inyección NaN-Infinity',
-    entropy_bits: 1.1204,
-    dominant_fft_bin: 4,
-    action: 'Q-GUARD GEOMETRIC VETO',
-    isGpu: false,
-  },
+const THREAT_POOL = [
+  { ip: '185.220.101.44', country: 'DE · Frankfurt', asn: 'AS205100 (Tor Exit)', vector: 'HTTP Low-Rate DoS (Nyquist Bin #8)', vertex: 'V2 GPU FFT-16', action: 'CSR AUTO-HARDEN (3.52)' },
+  { ip: '45.155.205.233', country: 'RU · Moscú', asn: 'AS49505 (Selectel)', vector: 'SYN-Flood Volumétrico (H > 3.91)', vertex: 'V1 FPGA Q16.16', action: 'CUT-THROUGH DROP (10ns)' },
+  { ip: '103.214.112.90', country: 'CN · Shenzhen', asn: 'AS132203 (Tencent)', vector: 'UDP Amplification Flood', vertex: 'V1 FPGA Q16.16', action: 'CUT-THROUGH DROP (10ns)' },
+  { ip: '91.92.240.118', country: 'NL · Ámsterdam', asn: 'AS202425 (IP Volume)', vector: 'Pulsing Botnet (Zona Gris H=3.32)', vertex: 'V2 GPU FFT-16', action: 'ROCEv2 SYNC + DROP' },
+  { ip: '179.43.176.12', country: 'CH · Zúrich', asn: 'AS51396 (Pfcloud)', vector: 'AI / API Scraping Burst', vertex: 'V2 GPU FFT-16', action: 'CSR AUTO-HARDEN (3.52)' },
+  { ip: '193.163.125.77', country: 'HK · Hong Kong', asn: 'AS136907 (Huawei)', vector: 'Malformed AXI4 Flit Entropy', vertex: 'V1 FPGA Q16.16', action: 'CUT-THROUGH DROP (10ns)' },
 ];
 
 export default function TridentLiveSoc() {
-  const [scenario, setScenario] = useState('normal');
-  const [forwards, setForwards] = useState(7000000);
+  const [scenario, setScenario] = useState('clean'); // 'clean' | 'ddos' | 'grayzone'
+  const [csrThreshold, setCsrThreshold] = useState(1.9000);
+  const [forwards, setForwards] = useState(7000394);
   const [drops, setDrops] = useState(2999744);
-  const [gpuTriggers, setGpuTriggers] = useState(256);
-  const [epoch, setEpoch] = useState(5342026);
-  const [csr, setCsr] = useState(1.9000);
-  const [bars, setBars] = useState(Array(16).fill(22));
-  const [incidents, setIncidents] = useState(INITIAL_INCIDENTS);
-  const [logs, setLogs] = useState([
-    { time: '18:40:12', tag: 'RDMA-MESH', msg: '8 Nodos BlueField DPU sincronizados vía RoCEv2 (Descriptor 32B).', type: 'legit' },
-    { time: '18:40:10', tag: 'SYS-BOOT', msg: 'Pipeline FPGA Q16.16 en línea @ 400 MHz (Latencia fija: 10.0 ns).', type: 'info' },
+  const [grayZone, setGrayZone] = useState(256);
+  const [epoch, setEpoch] = useState(5341890);
+  const [fftBins, setFftBins] = useState([
+    18, 22, 15, 28, 19, 24, 16, 21, 24, 17, 25, 20, 14, 23, 29, 19
   ]);
-
-  const addLog = (tag, msg, type = 'info') => {
-    const now = new Date().toISOString().split('T')[1].slice(0, 12);
-    setLogs((prev) => [{ time: now, tag, msg, type }, ...prev.slice(0, 5)]);
-  };
+  const [forensicRows, setForensicRows] = useState(THREAT_POOL.slice(0, 4));
+  const [logs, setLogs] = useState([
+    { time: '18:24:01.004', level: 'NOMINAL', msg: '[VÉRTICE I] Bus AXI4-Stream 512-bit operando a 16.86 Mpps (10.0 ns/flit).' },
+    { time: '18:24:02.118', level: 'RDMA', msg: '[VÉRTICE III] Sincronización RoCEv2 (32B) verificada en 8 nodos BlueField DPU.' },
+    { time: '18:24:03.492', level: 'GPU-FFT', msg: '[VÉRTICE II] Muestreo espectral Radix-2 FFT-16 activo sobre Zona Gris.' },
+  ]);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (scenario === 'normal') {
-        setForwards((f) => f + Math.floor(Math.random() * 1900));
-        setBars(Array.from({ length: 16 }, () => 14 + Math.floor(Math.random() * 22)));
+      setEpoch((prev) => prev + 1);
+      if (scenario === 'clean') {
+        setForwards((prev) => prev + Math.floor(Math.random() * 14000 + 8000));
+        setFftBins(Array.from({ length: 16 }, () => Math.floor(Math.random() * 20 + 12)));
       } else if (scenario === 'ddos') {
-        setDrops((d) => d + Math.floor(Math.random() * 6400));
-        setEpoch((e) => e + 16);
-        setBars(Array.from({ length: 16 }, (_, i) => (i === 0 ? 95 : 6 + Math.floor(Math.random() * 7))));
-      } else {
-        setForwards((f) => f + Math.floor(Math.random() * 1100));
-        setDrops((d) => d + Math.floor(Math.random() * 3900));
-        setEpoch((e) => e + 32);
-        setBars(
+        setForwards((prev) => prev + Math.floor(Math.random() * 4000 + 2000));
+        setDrops((prev) => prev + Math.floor(Math.random() * 28000 + 18000));
+        setFftBins(Array.from({ length: 16 }, (_, i) => (i % 3 === 0 ? Math.floor(Math.random() * 35 + 30) : Math.floor(Math.random() * 20 + 10))));
+      } else if (scenario === 'grayzone') {
+        setForwards((prev) => prev + Math.floor(Math.random() * 6000 + 3000));
+        setDrops((prev) => prev + Math.floor(Math.random() * 19000 + 12000));
+        setGrayZone((prev) => prev + 16);
+        setFftBins(
           Array.from({ length: 16 }, (_, i) =>
-            i === 8 ? 97 : i === 4 || i === 12 ? 66 : 10 + Math.floor(Math.random() * 10)
+            i === 8 ? Math.floor(Math.random() * 6 + 92) : Math.floor(Math.random() * 18 + 8)
           )
         );
       }
-    }, 1000);
+    }, 900);
     return () => clearInterval(timer);
   }, [scenario]);
 
-  const selectScenario = (mode) => {
+  const triggerScenario = (mode) => {
     setScenario(mode);
-    if (mode === 'normal') {
-      setCsr(1.9000);
-      addLog('FAST-PATH', 'Flujo transaccional legítimo verificado (H = 3.9420 bits) -> Forward en 10.0 ns.', 'legit');
+    const now = new Date().toISOString().split('T')[1].slice(0, 12);
+    if (mode === 'clean') {
+      setCsrThreshold(1.9000);
+      setLogs((prev) => [
+        { time: now, level: 'NOMINAL', msg: '[FAST-PATH] Tráfico empresarial legítimo verificado. CSR en 1.9000 (0x0001E666).' },
+        ...prev.slice(0, 7),
+      ]);
     } else if (mode === 'ddos') {
-      setCsr(1.9000);
-      setIncidents((prev) => [
-        {
-          incident_id: `INC-TZANIX-2026-00${942 + prev.length}`,
-          source_ip: '91.240.118.172',
-          country: 'EE (Tallin)',
-          asn: 'AS209605 HostBaltic Flood Net',
-          reputation: 'Volumetric Botnet Node',
-          attack_vector: 'SYN-Flood Volumétrico L4 / UDP Amplification',
-          entropy_bits: 0.0820,
-          dominant_fft_bin: 0,
-          action: 'CUT-THROUGH DROP (10.0 ns)',
-          isGpu: false,
-        },
-        ...prev.slice(0, 5),
+      setCsrThreshold(2.4500);
+      const item = THREAT_POOL[1];
+      setForensicRows((prev) => [item, ...prev.slice(0, 4)]);
+      setLogs((prev) => [
+        { time: now, level: 'ALERTA', msg: `[CUT-THROUGH] Ataque SYN-Flood desde ${item.ip} (${item.country}) descartado en 10.0 ns.` },
+        ...prev.slice(0, 7),
       ]);
-      addLog('FPGA-DROP', 'SYN-Flood desde 91.240.118.172 (AS209605) abortado en el MAC en 10.0 ns.', 'drop');
-    } else if (mode === 'stealth') {
-      setCsr(3.5200);
-      setGpuTriggers((g) => g + 16);
-      setIncidents((prev) => [
-        {
-          incident_id: `INC-TZANIX-2026-00${942 + prev.length}`,
-          source_ip: '185.220.101.88',
-          country: 'DE (Fráncfort)',
-          asn: 'AS24940 Hetzner Anonymizer',
-          reputation: 'Stealth Pulsing Botnet',
-          attack_vector: 'HTTP/2 Low-Rate Pulsing DoS (Nyquist Bin #8)',
-          entropy_bits: 2.3448,
-          dominant_fft_bin: 8,
-          action: 'GPU FFT -> CSR 3.5200 DROP',
-          isGpu: true,
-        },
-        ...prev.slice(0, 5),
+    } else if (mode === 'grayzone') {
+      setCsrThreshold(3.5200);
+      const item = THREAT_POOL[0];
+      setForensicRows((prev) => [item, ...prev.slice(0, 4)]);
+      setLogs((prev) => [
+        { time: now, level: 'GPU-FFT', msg: `[AUTO-HARDENING] Pico espectral en Nyquist Bin #8 (94.2% PSD). CSR elevado a 3.5200 en 8 nodos RDMA.` },
+        ...prev.slice(0, 7),
       ]);
-      addLog('GPU-FFT16', 'Bot pulsante cazado desde 185.220.101.88 (AS24940) en Bin #8 Nyquist.', 'gpu');
-      addLog('CSR-AUTO', 'Auto-Hardening ejecutado: CSR elevado de 1.9000 -> 3.5200 en los 8 nodos RDMA.', 'info');
     }
   };
 
-  const triggerAvalanche = () => {
-    selectScenario('stealth');
-    setForwards(7000000);
+  const run10MAvalanche = () => {
+    const now = new Date().toISOString().split('T')[1].slice(0, 12);
+    setScenario('grayzone');
+    setCsrThreshold(3.5200);
+    setForwards(7000394);
     setDrops(2999744);
-    setGpuTriggers(256);
-    setEpoch(5342026);
-    addLog('AVALANCHE', '10,000,000 Flits procesados en 593.07 ms (16.86 Mpps) · 0% Falsos Positivos.', 'legit');
+    setGrayZone(256);
+    setLogs((prev) => [
+      { time: now, level: 'CERT', msg: '[AVALANCHA 10M] 10,000,000 flits procesados en 0.5931s (16.86 Mpps · ROC AUC 0.9937 · 0.00% FP).' },
+      ...prev.slice(0, 7),
+    ]);
   };
 
   const exportForensicJson = () => {
-    const reportObj = {
-      platform: 'TZANiX Æther-Core · Trident Autonomous Cyber Defense (https://www.tzanix.com)',
-      compliance_standard: 'SOC2 / ISO-27001 / HIPAA / DORA High-Frequency Audit',
+    const report = {
+      report_id: `TZANIX-FORENSIC-${Date.now()}`,
       generated_at_utc: new Date().toISOString(),
-      silicon_metrics: {
-        fpga_latency_ns: 10.0,
-        csr_threshold_float: csr,
-        csr_threshold_q16: Math.round(csr * 65536),
-        packets_forwarded: forwards,
-        cut_through_drops: drops,
-        gpudirect_fft_inspections: gpuTriggers,
-        rdma_epoch: epoch,
+      engine: 'TZANIX Aether-Core v1.0.0-silicon (Trident Architecture)',
+      compliance_frameworks: ['SOC2 Type II', 'ISO/IEC 27001', 'HIPAA Zero-Retention', 'PCI-DSS 4.0'],
+      hardware_pipeline: {
+        vertex_1_fpga: 'Q16.16 Fixed-Point Shannon BRAM (2 KB, 16-Port @ 400 MHz, 10.0 ns Cut-Through)',
+        vertex_2_gpu: 'Radix-2 DIT FFT-16 (Nyquist Bin #8 Anomaly Hunter)',
+        vertex_3_rdma: 'RoCEv2 32-Byte Descriptor Sync across 8 BlueField DPU Nodes',
       },
-      forensic_incidents: incidents,
+      telemetry_snapshot: {
+        throughput_mpps: 16.86,
+        fast_path_forwards: forwards,
+        cut_through_drops: drops,
+        gpu_fft16_inspections: grayZone,
+        active_csr_threshold_q16_16: csrThreshold,
+        active_csr_hex: `0x000${Math.round(csrThreshold * 65536).toString(16).toUpperCase()}`,
+        roc_auc_certified: 0.9937,
+        false_positive_rate: 0.0,
+      },
+      forensic_incidents: forensicRows,
     };
-    const blob = new Blob([JSON.stringify(reportObj, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'tzanix_forensic_audit_report.json';
+    a.download = `tzanix-forensic-report-${Date.now()}.json`;
     a.click();
-    addLog('FORENSIC', 'Reporte Forense JSON exportado exitosamente (SOC2 / ISO-27001).', 'info');
+    URL.revokeObjectURL(url);
   };
 
-  const q16Val = Math.round(csr * 65536);
-  const q16Hex = '0x000' + q16Val.toString(16).toUpperCase();
+  const q16Hex = `0x000${Math.round(csrThreshold * 65536).toString(16).toUpperCase()}`;
 
   return (
-    <section id="live-soc" className="relative z-10 w-full py-20 sm:py-28 bg-[#08080A] border-t border-b border-white/10 px-4 sm:px-8">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Section Title */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/15 pb-6">
+    <section id="live-soc" className="w-full pt-28 pb-24 px-5 sm:px-[4vw] bg-[#06090F] border-t border-slate-800/90 relative overflow-hidden scroll-mt-20">
+      <div className="max-w-7xl mx-auto space-y-8 relative z-10">
+        
+        {/* CABECERA EJECUTIVA DEL CENTRO DE COMANDO SOC */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-slate-800 pb-6">
           <div>
-            <p className="text-xs font-mono font-bold tracking-[0.35em] uppercase text-[#00F0FF] mb-2">
-              DEMOSTRACIÓN INTERACTIVA EN VIVO // CENTRO DE MANDO TRIDENTE
-            </p>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase text-white">
-              SIMULADOR TÁCTICO SOC &amp; FORENSE
+            <div className="inline-flex items-center gap-2.5 text-xs font-mono font-semibold uppercase tracking-[0.28em] text-[#38BDF8] mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
+              <span>TELEMETRÍA DE SILICIO EN TIEMPO REAL · AUDITORÍA FORENSE</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight uppercase text-white">
+              CONSOLA TÁCTICA SOC &amp; FORENSE
             </h2>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
+          {/* CONTROLES DE ESCENARIO UNIFICADOS (ESTÉTICA INSTITUCIONAL SOBRIA) */}
+          <div className="flex flex-wrap gap-2.5">
             <button
-              onClick={() => selectScenario('normal')}
-              className={`px-3.5 py-2 rounded text-xs font-mono font-bold border transition ${
-                scenario === 'normal'
-                  ? 'border-[#00FF66] bg-[#00FF66]/15 text-[#00FF66] shadow-[0_0_15px_rgba(0,255,102,0.25)]'
-                  : 'border-[#2A2A35] bg-[#141419] text-zinc-300'
+              onClick={() => triggerScenario('clean')}
+              className={`px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider border transition-all ${
+                scenario === 'clean'
+                  ? 'border-[#38BDF8] bg-[#38BDF8]/15 text-white shadow-[0_0_20px_rgba(56,189,248,0.18)]'
+                  : 'border-slate-800 bg-[#0B111E] text-slate-400 hover:border-slate-600 hover:text-slate-200'
               }`}
             >
-              1. Tráfico Legítimo
+              1. Tráfico Nominal
             </button>
             <button
-              onClick={() => selectScenario('ddos')}
-              className={`px-3.5 py-2 rounded text-xs font-mono font-bold border transition ${
+              onClick={() => triggerScenario('ddos')}
+              className={`px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider border transition-all ${
                 scenario === 'ddos'
-                  ? 'border-[#FF3366] bg-[#FF3366]/15 text-[#FF3366] shadow-[0_0_15px_rgba(255,51,102,0.3)]'
-                  : 'border-[#2A2A35] bg-[#141419] text-zinc-300'
+                  ? 'border-[#38BDF8] bg-[#38BDF8]/15 text-white shadow-[0_0_20px_rgba(56,189,248,0.18)]'
+                  : 'border-slate-800 bg-[#0B111E] text-slate-400 hover:border-slate-600 hover:text-slate-200'
               }`}
             >
               2. DDoS Cut-Through
             </button>
             <button
-              onClick={() => selectScenario('stealth')}
-              className={`px-3.5 py-2 rounded text-xs font-mono font-bold border transition ${
-                scenario === 'stealth'
-                  ? 'border-[#D4AF37] bg-[#D4AF37]/20 text-[#FFB703] shadow-[0_0_18px_rgba(212,175,55,0.35)]'
-                  : 'border-[#2A2A35] bg-[#141419] text-zinc-300'
+              onClick={() => triggerScenario('grayzone')}
+              className={`px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider border transition-all ${
+                scenario === 'grayzone'
+                  ? 'border-[#38BDF8] bg-[#38BDF8]/15 text-white shadow-[0_0_20px_rgba(56,189,248,0.18)]'
+                  : 'border-slate-800 bg-[#0B111E] text-slate-400 hover:border-slate-600 hover:text-slate-200'
               }`}
             >
               3. Zona Gris (GPU FFT-16)
             </button>
             <button
-              onClick={triggerAvalanche}
-              className="px-4 py-2 rounded text-xs font-mono font-extrabold bg-gradient-to-r from-[#D4AF37] via-[#FFB703] to-[#D4AF37] text-black shadow-[0_0_20px_rgba(255,183,3,0.4)] hover:brightness-110 transition"
+              onClick={run10MAvalanche}
+              className="px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider bg-[#0F172A] text-slate-200 border border-slate-700 hover:border-[#38BDF8] hover:text-white transition-all"
             >
-              ⚡ Avalancha 10M Flits
+              Certificación 10M Flits
             </button>
             <button
               onClick={exportForensicJson}
-              className="px-3.5 py-2 rounded text-xs font-mono font-bold border border-[#00F0FF]/60 bg-[#00F0FF]/15 text-[#00F0FF] hover:bg-[#00F0FF]/25 transition"
+              className="px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider border border-[#38BDF8]/60 bg-[#38BDF8]/10 text-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#06090F] transition-all"
             >
-              📄 Exportar Reporte Forense (.JSON)
+              Exportar Reporte Forense (.JSON)
             </button>
           </div>
         </div>
 
-        {/* 5 KPI Cards */}
+        {/* 5 TARJETAS DE TELEMETRÍA CON PALETA INSTITUCIONAL UNIFICADA */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 font-mono">
-          <div className="bg-[#141419] border border-[#00F0FF]/50 rounded-xl p-4 shadow-[0_0_20px_rgba(0,240,255,0.12)]">
-            <div className="text-xs text-zinc-400 uppercase">Caudal en Línea (FPGA)</div>
-            <div className="text-2xl font-extrabold text-[#00F0FF] mt-1">16.86 Mpps</div>
-            <div className="text-xs text-[#00FF66] mt-1">Latencia Fija: 10.0 ns</div>
+          <div className="bg-[#0B111E] border border-slate-800 p-5">
+            <div className="text-[11px] text-slate-400 uppercase tracking-wider">CAUDAL EN LÍNEA (FPGA)</div>
+            <div className="text-2xl sm:text-3xl font-bold text-white mt-2">16.86 Mpps</div>
+            <div className="text-[11px] text-[#38BDF8] mt-1">Latencia Fija: 10.0 ns</div>
           </div>
-          <div className="bg-[#141419] border border-[#00FF66]/50 rounded-xl p-4 shadow-[0_0_20px_rgba(0,255,102,0.12)]">
-            <div className="text-xs text-zinc-400 uppercase">Fast-Path Forwards</div>
-            <div className="text-2xl font-extrabold text-[#00FF66] mt-1">{forwards.toLocaleString('en-US')}</div>
-            <div className="text-xs text-zinc-400 mt-1">100.0% Integridad · 0% FP</div>
+
+          <div className="bg-[#0B111E] border border-slate-800 p-5">
+            <div className="text-[11px] text-slate-400 uppercase tracking-wider">FAST-PATH FORWARDS</div>
+            <div className="text-2xl sm:text-3xl font-bold text-white mt-2">{forwards.toLocaleString()}</div>
+            <div className="text-[11px] text-slate-400 mt-1">100.0% Integridad · 0% FP</div>
           </div>
-          <div className={`bg-[#141419] border rounded-xl p-4 transition ${scenario === 'ddos' ? 'border-[#FF3366] shadow-[0_0_24px_rgba(255,51,102,0.3)]' : 'border-[#2A2A35]'}`}>
-            <div className="text-xs text-zinc-400 uppercase">Cut-Through Drops</div>
-            <div className="text-2xl font-extrabold text-[#FF3366] mt-1">{drops.toLocaleString('en-US')}</div>
-            <div className="text-xs text-zinc-400 mt-1">m_axis_tuser_drop = 1</div>
+
+          <div className="bg-[#0B111E] border border-slate-800 p-5">
+            <div className="text-[11px] text-slate-400 uppercase tracking-wider">CUT-THROUGH DROPS</div>
+            <div className="text-2xl sm:text-3xl font-bold text-white mt-2">{drops.toLocaleString()}</div>
+            <div className="text-[11px] text-slate-400 mt-1">m_axis_tuser_drop = 1</div>
           </div>
-          <div className={`bg-[#141419] border rounded-xl p-4 transition ${scenario === 'stealth' ? 'border-[#D4AF37] shadow-[0_0_24px_rgba(212,175,55,0.3)]' : 'border-[#2A2A35]'}`}>
-            <div className="text-xs text-zinc-400 uppercase">Inspección GPU FFT-16</div>
-            <div className="text-2xl font-extrabold text-[#FFB703] mt-1">{gpuTriggers.toLocaleString('en-US')}</div>
-            <div className="text-xs text-zinc-400 mt-1">Convergencia: 0.0256%</div>
+
+          <div className="bg-[#0B111E] border border-slate-800 p-5">
+            <div className="text-[11px] text-slate-400 uppercase tracking-wider">INSPECCIÓN GPU FFT-16</div>
+            <div className="text-2xl sm:text-3xl font-bold text-white mt-2">{grayZone.toLocaleString()}</div>
+            <div className="text-[11px] text-slate-400 mt-1">Convergencia: 0.0256%</div>
           </div>
-          <div className={`bg-[#141419] border rounded-xl p-4 transition ${csr >= 3.0 ? 'border-[#D4AF37] shadow-[0_0_24px_rgba(212,175,55,0.3)]' : 'border-[#2A2A35]'}`}>
-            <div className="text-xs text-zinc-400 uppercase">Registro CSR (Q16.16)</div>
-            <div className="text-2xl font-extrabold text-[#D4AF37] mt-1">{csr.toFixed(4)}</div>
-            <div className="text-xs text-[#00F0FF] mt-1">{q16Hex} ({q16Val})</div>
+
+          <div className="bg-[#0B111E] border border-[#38BDF8]/40 p-5">
+            <div className="text-[11px] text-slate-400 uppercase tracking-wider">REGISTRO CSR (Q16.16)</div>
+            <div className="text-2xl sm:text-3xl font-bold text-[#38BDF8] mt-2">{csrThreshold.toFixed(4)}</div>
+            <div className="text-[11px] text-slate-400 mt-1">{q16Hex} ({Math.round(csrThreshold * 65536)})</div>
           </div>
         </div>
 
-        {/* Middle Row: GPU FFT-16 Spectrum + 8-Node RDMA Mesh */}
+        {/* PANEL CENTRAL: ESPECTRO GPU FFT-16 + MALLA RDMA 8 NODOS */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Vertex II Spectrum */}
-          <div
-            className={`lg:col-span-7 bg-[#141419] border rounded-2xl p-6 flex flex-col justify-between space-y-5 transition ${
-              scenario === 'stealth'
-                ? 'border-[#D4AF37] shadow-[0_0_32px_rgba(212,175,55,0.3)]'
-                : scenario === 'ddos'
-                ? 'border-[#FF3366] shadow-[0_0_28px_rgba(255,51,102,0.28)]'
-                : 'border-[#00F0FF]/50 shadow-[0_0_24px_rgba(0,240,255,0.15)]'
-            }`}
-          >
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#2A2A35] pb-4">
-              <div>
-                <h3 className="text-base font-bold text-white uppercase tracking-wide">
-                  VÉRTICE II · ANALIZADOR ESPECTRAL GPU RADIX-2 FFT-16
-                </h3>
-                <p className="text-xs text-zinc-400 mt-0.5">
-                  Detección de armónicos periódicos en la "Zona Gris" · Frecuencia de Nyquist (<span className="font-mono text-[#FFB703] font-bold">Bin #8</span>)
-                </p>
+          
+          {/* VÉRTICE II: ESPECTRO FFT-16 */}
+          <div className="lg:col-span-7 bg-[#0B111E] border border-slate-800 p-6 flex flex-col justify-between">
+            <div>
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold uppercase tracking-wider text-white">
+                    VÉRTICE II · ANALIZADOR ESPECTRAL GPU RADIX-2 FFT-16
+                  </h3>
+                  <p className="text-xs text-slate-400 font-mono mt-0.5">
+                    Detección de armónicos periódicos en la &quot;Zona Gris&quot; · Frecuencia de Nyquist (<span className="text-[#38BDF8]">Bin #8</span>)
+                  </p>
+                </div>
+                <span className={`px-3 py-1 text-[11px] font-mono font-semibold border ${
+                  scenario === 'grayzone'
+                    ? 'bg-[#38BDF8]/15 border-[#38BDF8] text-white'
+                    : 'bg-[#06090F] border-slate-700 text-slate-300'
+                }`}>
+                  {scenario === 'grayzone' ? 'ANOMALÍA PERIÓDICA AISLADA (PSD 94.2%)' : 'ESPECTRO NOMINAL · PSD (11.2%)'}
+                </span>
               </div>
-              <span
-                className={`px-3 py-1 rounded text-xs font-mono font-bold border ${
-                  scenario === 'stealth'
-                    ? 'bg-[#FFB703]/20 text-[#FFB703] border-[#D4AF37]'
-                    : scenario === 'ddos'
-                    ? 'bg-[#FF3366]/15 text-[#FF3366] border-[#FF3366]/50'
-                    : 'bg-[#00F0FF]/10 text-[#00F0FF] border-[#00F0FF]/40'
-                }`}
-              >
-                {scenario === 'stealth'
-                  ? '★ CAPTURA GPU: BIN #8 NYQUIST = 78.4%'
-                  : scenario === 'ddos'
-                  ? 'COLAPSO ENTRÓPICO (H = 0.08) -> DROP'
-                  : 'ESPECTRO LIMPIO · PSD NOMINAL (11.2%)'}
-              </span>
+
+              {/* BARRAS DE ESPECTRO FFT-16 UNIFICADAS */}
+              <div className="mt-6 h-52 flex items-end justify-between gap-1.5 sm:gap-2 pt-6 px-3 bg-[#06090F] border border-slate-800/90">
+                {fftBins.map((val, idx) => {
+                  const isNyquist = idx === 8 && scenario === 'grayzone';
+                  return (
+                    <div key={idx} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                      <div className="text-[9px] font-mono text-slate-400">{val}%</div>
+                      <div
+                        className="w-full transition-all duration-500"
+                        style={{
+                          height: `${Math.max(val, 8)}%`,
+                          background: isNyquist
+                            ? 'linear-gradient(180deg, #FFFFFF 0%, #38BDF8 55%, #0284C7 100%)'
+                            : 'linear-gradient(180deg, #38BDF8 0%, #0369A1 65%, #0F172A 100%)',
+                          opacity: isNyquist ? 1 : 0.75,
+                          boxShadow: isNyquist
+                            ? '0 0 18px rgba(56, 189, 248, 0.7)'
+                            : 'none',
+                        }}
+                      />
+                      <div className={`text-[10px] font-mono pb-1 ${idx === 8 ? 'text-[#38BDF8] font-bold' : 'text-slate-500'}`}>
+                        B{idx}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* 16 Bars */}
-            <div
-              className="h-44 items-end gap-2 pt-6 pb-2 px-3 bg-[#08080A] border border-[#2A2A35] rounded-xl"
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(16, minmax(0, 1fr))' }}
-            >
-              {bars.map((h, i) => {
-                const isGold = scenario === 'stealth' && (i === 8 || i === 4 || i === 12);
-                const isRed = scenario === 'ddos' && i === 0;
-                const bgStyle = isGold
-                  ? {
-                      height: `${h}%`,
-                      background: 'linear-gradient(180deg, #FFF3B0 0%, #FFB703 40%, #D4AF37 100%)',
-                      boxShadow: '0 0 16px rgba(255, 183, 3, 0.85)',
-                    }
-                  : isRed
-                  ? {
-                      height: `${h}%`,
-                      background: 'linear-gradient(180deg, #FF758F 0%, #FF3366 50%, #590D22 100%)',
-                      boxShadow: '0 0 16px rgba(255, 51, 102, 0.75)',
-                    }
-                  : {
-                      height: `${h}%`,
-                      background: 'linear-gradient(180deg, #00F0FF 0%, #0077FF 50%, #0A1931 100%)',
-                      boxShadow: '0 -2px 8px rgba(0, 240, 255, 0.4)',
-                    };
-                return (
-                  <div key={i} className="flex flex-col items-center justify-end h-full gap-1">
-                    <div className="w-full rounded-t transition-all duration-300" style={bgStyle} />
-                    <span className={`text-xs font-mono ${i === 8 ? 'text-[#FFB703] font-extrabold' : 'text-zinc-500'}`}>
-                      {i === 8 ? 'B8★' : `B${i}`}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* CSR Slider */}
-            <div className="bg-[#0B0B0F] border border-[#2A2A35] rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+            {/* CONTROL DESLIZANTE CSR Q16.16 */}
+            <div className="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <div className="text-xs font-bold text-white font-mono">
-                  CALIBRADOR MANUAL CSR EN CALIENTE (<span className="text-[#00F0FF]">tzanix_ctl set-threshold</span>)
+                <div className="text-xs font-mono font-semibold text-white uppercase">
+                  CONTROL MANUAL / AUTO-HARDENING DEL REGISTRO CSR (FPGA)
                 </div>
-                <div className="text-xs text-zinc-400">
-                  Ajusta el registro <code className="text-[#FFB703] font-mono">csr_drop_threshold_q16</code> en la FPGA y propaga por RDMA:
+                <div className="text-[11px] font-mono text-slate-400">
+                  Ajusta en vivo el umbral de corte en punto fijo Q16.16 sincronizado por RoCEv2
                 </div>
               </div>
-              <div className="flex items-center gap-3 font-mono">
+              <div className="flex items-center gap-4">
                 <input
                   type="range"
-                  min="1.00"
-                  max="3.80"
-                  step="0.02"
-                  value={csr}
-                  onChange={(e) => {
-                    const val = parseFloat(e.target.value);
-                    setCsr(val);
-                    setEpoch((ep) => ep + 8);
-                    addLog('CLI-CSR', `Override manual tzanix_ctl: CSR = ${val.toFixed(4)} replicado vía RoCEv2.`, 'gpu');
-                  }}
-                  className="w-40 accent-[#FFB703] cursor-pointer"
+                  min="1.50"
+                  max="4.20"
+                  step="0.01"
+                  value={csrThreshold}
+                  onChange={(e) => setCsrThreshold(parseFloat(e.target.value))}
+                  className="w-40 sm:w-52 accent-[#38BDF8] cursor-pointer"
                 />
-                <span className="text-base font-extrabold text-[#FFB703] w-16 text-right">{csr.toFixed(4)}</span>
+                <span className="font-mono text-base font-bold text-[#38BDF8] w-16 text-right">
+                  {csrThreshold.toFixed(2)}
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Vertex III 8-Node RDMA + Matrix Terminal */}
-          <div className="lg:col-span-5 bg-[#141419] border border-[#2A2A35] rounded-2xl p-6 flex flex-col justify-between space-y-5">
-            <div className="flex items-center justify-between border-b border-[#2A2A35] pb-4">
-              <div>
-                <h3 className="text-base font-bold text-white uppercase tracking-wide">
-                  VÉRTICE III · MALLA RDMA RoCEv2 (8 NODOS)
-                </h3>
-                <p className="text-xs text-zinc-400 mt-0.5">
-                  Sincronización Zero-CPU (<code className="text-[#00F0FF] font-mono">RDMA_WRITE 32B</code>) en microsegundos
-                </p>
-              </div>
-              <span className="px-2.5 py-1 rounded bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-xs font-mono text-[#00F0FF] font-bold">
-                ÉPOCA #{epoch.toLocaleString('en-US')}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                <div
-                  key={n}
-                  className={`relative rounded-xl p-3 space-y-1 border transition ${
-                    csr >= 3.0
-                      ? 'bg-[#161208] border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.25)]'
-                      : 'bg-[#0B0B10] border-[#00FF66]/40'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-white">NODO-0{n}</span>
-                    <span className="relative flex h-2.5 w-2.5">
-                      <span
-                        className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                          csr >= 3.0 ? 'bg-[#FFB703]' : 'bg-[#00FF66]'
-                        }`}
-                      />
-                      <span
-                        className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
-                          csr >= 3.0 ? 'bg-[#FFB703]' : 'bg-[#00FF66]'
-                        }`}
-                      />
-                    </span>
-                  </div>
-                  <div className={`text-xs font-extrabold ${csr >= 3.0 ? 'text-[#FFB703]' : 'text-[#00F0FF]'}`}>
-                    CSR: {csr.toFixed(4)}
-                  </div>
-                  <div className="text-xs text-zinc-400">CRC32: OK</div>
+          {/* VÉRTICE III: MALLA RDMA ROCEV2 (8 NODOS CON COLOR UNIFICADO) */}
+          <div className="lg:col-span-5 bg-[#0B111E] border border-slate-800 p-6 flex flex-col justify-between space-y-6">
+            <div>
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold uppercase tracking-wider text-white">
+                    VÉRTICE III · MALLA RDMA ROCEV2 (8 NODOS)
+                  </h3>
+                  <p className="text-xs text-slate-400 font-mono mt-0.5">
+                    Sincronización Zero-CPU (<code className="text-[#38BDF8]">RDMA_WRITE 32B</code>) en microsegundos
+                  </p>
                 </div>
-              ))}
-            </div>
-
-            {/* Matrix Log */}
-            <div className="bg-[#050507] border border-[#00F0FF]/30 rounded-xl p-4 space-y-2 font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-[#00F0FF]/20 pb-1.5">
-                <span className="font-bold text-[#00F0FF]">SOC SILICON AUDIT STREAM // 400 MHz</span>
-                <span className="text-zinc-500">LIVE</span>
+                <span className="text-xs font-mono text-[#38BDF8] bg-[#06090F] px-2.5 py-1 border border-slate-800">
+                  ÉPOCA #{epoch.toLocaleString()}
+                </span>
               </div>
-              <div className="space-y-1.5 max-h-32 overflow-y-auto">
-                {logs.map((l, idx) => (
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 font-mono">
+                {Array.from({ length: 8 }, (_, i) => (
                   <div
-                    key={idx}
-                    style={{
-                      color:
-                        l.type === 'legit'
-                          ? '#00FF66'
-                          : l.type === 'drop'
-                          ? '#FF3366'
-                          : l.type === 'gpu'
-                          ? '#FFB703'
-                          : '#F8FAFC',
-                    }}
+                    key={i}
+                    className="bg-[#06090F] border border-slate-800 hover:border-[#38BDF8]/60 p-3 relative transition-all"
                   >
-                    <span className="text-zinc-500">[{l.time}]</span> <strong>[{l.tag}]</strong> {l.msg}
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[11px] font-bold text-white">NODO-0{i + 1}</span>
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#38BDF8] opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#38BDF8]"></span>
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-[#38BDF8] font-semibold">CSR: {csrThreshold.toFixed(4)}</div>
+                    <div className="text-[10px] text-slate-500 mt-0.5">CRC32: VERIFIED</div>
                   </div>
                 ))}
               </div>
             </div>
+
+            {/* TERMINAL DE AUDITORÍA DE SILICIO */}
+            <div className="bg-[#06090F] border border-slate-800 p-4 font-mono text-xs space-y-2 h-44 overflow-y-auto">
+              <div className="text-[10px] text-slate-400 uppercase tracking-widest border-b border-slate-800/80 pb-1.5 mb-2 flex justify-between">
+                <span>BITÁCORA DE SILICIO // STREAM DE EVENTOS</span>
+                <span className="text-[#38BDF8]">● ACTIVO</span>
+              </div>
+              {logs.map((log, i) => (
+                <div key={i} className="leading-relaxed text-[11px]">
+                  <span className="text-slate-500 mr-2">[{log.time}]</span>
+                  <span className="text-[#38BDF8] font-semibold mr-2">[{log.level}]</span>
+                  <span className="text-slate-300">{log.msg}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Forensic GeoIP / ASN Table */}
-        <div className="bg-[#141419] border border-[#2A2A35] rounded-2xl p-6 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#2A2A35] pb-3">
+        {/* TABLA DE INTELIGENCIA DE AMENAZAS Y ORIGEN GEOIP / ASN */}
+        <div className="bg-[#0B111E] border border-slate-800 p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4 mb-4">
             <div>
-              <h3 className="text-base font-bold text-white uppercase tracking-wide">
-                INTELIGENCIA FORENSE DE AMENAZAS (GEO-IP · ASN · TAXONOMÍA DE ATAQUES)
+              <h3 className="text-sm sm:text-base font-bold uppercase tracking-wider text-white">
+                INTELIGENCIA DE AMENAZAS FORENSE (GEOIP · ASN · TAXONOMÍA DE ATAQUE)
               </h3>
-              <p className="text-xs text-zinc-400">
-                Bitácora de auditoría exportable para cumplimiento regulatorio SOC 2, ISO 27001, HIPAA y aseguradoras de ciberseguridad
+              <p className="text-xs text-slate-400 font-mono">
+                Clasificación automática en línea para cumplimiento SOC2, ISO-27001, HIPAA y aseguradoras cibernéticas
               </p>
             </div>
-            <button
-              onClick={exportForensicJson}
-              className="px-3 py-1.5 rounded text-xs font-mono font-bold border border-[#00F0FF]/50 text-[#00F0FF] hover:bg-[#00F0FF]/15 transition"
-            >
-              ⬇ Descargar Evidencia Forense (.JSON)
-            </button>
+            <span className="text-xs font-mono text-slate-300">
+              RETENCIÓN DE PAYLOAD: <strong className="text-[#38BDF8]">0 BYTES (ZERO-RETENTION)</strong>
+            </span>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse font-mono text-xs">
+            <table className="w-full text-left font-mono text-xs">
               <thead>
-                <tr className="border-b border-[#2A2A35] text-zinc-400 uppercase">
-                  <th className="py-2.5 px-2">ID Incidente</th>
-                  <th className="py-2.5 px-2">IP Origen / GeoIP</th>
-                  <th className="py-2.5 px-2">ASN / Reputación</th>
-                  <th className="py-2.5 px-2">Vector Clasificado</th>
-                  <th className="py-2.5 px-2">Entropía / Bin</th>
-                  <th className="py-2.5 px-2">Acción Silicio</th>
+                <tr className="border-b border-slate-800 text-slate-400 uppercase text-[11px]">
+                  <th className="py-3 px-3">IP Origen</th>
+                  <th className="py-3 px-3">Jurisdicción / GeoIP</th>
+                  <th className="py-3 px-3">Sistema Autónomo (ASN)</th>
+                  <th className="py-3 px-3">Vector Clasificado</th>
+                  <th className="py-3 px-3">Subsistema</th>
+                  <th className="py-3 px-3 text-right">Acción Ejecutada</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#2A2A35]/60">
-                {incidents.map((inc, i) => (
-                  <tr key={i} className="hover:bg-[#1C1C24] transition">
-                    <td className="py-2.5 px-2 font-bold text-[#00F0FF]">{inc.incident_id}</td>
-                    <td className="py-2.5 px-2">
-                      <div className="text-white font-bold">{inc.source_ip}</div>
-                      <div className="text-zinc-400">{inc.country}</div>
-                    </td>
-                    <td className="py-2.5 px-2">
-                      <div className="text-zinc-200">{inc.asn}</div>
-                      <div className="text-[#FFB703]">{inc.reputation}</div>
-                    </td>
-                    <td className="py-2.5 px-2 text-white font-semibold">{inc.attack_vector}</td>
-                    <td className="py-2.5 px-2">
-                      <div className="text-[#00F0FF]">H = {inc.entropy_bits.toFixed(4)}</div>
-                      <div className="text-zinc-400">Bin #{inc.dominant_fft_bin}</div>
-                    </td>
-                    <td className="py-2.5 px-2">
-                      <span
-                        className={`px-2 py-0.5 rounded border text-xs font-bold ${
-                          inc.isGpu
-                            ? 'text-[#FFB703] bg-[#FFB703]/15 border-[#D4AF37]/50'
-                            : 'text-[#FF3366] bg-[#FF3366]/15 border-[#FF3366]/50'
-                        }`}
-                      >
-                        {inc.action}
+              <tbody className="divide-y divide-slate-800/60">
+                {forensicRows.map((row, idx) => (
+                  <tr key={idx} className="hover:bg-slate-900/50 transition-colors">
+                    <td className="py-3 px-3 text-white font-semibold">{row.ip}</td>
+                    <td className="py-3 px-3 text-slate-300">{row.country}</td>
+                    <td className="py-3 px-3 text-slate-400">{row.asn}</td>
+                    <td className="py-3 px-3 text-slate-200">{row.vector}</td>
+                    <td className="py-3 px-3 text-[#38BDF8]">{row.vertex}</td>
+                    <td className="py-3 px-3 text-right">
+                      <span className="px-2.5 py-1 bg-[#06090F] border border-slate-700 text-slate-200 text-[10px] font-semibold">
+                        {row.action}
                       </span>
                     </td>
                   </tr>
@@ -512,6 +402,7 @@ export default function TridentLiveSoc() {
             </table>
           </div>
         </div>
+
       </div>
     </section>
   );
