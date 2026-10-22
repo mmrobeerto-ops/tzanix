@@ -282,7 +282,7 @@ docker compose up -d`;
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <input
                 type="text"
-                placeholder="Empresa / Institución (ej. Software Médico)"
+                placeholder="Nombre de tu Empresa o Proyecto"
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
                 required

@@ -5,7 +5,7 @@ export default function CompanyModals() {
 
   const modalsContent = {
     mision: {
-      tag: 'PROPÓSITO CORPORATIVO // DEFENSA DE INFRAESTRUCTURA CRÍTICA',
+      tag: 'PROPÓSITO CORPORATIVO // DEFENSA DE INFRAESTRUCTURA DIGITAL',
       title: 'Nuestra Misión y Visión',
       body: (
         <div className="space-y-6 text-slate-300 leading-relaxed text-sm">
@@ -14,7 +14,7 @@ export default function CompanyModals() {
               NUESTRA MISIÓN
             </h4>
             <p className="text-white text-base font-medium leading-relaxed">
-              Erradicar el tiempo de inactividad y blindar las infraestructuras digitales más críticas del planeta (hospitales, sistemas financieros HFT, telecomunicaciones y centros de datos soberanos) mediante defensa cibernética determinista en silicio que neutraliza ataques en nanosegundos antes de que toquen el sistema operativo.
+              Erradicar el tiempo de inactividad y blindar cualquier infraestructura digital (servidores VPS, plataformas SaaS, APIs corporativas, sistemas financieros, telecomunicaciones y centros de datos) mediante defensa cibernética determinista que neutraliza ataques en nanosegundos antes de que colapsen el sistema operativo.
             </p>
           </div>
 
@@ -23,22 +23,22 @@ export default function CompanyModals() {
               NUESTRA VISIÓN 2030
             </h4>
             <p className="text-white text-base font-medium leading-relaxed">
-              Convertir la Arquitectura Tridente de TZANIX en el estándar mundial de seguridad en capa física (Fast-Path) integrado en cada tarjeta de red SmartNIC, DPU y switch de centro de datos, logrando una Internet inmune por diseño a ataques volumétricos y anomalías de Inteligencia Artificial.
+              Convertir la Arquitectura Tridente de TZANIX en el estándar universal de seguridad de ultra-baja latencia (Fast-Path), tanto en servidores Linux mediante binarios estáticos libres de dependencias como en silicio dedicado (SmartNICs, DPUs y FPGAs), logrando redes empresariales inmunes por diseño a ataques DDoS y botnets avanzadas.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
             <div className="p-4 bg-[#06090F] border border-slate-800">
               <div className="text-xs font-mono text-[#38BDF8] uppercase mb-1">Determinismo Físico</div>
-              <p className="text-xs text-slate-400">Cero recolector de basura, cero asignaciones en el Heap (#![no_std]) y latencia garantizada de 10.0 ns en FPGA.</p>
+              <p className="text-xs text-slate-400">Cero recolector de basura, cero asignaciones en el Heap (#![no_std]) y latencia ultrarrápida en CPU (59.31 ns) y FPGA (10.0 ns).</p>
             </div>
             <div className="p-4 bg-[#06090F] border border-slate-800">
               <div className="text-xs font-mono text-[#38BDF8] uppercase mb-1">Precisión Matemática</div>
-              <p className="text-xs text-slate-400">Entropía de Shannon en punto fijo Q16.16 combinada con análisis espectral Radix-2 FFT-16 en GPU.</p>
+              <p className="text-xs text-slate-400">Entropía de Shannon en punto fijo Q16.16 combinada con análisis espectral Radix-2 FFT-16 para cazar botnets sigilosas.</p>
             </div>
             <div className="p-4 bg-[#06090F] border border-slate-800">
               <div className="text-xs font-mono text-[#38BDF8] uppercase mb-1">Inmunidad Colectiva</div>
-              <p className="text-xs text-slate-400">Sincronización de estado vía RDMA RoCEv2 entre clústeres completos sin intervención de la CPU.</p>
+              <p className="text-xs text-slate-400">Sincronización instantánea de umbrales de seguridad entre múltiples servidores o nodos de clúster sin saturar la CPU.</p>
             </div>
           </div>
         </div>
@@ -50,20 +50,20 @@ export default function CompanyModals() {
       body: (
         <div className="space-y-4 text-slate-300 leading-relaxed text-sm">
           <p>
-            Para empresas de <strong className="text-white">Software Médico</strong>, <strong className="text-white">Desarrollo de Negocios</strong> y servicios digitales, la privacidad de los datos en tránsito es prioritaria.
+            Para <strong className="text-white">Plataformas SaaS</strong>, <strong className="text-white">Infraestructura Cloud / VPS</strong>, <strong className="text-white">E-Commerce</strong> y servicios empresariales, la privacidad de los datos en tránsito es prioritaria.
           </p>
           <ul className="space-y-3 bg-[#06090F] p-5 border border-slate-800 font-mono text-xs">
             <li className="flex items-start space-x-3">
               <span className="text-[#38BDF8] font-bold">[01]</span>
-              <span><strong>Zero-Payload Storage:</strong> TZANIX Æther-Core evalúa únicamente la distribución matemática de entropía y el espectro de frecuencias en memoria volátil. Jamás almacena ni copia expedientes clínicos, contraseñas ni datos personales en disco.</span>
+              <span><strong>Zero-Payload Storage:</strong> TZANIX Æther-Core evalúa únicamente la distribución matemática de entropía y el espectro de frecuencias en memoria volátil. Jamás almacena ni copia el contenido privado de las peticiones, contraseñas ni bases de datos en disco.</span>
             </li>
             <li className="flex items-start space-x-3">
               <span className="text-[#38BDF8] font-bold">[02]</span>
-              <span><strong>Ejecución Local Aislada:</strong> El contenedor Docker opera 100% dentro del servidor del cliente sin enviar tráfico privado a nubes de terceros.</span>
+              <span><strong>Ejecución Local Aislada:</strong> El agente nativo Linux y el contenedor Docker operan 100% dentro del propio servidor del cliente sin desviar el tráfico privado hacia terceros.</span>
             </li>
             <li className="flex items-start space-x-3">
               <span className="text-[#38BDF8] font-bold">[03]</span>
-              <span><strong>Bitácora Técnica Transparente:</strong> Los registros JSON generados en fase de pruebas documentan únicamente métricas técnicas de red (entropía Q16.16, espectro FFT-16 y contadores de paquetes).</span>
+              <span><strong>Bitácora Forense de Cabeceras:</strong> Los registros JSON y logs de amenazas documentan únicamente metadatos técnicos de red (IP atacante, ASN, vector de ataque, entropía Q16.16 y marca de tiempo).</span>
             </li>
           </ul>
         </div>
@@ -75,7 +75,7 @@ export default function CompanyModals() {
       body: (
         <div className="space-y-5 text-slate-300 text-sm">
           <p>
-            Atendemos directamente a empresas de software médico, desarrollo de negocios e infraestructura digital para configurar demostraciones técnicas en vivo y despliegues piloto en fase de evaluación.
+            Atendemos directamente a directores de tecnología (CTO), administradores de sistemas (SysAdmins), empresas de software e infraestructura digital para configurar demostraciones técnicas en vivo y despliegues piloto en sus servidores.
           </p>
 
           <div className="bg-[#06090F] p-5 border border-slate-800 space-y-3 font-mono text-xs">
@@ -89,17 +89,17 @@ export default function CompanyModals() {
             </div>
             <div className="flex flex-col sm:flex-row sm:justify-between border-b border-slate-800 pb-2 gap-1">
               <span className="text-slate-500">FASE ACTUAL DEL PROYECTO:</span>
-              <span className="text-[#38BDF8]">Piloto Técnico / Pruebas de Concepto (PoC Beta)</span>
+              <span className="text-[#38BDF8]">Piloto Técnico / Pruebas de Concepto (PoC 14 Días)</span>
             </div>
             <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
               <span className="text-slate-500">MODALIDADES DISPONIBLES:</span>
-              <span className="text-white">Contenedor Docker / Librería C-FFI / Simulación RTL</span>
+              <span className="text-white">Agente Nativo Linux (CentOS/AlmaLinux/Ubuntu) / Docker / Appliance FPGA</span>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <a
-              href="mailto:mmrobeerto@gmail.com?subject=Solicitud%20de%20Prueba%20Piloto%20TZANIX%20Aether-Core&body=Hola%20equipo%20TZANIX%2C%0A%0ANos%20interesa%20evaluar%20una%20prueba%20piloto%20de%20TZANIX%20Aether-Core%20en%20nuestra%20infraestructura.%0A%0AEmpresa%3A%20%0AServidores%20a%20proteger%3A%20%0ATel%C3%A9fono%3A%20"
+              href="mailto:mmrobeerto@gmail.com?subject=Solicitud%20de%20Prueba%20Piloto%20TZANIX%20Aether-Core&body=Hola%20equipo%20TZANIX%2C%0A%0ANos%20interesa%20evaluar%20una%20prueba%20piloto%20de%20TZANIX%20Aether-Core%20en%20nuestros%20servidores.%0A%0AEmpresa%3A%20%0AServidores%20a%20proteger%3A%20%0ATel%C3%A9fono%3A%20"
               className="block w-full text-center py-3.5 bg-[#38BDF8] hover:bg-white text-[#06090F] font-mono font-bold text-xs uppercase tracking-widest transition"
             >
               Enviar Correo a Ingeniería
@@ -159,7 +159,7 @@ export default function CompanyModals() {
                 Defensa Determinista en Tiempo Real
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Proteger la continuidad operativa de plataformas de software médico, sistemas empresariales y centros de datos filtrando ataques DDoS, botnets y anomalías de red en nanosegundos antes de que saturen la CPU del servidor.
+                Proteger la continuidad operativa de servidores VPS, plataformas SaaS, portales web, APIs corporativas y centros de datos filtrando ataques DDoS, botnets y anomalías de red en nanosegundos antes de que saturen la CPU del servidor.
               </p>
             </div>
 
@@ -168,10 +168,10 @@ export default function CompanyModals() {
                 02 // NUESTRA VISIÓN
               </div>
               <h3 className="text-2xl font-bold text-white uppercase tracking-tight">
-                Seguridad de Nueva Generación en Silicio
+                Seguridad Universal de Ultra-Baja Latencia
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Evolucionar desde los firewalls de software tradicionales hacia la <strong className="text-white">Arquitectura Tridente (FPGA + GPU + RDMA)</strong>, brindando a cada servidor empresarial detección matemática ultrarrápida sin falsos positivos.
+                Evolucionar desde los firewalls tradicionales hacia la <strong className="text-white">Arquitectura Tridente (FPGA + GPU + RDMA y Agentes Estáticos Linux)</strong>, brindando a cualquier servidor o infraestructura detección matemática ultrarrápida con cero falsos positivos.
               </p>
             </div>
 
@@ -183,7 +183,7 @@ export default function CompanyModals() {
                 Privacidad en Tránsito (Cero Datos Guardados)
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Nuestro motor evalúa únicamente la física matemática del paquete (entropía Q16.16 y espectro FFT-16) en memoria volátil, <strong className="text-white">sin almacenar jamás expedientes médicos, contraseñas ni información privada</strong> de tus clientes.
+                Nuestro motor evalúa únicamente la física matemática del paquete (entropía Q16.16 y espectro FFT-16) en memoria volátil, <strong className="text-white">sin almacenar jamás el contenido privado de tus peticiones, contraseñas ni información confidencial</strong> de tus usuarios.
               </p>
             </div>
           </div>
@@ -193,13 +193,13 @@ export default function CompanyModals() {
             <div className="space-y-3 max-w-2xl">
               <div className="inline-flex items-center gap-2 text-xs font-mono text-[#38BDF8] uppercase tracking-[0.25em]">
                 <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
-                <span>ATENCIÓN DIRECTA A EMPRESAS, HOSPITALES Y CENTROS DE DATOS</span>
+                <span>ATENCIÓN DIRECTA A EMPRESAS, SERVIDORES VPS Y CENTROS DE DATOS</span>
               </div>
               <h3 className="text-2xl sm:text-4xl font-extrabold text-white uppercase tracking-tight">
                 ¿LISTO PARA BLINDAR TU INFRAESTRUCTURA HOY MISMO?
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Agenda una demostración técnica en vivo o solicita tu licencia PoC de 14 días para desplegar <strong className="text-white">TZANIX Æther-Core</strong> en tus servidores en menos de 5 minutos.
+                Agenda una demostración técnica en vivo o genera tu licencia piloto de 14 días para desplegar <strong className="text-white">TZANIX Æther-Core</strong> en tus servidores en menos de 5 minutos.
               </p>
               <div className="pt-2 flex flex-wrap gap-6 font-mono text-xs text-slate-300">
                 <span>CORREO: <strong className="text-[#38BDF8]">mmrobeerto@gmail.com</strong></span>
