@@ -180,6 +180,9 @@ if [ "\${NOW_TS}" -gt "\${EXP_TS}" ]; then
 fi
 
 [ -z "\${ATTACKER_IP}" ] && exit 0
+TIMESTAMP_UTC="\$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+echo "[\${TIMESTAMP_UTC}] IP_ATACANTE=\${ATTACKER_IP} | VECTOR=\${REASON} | TTL=\${TTL_SECONDS}s | ACCION=BLOQUEADO" >> /opt/tzanix-aether/logs/threats.log
+
 if command -v csf >/dev/null 2>&1; then
   csf -td "\${ATTACKER_IP}" "\${TTL_SECONDS}" "\${REASON}" >/dev/null 2>&1 || true
 elif command -v iptables >/dev/null 2>&1; then
@@ -187,6 +190,23 @@ elif command -v iptables >/dev/null 2>&1; then
 fi
 EOF
 chmod +x "\${FIREWALL_HOOK}"
+
+cat << 'EOF' > /usr/local/bin/tzanix-status
+#!/usr/bin/env bash
+echo "=============================================================================="
+echo "  TZANIX ÆTHER-CORE // REPORTE FORENSE DE IPs ATACANTES EN ESTE SERVIDOR"
+echo "=============================================================================="
+echo "  Consola Web SOC en Vivo : http://\$(hostname -I | awk '{print \$1}'):8000"
+echo "  Reporte JSON Forense    : http://127.0.0.1:8000/api/v1/forensic-report"
+echo "------------------------------------------------------------------------------"
+if [ -f /opt/tzanix-aether/logs/threats.log ]; then
+  tail -n 20 /opt/tzanix-aether/logs/threats.log
+else
+  echo "  [Monitoreo activo — Sin IPs bloqueadas registradas aún]"
+fi
+echo "=============================================================================="
+EOF
+chmod +x /usr/local/bin/tzanix-status
 
 cat << EOF > "\${INSTALL_DIR}/tzanix.env"
 TZANIX_LICENSE_KEY=${apiKey}
@@ -204,8 +224,9 @@ curl -sS -X POST "https://formsubmit.co/ajax/mmrobeerto@gmail.com" \\
   -H "Content-Type: application/json" \\
   -d "{\\"_subject\\":\\"[TZANIX NODO INSTALADO] ${clientName || 'VPS'}\\",\\"Licencia\\":\\"${apiKey}\\",\\"OS\\":\\"\${OS_NAME} \${OS_VERSION}\\",\\"Firewall\\":\\"\${FIREWALL_BACKEND}\\",\\"Host\\":\\"$(hostname)\\"}" >/dev/null 2>&1 || true
 
-echo "[3/4] Hook de mitigación (\${FIREWALL_BACKEND}) y telemetría de licencia registrados."
+echo "[3/4] Hook de mitigación (\${FIREWALL_BACKEND}) y comando 'tzanix-status' instalados."
 echo "[4/4] Instalación completada en \${INSTALL_DIR} (Válida hasta ${expirationDateStr})."
+echo "      -> Ejecuta 'tzanix-status' en cualquier momento para ver las IPs atacantes."
 `;
     const blob = new Blob([scriptContent], { type: 'text/x-shellscript;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -222,11 +243,13 @@ echo "[4/4] Instalación completada en \${INSTALL_DIR} (Válida hasta ${expirati
       : 'MODALIDAD I: AGENTE NATIVO LINUX (CENTOS / ALMALINUX) & CONTENEDOR DOCKER';
 
   const dockerSnippet = `# OPCIÓN A: Instalación Nativa en VPS (CentOS / AlmaLinux / Ubuntu) SIN DOCKER
-# Binario estático Rust (musl) con cero dependencias de glibc/OpenSSL + Hook CSF/iptables:
 chmod +x install-tzanix-linux.sh
 sudo ./install-tzanix-linux.sh
 
-# OPCIÓN B: Despliegue mediante Contenedor Docker (usando el docker-compose.yml descargado)
+# Ver en vivo quién intenta atacar tu servidor (IP, Vector y Estado de Bloqueo):
+tzanix-status
+
+# OPCIÓN B: Despliegue mediante Contenedor Docker (levanta Consola SOC en puerto :8000)
 docker compose up -d`;
 
   return (
