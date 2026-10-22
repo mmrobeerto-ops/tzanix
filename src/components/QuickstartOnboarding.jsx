@@ -3,16 +3,53 @@ import React, { useState } from 'react';
 export default function QuickstartOnboarding({ selectedTier = 'docker' }) {
   const [clientName, setClientName] = useState('');
   const [clientEmail, setClientEmail] = useState('');
-  const [apiKey, setApiKey] = useState('tzanix_live_sec_99f8a7b6c5d4e3f2a100_poc14d');
+  const [expTimestamp, setExpTimestamp] = useState(() => Math.floor(Date.now() / 1000) + 14 * 86400);
+  const [apiKey, setApiKey] = useState(() => {
+    const exp = Math.floor(Date.now() / 1000) + 14 * 86400;
+    return `tzanix_poc14d_${exp}_99f8a7b6c5d4`;
+  });
   const [copiedKey, setCopiedKey] = useState(false);
   const [copiedCode, setCopiedCode] = useState(false);
   const [isActivated, setIsActivated] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleActivateLicense = (e) => {
+  const expirationDateStr = new Date(expTimestamp * 1000).toISOString().split('T')[0];
+
+  const handleActivateLicense = async (e) => {
     e.preventDefault();
     if (!clientName || !clientEmail) return;
-    const randomHex = Array.from({ length: 16 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
-    setApiKey(`tzanix_live_sec_${randomHex}_poc14d`);
+    setIsSubmitting(true);
+
+    const newExp = Math.floor(Date.now() / 1000) + 14 * 86400;
+    const randomHex = Array.from({ length: 12 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+    const generatedKey = `tzanix_poc14d_${newExp}_${randomHex}`;
+    const expDateFormatted = new Date(newExp * 1000).toISOString().split('T')[0];
+
+    setExpTimestamp(newExp);
+    setApiKey(generatedKey);
+
+    try {
+      await fetch('https://formsubmit.co/ajax/mmrobeerto@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `[TZANIX NUEVO REGISTRO PoC 14 DÍAS] - ${clientName}`,
+          Organizacion: clientName,
+          Correo_Corporativo: clientEmail,
+          Modalidad: selectedTier === 'appliance' ? 'Modalidad II (Appliance Silicio FPGA+DPU)' : 'Modalidad I (Agente Nativo Linux / Docker)',
+          Clave_Emitida: generatedKey,
+          Expira_En: `${expDateFormatted} (14 días - Unix: ${newExp})`,
+          Origen: 'https://www.tzanix.com/#pricing',
+        }),
+      });
+    } catch (_) {
+      // Si el cliente tiene bloqueador de anuncios estricto, aun así entregamos la clave localmente
+    }
+
+    setIsSubmitting(false);
     setIsActivated(true);
   };
 
@@ -33,7 +70,9 @@ export default function QuickstartOnboarding({ selectedTier = 'docker' }) {
 # ============================================================================
 # TZANIX ÆTHER-CORE // ARQUITECTURA TRIDENTE (CONTENEDOR ZERO-SOURCE)
 # Organización : ${clientName || 'Evaluación Piloto PoC'}
+# Correo       : ${clientEmail || 'No especificado'}
 # Licencia     : ${apiKey}
+# Vencimiento  : ${expirationDateStr} (14 días - Pasa a modo pasivo al expirar)
 # Ejecución    : docker compose up -d
 # ============================================================================
 
@@ -47,6 +86,8 @@ services:
     environment:
       - GATEWAY_MODE=ENFORCE_CUT_THROUGH
       - TZANIX_LICENSE_KEY=${apiKey}
+      - TZANIX_LICENSE_EXP=${expTimestamp}
+      - TZANIX_CLIENT_NAME=${clientName || 'PoC-Client'}
       - TZANIX_DROP_ENTROPY=1.9000
       - TZANIX_FORWARD_ENTROPY=3.5200
       - RUST_LOG=info
@@ -66,16 +107,16 @@ services:
 # ==============================================================================
 # TZANIX ÆTHER-CORE // INSTALADOR NATIVO LINUX (ZERO-DEPENDENCIES STATIC BINARY)
 # Organización   : ${clientName || 'Evaluación Piloto VPS'}
+# Correo         : ${clientEmail || 'No especificado'}
 # Licencia       : ${apiKey}
+# Expiración PoC : ${expirationDateStr} (Unix: ${expTimestamp})
 # Compatible con : CentOS 7/8/Stream, AlmaLinux 8/9, Rocky Linux, RHEL, Ubuntu, Debian
-# Arquitectura   : Binario Estático Rust (x86_64-unknown-linux-musl)
-#                  CERO dependencia de glibc, OpenSSL o Docker (Inmune a migraciones CentOS -> AlmaLinux)
-# Integración    : Hook directo hacia CSF/LFD (csf -td), nftables e iptables
 # ==============================================================================
 
 set -euo pipefail
 
 export TZANIX_LICENSE_KEY="${apiKey}"
+export TZANIX_LICENSE_EXP="${expTimestamp}"
 INSTALL_DIR="/opt/tzanix-aether"
 BIN_PATH="/usr/local/bin/tzanix-aether-core"
 SERVICE_FILE="/etc/systemd/system/tzanix-aether.service"
@@ -83,11 +124,18 @@ FIREWALL_HOOK="/opt/tzanix-aether/tzanix-firewall-hook.sh"
 
 echo "=============================================================================="
 echo "  TZANIX ÆTHER-CORE // DESPLIEGUE NATIVO DE BAJO NIVEL (SIN DOCKER)"
-echo "  Modo: Software Fast-Path CPU (59.31 ns/flit) + Integración CSF/iptables"
+echo "  Licencia Piloto 14 Días válida hasta: ${expirationDateStr}"
 echo "=============================================================================="
 
 if [ "$(id -u)" -ne 0 ]; then
   echo "[ERROR] Ejecuta este instalador como root: sudo bash install-tzanix-linux.sh"
+  exit 1
+fi
+
+NOW_TS="$(date +%s)"
+if [ "\${NOW_TS}" -gt "${expTimestamp}" ]; then
+  echo "[LICENCIA EXPIRADA] El periodo de prueba de 14 días (${expirationDateStr}) ha vencido."
+  echo "Contacta a mmrobeerto@gmail.com o +52 664 724 7803 para adquirir una licencia comercial."
   exit 1
 fi
 
@@ -117,11 +165,20 @@ fi
 
 mkdir -p "\${INSTALL_DIR}/logs"
 
+# Hook con verificación automática de vigencia de licencia (Fail-Safe Pasivo al día 14)
 cat << 'EOF' > "\${FIREWALL_HOOK}"
 #!/usr/bin/env bash
 ATTACKER_IP="\${1:-}"
 REASON="\${2:-TZANIX-Aether-Core-Anomaly-Block}"
 TTL_SECONDS="\${3:-3600}"
+EXP_TS="${expTimestamp}"
+NOW_TS="\$(date +%s)"
+
+if [ "\${NOW_TS}" -gt "\${EXP_TS}" ]; then
+  echo "[TZANIX LICENCIA EXPIRADA] Modo pasivo activo (Sin bloqueo nuevo). Contacte a mmrobeerto@gmail.com" >> /opt/tzanix-aether/logs/license.log
+  exit 0
+fi
+
 [ -z "\${ATTACKER_IP}" ] && exit 0
 if command -v csf >/dev/null 2>&1; then
   csf -td "\${ATTACKER_IP}" "\${TTL_SECONDS}" "\${REASON}" >/dev/null 2>&1 || true
@@ -133,6 +190,7 @@ chmod +x "\${FIREWALL_HOOK}"
 
 cat << EOF > "\${INSTALL_DIR}/tzanix.env"
 TZANIX_LICENSE_KEY=${apiKey}
+TZANIX_LICENSE_EXP=${expTimestamp}
 TZANIX_MODE=VPS_CPU_FASTPATH
 TZANIX_FIREWALL_BACKEND=\${FIREWALL_BACKEND}
 TZANIX_FIREWALL_HOOK=\${FIREWALL_HOOK}
@@ -141,8 +199,13 @@ TZANIX_FORWARD_ENTROPY=3.5200
 EOF
 chmod 600 "\${INSTALL_DIR}/tzanix.env"
 
-echo "[3/4] Hook de mitigación (\${FIREWALL_BACKEND}) y configuración listos en \${INSTALL_DIR}"
-echo "[4/4] Listo para activar el servicio systemd (tzanix-aether.service)."
+# Notificación automática de activación de nodo hacia central TZANIX
+curl -sS -X POST "https://formsubmit.co/ajax/mmrobeerto@gmail.com" \\
+  -H "Content-Type: application/json" \\
+  -d "{\\"_subject\\":\\"[TZANIX NODO INSTALADO] ${clientName || 'VPS'}\\",\\"Licencia\\":\\"${apiKey}\\",\\"OS\\":\\"\${OS_NAME} \${OS_VERSION}\\",\\"Firewall\\":\\"\${FIREWALL_BACKEND}\\",\\"Host\\":\\"$(hostname)\\"}" >/dev/null 2>&1 || true
+
+echo "[3/4] Hook de mitigación (\${FIREWALL_BACKEND}) y telemetría de licencia registrados."
+echo "[4/4] Instalación completada en \${INSTALL_DIR} (Válida hasta ${expirationDateStr})."
 `;
     const blob = new Blob([scriptContent], { type: 'text/x-shellscript;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -187,11 +250,11 @@ docker compose up -d`;
           </div>
         </div>
 
-        {/* PASO 1: REGISTRO DE LICENCIA */}
+        {/* PASO 1: REGISTRO DE LICENCIA CON NOTIFICACIÓN AUTOMÁTICA A MMROBEERTO@GMAIL.COM */}
         {!isActivated ? (
           <form onSubmit={handleActivateLicense} className="bg-[#06090F] p-5 border border-slate-800 space-y-4">
             <div className="text-xs font-mono uppercase text-[#38BDF8] tracking-wider">
-              1. Registra tu Organización para personalizar tu Instalador Nativo o Docker (Prueba Piloto 14 Días):
+              1. Registra tu Organización para emitir tu Licencia Piloto de 14 Días (Vence: {expirationDateStr}):
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <input
@@ -212,9 +275,10 @@ docker compose up -d`;
               />
               <button
                 type="submit"
-                className="px-5 py-2.5 bg-[#38BDF8] hover:bg-white text-[#06090F] font-mono font-bold text-xs uppercase tracking-wider transition cursor-pointer"
+                disabled={isSubmitting}
+                className="px-5 py-2.5 bg-[#38BDF8] hover:bg-white text-[#06090F] font-mono font-bold text-xs uppercase tracking-wider transition cursor-pointer disabled:opacity-50"
               >
-                Generar Licencia Piloto &rarr;
+                {isSubmitting ? 'Registrando Licencia...' : 'Generar Licencia Piloto \u2192'}
               </button>
             </div>
           </form>
@@ -222,17 +286,17 @@ docker compose up -d`;
           <div className="bg-[#06090F] border border-[#38BDF8]/50 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <div className="text-xs font-mono text-[#38BDF8] uppercase font-bold">
-                LICENCIA GENERADA PARA: {clientName.toUpperCase()} ({clientEmail})
+                LICENCIA EMITIDA Y REGISTRADA PARA: {clientName.toUpperCase()} ({clientEmail})
               </div>
               <div className="text-xs text-slate-400 mt-1">
-                Tu script <code>install-tzanix-linux.sh</code> y tu <code>docker-compose.yml</code> ya incluyen esta clave.
+                Vigencia: <strong>14 días (hasta {expirationDateStr})</strong>. Al concluir los 14 días, el agente pasa a modo pasivo (Fail-Safe) hasta activar una licencia comercial.
               </div>
             </div>
             <a
-              href={`mailto:mmrobeerto@gmail.com?subject=${encodeURIComponent('Activación Piloto TZANIX - ' + clientName)}&body=${encodeURIComponent(`Hola equipo de ingeniería TZANIX,\n\nSolicito acompañamiento técnico para nuestra prueba piloto:\nEmpresa: ${clientName}\nCorreo: ${clientEmail}\nModalidad: ${tierTitle}\nClave generada: ${apiKey}`)}`}
+              href={`mailto:mmrobeerto@gmail.com?subject=${encodeURIComponent('Ampliación a Licencia Comercial TZANIX - ' + clientName)}&body=${encodeURIComponent(`Hola equipo de ingeniería TZANIX,\n\nSolicito cotización de licencia comercial anual para:\nEmpresa: ${clientName}\nCorreo: ${clientEmail}\nModalidad: ${tierTitle}\nClave piloto actual: ${apiKey}`)}`}
               className="px-4 py-2 bg-[#38BDF8] text-[#06090F] font-mono font-bold text-xs uppercase whitespace-nowrap hover:bg-white transition"
             >
-              Notificar a Ingeniería
+              Solicitar Licencia Anual
             </a>
           </div>
         )}
@@ -240,7 +304,7 @@ docker compose up -d`;
         {/* PASO 2: DESCARGA DIRECTA DEL INSTALADOR NATIVO LINUX O DOCKER-COMPOSE.YML */}
         <div className="space-y-3">
           <label className="text-xs font-mono uppercase text-slate-400">
-            2. Tu Clave de Licencia (TZANIX_LICENSE_KEY) y Opciones de Descarga Directa:
+            2. Tu Clave Criptográfica de 14 Días (TZANIX_LICENSE_KEY · Expira {expirationDateStr}):
           </label>
           <div className="flex items-center justify-between bg-[#06090F] border border-slate-800 p-3 font-mono text-sm">
             <span className="text-[#38BDF8] truncate select-all">{apiKey}</span>
