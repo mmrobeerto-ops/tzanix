@@ -213,14 +213,14 @@ function App() {
         <ScientificDocs />
 
         {/* ========================================================================= */}
-        {/* 7. MODALIDADES DE LICENCIAMIENTO Y DESPLIEGUE DOCKER SELF-SERVICE         */}
+        {/* 7. MODALIDADES DE LICENCIAMIENTO Y DESPLIEGUE (VPS NATIVO VS SILICIO)     */}
         {/* ========================================================================= */}
         <section id="pricing" className="w-full py-28 px-5 sm:px-[4vw] bg-[#06090F] border-t border-slate-800/80 scroll-mt-20">
           <div className="relative z-10 max-w-7xl mx-auto w-full space-y-14">
             
             <div className="border-b border-slate-800 pb-6">
               <p className="text-xs font-mono font-semibold tracking-[0.3em] uppercase text-[#38BDF8] mb-2">
-                ADQUISICIÓN COMERCIAL &amp; PRUEBA DE CONCEPTO (PoC)
+                ARQUITECTURA DE DESPLIEGUE SEGÚN TU INFRAESTRUCTURA (VPS CLOUD VS. DATACENTER FÍSICO)
               </p>
               <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight uppercase text-white">
                 MODALIDADES DE DESPLIEGUE
@@ -228,21 +228,21 @@ function App() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {/* Modalidad 1: Contenedor Enterprise Docker / Bare-Metal */}
+              {/* Modalidad 1: Agente Nativo Linux (CentOS / AlmaLinux / Ubuntu) & Docker */}
               <div className="border border-slate-800 hover:border-[#38BDF8]/60 p-8 flex flex-col justify-between space-y-8 bg-[#0B111E] transition-colors">
                 <div className="space-y-4">
                   <div className="text-xs font-mono font-semibold tracking-[0.2em] text-[#38BDF8] uppercase">
-                    MODALIDAD I // SERVIDOR DEDICADO O CLOUD
+                    MODALIDAD I // VPS COMPARTIDOS (CENTOS / ALMALINUX / UBUNTU) &amp; CLOUD
                   </div>
                   <div className="text-2xl sm:text-3xl font-extrabold text-white uppercase tracking-tight">
-                    ÆTHER-CORE DOCKER &amp; C-FFI
+                    AGENTE NATIVO LINUX (ZERO-DEPS) &amp; DOCKER
                   </div>
                   <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                    Diseñado para proteger de inmediato servidores empresariales, plataformas FinTech, pasarelas de pago y sistemas médicos críticos sin hardware adicional. Latencia determinista de <strong className="text-slate-200">59.31 ns/flit</strong>, exportador Prometheus y cabecera nativa <code>tzanix_aether.h</code>.
+                    Diseñado para <strong className="text-white">instancias VPS virtualizadas (Hostinger, AWS, DigitalOcean)</strong> que no poseen acceso físico a tarjetas FPGA ni bus PCIe. Se despliega como un <strong className="text-slate-200">Binario Estático Nativo en Rust (<code>musl</code>, sin Docker y sin depender de <code>glibc</code> u <code>OpenSSL</code>)</strong>, inmune a fallos por actualizaciones de CentOS a AlmaLinux. Opera en CPU a <strong className="text-white">59.31 ns/flit</strong> y se integra automáticamente con <strong className="text-[#38BDF8]">CSF/LFD (<code>csf -td</code>), iptables y Cloudflare</strong>.
                   </p>
                 </div>
                 <button onClick={() => handleSelectTier('docker')} className="btn-spacex w-full text-center">
-                  <span>GENERAR LICENCIA PoC DOCKER (14 DÍAS)</span>
+                  <span>DESCARGAR SCRIPT NATIVO LINUX / DOCKER</span>
                 </button>
               </div>
 
@@ -250,20 +250,20 @@ function App() {
               <div className="border border-[#38BDF8]/50 p-8 flex flex-col justify-between space-y-8 bg-[#0F172A] shadow-[0_0_40px_rgba(56,189,248,0.08)]">
                 <div className="space-y-4">
                   <div className="text-xs font-mono font-semibold tracking-[0.2em] text-[#38BDF8] uppercase">
-                    MODALIDAD II // SILICIO DEDICADO &amp; INFRAESTRUCTURA CRÍTICA
+                    MODALIDAD II // DATACENTERS PROPIOS &amp; SERVIDORES DEDICADOS BARE-METAL
                   </div>
                   <div className="text-2xl sm:text-3xl font-extrabold text-white uppercase tracking-tight">
-                    APPLIANCE TRIDENTE (FPGA + DPU)
+                    APPLIANCE FÍSICO TRIDENTE (FPGA + DPU)
                   </div>
                   <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    Solución llave en mano para Centros de Datos, Telcos/ISPs y Fondos HFT sobre tarjetas <strong className="text-white">Xilinx UltraScale+ / Intel Agilex</strong> y <strong className="text-white">NVIDIA BlueField-3 DPU</strong>. Descarte físico Cut-Through en <strong className="text-white">10.0 ns</strong> y sincronización RDMA RoCEv2 a escala de 100GbE/400GbE.
+                    Solución de hardware físico dedicada para Centros de Datos, Telcos/ISPs e Instituciones Financieras con acceso directo al bus PCIe sobre tarjetas <strong className="text-white">Xilinx UltraScale+ / Intel Agilex</strong> y SmartNICs <strong className="text-white">NVIDIA BlueField-3 DPU</strong>. Ejecuta el descarte físico <em>Cut-Through</em> en la tarjeta de red en <strong className="text-[#38BDF8]">10.0 nanosegundos</strong> antes del sistema operativo y sincronización RDMA RoCEv2 a escala de 100GbE/400GbE.
                   </p>
                 </div>
                 <button
                   onClick={() => handleSelectTier('appliance')}
                   className="btn-spacex w-full text-center !border-[#38BDF8] !bg-[#38BDF8] !text-[#06090F] hover:!bg-white hover:!border-white"
                 >
-                  <span>SOLICITAR DESPLIEGUE DE SILICIO</span>
+                  <span>SOLICITAR APPLIANCE DE SILICIO DEDICADO</span>
                 </button>
               </div>
             </div>
