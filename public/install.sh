@@ -74,5 +74,27 @@ TZANIX_FORWARD_ENTROPY=3.5200
 EOF
 chmod 600 "${INSTALL_DIR}/tzanix.env"
 
-echo "[3/4] Hook de mitigación (${FIREWALL_BACKEND}) y configuración listos en ${INSTALL_DIR}"
-echo "[4/4] Entorno TZANIX listo en ${INSTALL_DIR}."
+cat << 'EOF' > /usr/local/bin/tzanix-status
+#!/usr/bin/env bash
+echo "=============================================================================="
+echo "  TZANIX ÆTHER-CORE // REPORTE FORENSE DE IPs ATACANTES EN ESTE SERVIDOR"
+echo "=============================================================================="
+echo "  Consola Web SOC en Vivo : http://$(hostname -I | awk '{print $1}'):8000"
+echo "  Reporte JSON Forense    : http://127.0.0.1:8000/api/v1/forensic-report"
+echo "------------------------------------------------------------------------------"
+if [ -f /opt/tzanix-aether/logs/threats.log ]; then
+  tail -n 20 /opt/tzanix-aether/logs/threats.log
+else
+  echo "  [Monitoreo activo — Sin IPs bloqueadas registradas aún]"
+fi
+echo "=============================================================================="
+EOF
+chmod +x /usr/local/bin/tzanix-status
+
+RELEASE_URL="https://github.com/mmrobeerto-ops/eather-core/releases/download/v1.0.0-silicon/tzanix-aether-core-linux-x86_64"
+if command -v curl >/dev/null 2>&1; then
+  curl -fsSL "${RELEASE_URL}" -o /usr/local/bin/tzanix-aether-core 2>/dev/null && chmod +x /usr/local/bin/tzanix-aether-core || true
+fi
+
+echo "[3/4] Binario estático musl, Hook (${FIREWALL_BACKEND}) y comando 'tzanix-status' listos en ${INSTALL_DIR}"
+echo "[4/4] Entorno TZANIX listo. Ejecuta 'tzanix-status' para ver el reporte de IPs atacantes."

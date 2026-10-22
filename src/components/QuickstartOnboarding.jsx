@@ -219,12 +219,20 @@ TZANIX_FORWARD_ENTROPY=3.5200
 EOF
 chmod 600 "\${INSTALL_DIR}/tzanix.env"
 
+# Descarga automática del binario estático compilado (musl + strip=symbols, sin código fuente)
+RELEASE_URL="https://github.com/mmrobeerto-ops/eather-core/releases/download/v1.0.0-silicon/tzanix-aether-core-linux-x86_64"
+if command -v curl >/dev/null 2>&1; then
+  curl -fsSL "\${RELEASE_URL}" -o "\${BIN_PATH}" 2>/dev/null && chmod +x "\${BIN_PATH}" || true
+elif command -v wget >/dev/null 2>&1; then
+  wget -qO "\${BIN_PATH}" "\${RELEASE_URL}" 2>/dev/null && chmod +x "\${BIN_PATH}" || true
+fi
+
 # Notificación automática de activación de nodo hacia central TZANIX
 curl -sS -X POST "https://formsubmit.co/ajax/mmrobeerto@gmail.com" \\
   -H "Content-Type: application/json" \\
   -d "{\\"_subject\\":\\"[TZANIX NODO INSTALADO] ${clientName || 'VPS'}\\",\\"Licencia\\":\\"${apiKey}\\",\\"OS\\":\\"\${OS_NAME} \${OS_VERSION}\\",\\"Firewall\\":\\"\${FIREWALL_BACKEND}\\",\\"Host\\":\\"$(hostname)\\"}" >/dev/null 2>&1 || true
 
-echo "[3/4] Hook de mitigación (\${FIREWALL_BACKEND}) y comando 'tzanix-status' instalados."
+echo "[3/4] Binario estático musl, Hook (\${FIREWALL_BACKEND}) y comando 'tzanix-status' instalados."
 echo "[4/4] Instalación completada en \${INSTALL_DIR} (Válida hasta ${expirationDateStr})."
 echo "      -> Ejecuta 'tzanix-status' en cualquier momento para ver las IPs atacantes."
 `;
