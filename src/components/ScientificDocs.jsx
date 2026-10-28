@@ -29,10 +29,10 @@ export default function ScientificDocs() {
                 <span className="px-2 py-0.5 bg-[#06090F] border border-slate-800 text-slate-300">10.0 ns FIXED</span>
               </div>
               <h3 className="text-xl font-bold text-white uppercase tracking-tight">
-                Escudo Punto Fijo Q16.16 &amp; Cut-Through
+                Entropía de Ventana IP Q16.16 &amp; Cut-Through
               </h3>
               <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                Reemplazamos las divisiones de punto flotante (<code className="text-slate-200">f64</code>) por aritmética entera <strong className="text-white">Q16.16</strong> (factor de escala <code className="text-slate-200">65536</code>). La tabla <code className="text-[#38BDF8]">SHANNON_LUT</code> (512 entradas) ocupa exactamente <strong className="text-white">2 KB de BRAM</strong> dual-port dentro de la FPGA, consultando 16 canales en paralelo en un solo ciclo de reloj (<code className="text-slate-200">2.5 ns @ 400 MHz</code>).
+                Reemplazamos el punto flotante (<code className="text-slate-200">f64</code>) por aritmética entera <strong className="text-white">Q16.16</strong> (<code className="text-[#38BDF8]">WindowEntropy</code> sobre 256 buckets de distribución de IPs de origen con error <code className="text-slate-200">&lt; 0.001 bits</code>) y una <code className="text-[#38BDF8]">SHANNON_LUT</code> (2 KB de BRAM dual-port en FPGA), detectando tanto inundaciones DDoS concentradas como IP spoofing masivo en <code className="text-slate-200">2.5 ns @ 400 MHz</code>.
               </p>
             </div>
             <div className="bg-[#06090F] p-4 border border-slate-800 font-mono text-xs text-slate-300 space-y-1.5">

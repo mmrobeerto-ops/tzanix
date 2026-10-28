@@ -137,9 +137,10 @@ export default function TridentLiveSoc() {
       engine: 'TZANIX Aether-Core (Trident Architecture - Fast-Path Defense)',
       privacy_architecture: 'Zero-Retention (0 Bytes Payload Stored - Header Metadata Only, HIPAA/SOC2/ISO-27001 Aligned)',
       hardware_pipeline: {
-        vertex_1_fpga: 'Q16.16 Fixed-Point Shannon BRAM (2 KB, 16-Port @ 400 MHz, 10.0 ns Cut-Through)',
+        vertex_1_fpga: 'Q16.16 Fixed-Point WindowEntropy (256 IP Buckets) + Shannon BRAM (2 KB, 10.0 ns Cut-Through)',
         vertex_2_gpu: 'Radix-2 DIT FFT-16 (Nyquist Bin #8 Anomaly Hunter in 256 samples)',
         vertex_3_rdma: 'RoCEv2 32-Byte Descriptor Sync across 8 BlueField DPU Nodes',
+        internal_telemetry: 'LatencyWatchdog (Serialized RDTSCP / CNTVCT_EL0 Overrun Monitor)',
       },
       telemetry_snapshot: {
         throughput_mpps: 16.86,
