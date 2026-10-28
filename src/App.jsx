@@ -128,7 +128,7 @@ function App() {
         </section>
 
         {/* ========================================================================= */}
-        {/* 2. VÉRTICE I: EL ESCUDO FPGA Q16.16 (10.0 NS CUT-THROUGH DROP)            */}
+        {/* 2. VÉRTICE I: EL ESCUDO FPGA Q16.16 (219 NS POR PAQUETE CUT-THROUGH DROP)            */}
         {/* ========================================================================= */}
         <section id="vertice-fpga" className="spacex-section relative overflow-hidden scroll-mt-20">
           <DataPurificationVisualizer />
@@ -142,7 +142,7 @@ function App() {
               ESCUDO FPGA <br className="hidden sm:inline" />PUNTO FIJO Q16.16
             </h2>
             <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-2xl font-normal tracking-wide leading-relaxed">
-              Eliminamos el punto flotante en la ruta crítica mediante <strong className="text-white">WindowEntropy Q16.16</strong> (distribución de 256 buckets de IPs de origen con precisión <code>&lt; 0.001 bits</code>) y <strong className="text-white">2 KB de bloques BRAM internos</strong> en FPGA (2.5 ns @ 400 MHz). Si se detecta inundación concentrada o spoofing masivo, el paquete se aborta físicamente en el transceptor MAC (<em>Cut-Through Drop</em>) en <strong className="text-white">10.0 nanosegundos</strong>.
+              Eliminamos el punto flotante en la ruta crítica mediante <strong className="text-white">WindowEntropy Q16.16</strong> (distribución de 256 buckets de IPs de origen con precisión <code>&lt; 0.001 bits</code>) y <strong className="text-white">2 KB de bloques BRAM internos</strong> en FPGA (2.5 ns @ 400 MHz). Si se detecta inundación concentrada o spoofing masivo, el paquete se aborta físicamente en el transceptor MAC (<em>Cut-Through Drop</em>) en <strong className="text-white"> 219  ns por paquete</strong>.
             </p>
             <div className="pt-3 flex flex-wrap gap-4">
               <a href="#docs" className="btn-spacex w-full sm:w-auto text-center">
