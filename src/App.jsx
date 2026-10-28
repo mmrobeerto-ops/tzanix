@@ -256,7 +256,7 @@ function App() {
                     APPLIANCE FÍSICO TRIDENTE (FPGA + DPU)
                   </div>
                   <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    Solución de hardware físico dedicada para Centros de Datos, Telcos/ISPs e Instituciones Financieras con acceso directo al bus PCIe sobre tarjetas <strong className="text-white">Xilinx UltraScale+ / Intel Agilex</strong> y SmartNICs <strong className="text-white">NVIDIA BlueField-3 DPU</strong>. Ejecuta el descarte físico <em>Cut-Through</em> en la tarjeta de red en <strong className="text-[#38BDF8]">10.0 nanosegundos</strong> antes del sistema operativo y sincronización RDMA RoCEv2 a escala de 100GbE/400GbE.
+                    Solución de hardware físico dedicada para Centros de Datos, Telcos/ISPs e Instituciones Financieras con acceso directo al bus PCIe sobre tarjetas <strong className="text-white">Xilinx UltraScale+ / Intel Agilex</strong> y SmartNICs <strong className="text-white">NVIDIA BlueField-3 DPU</strong>. Ejecuta el descarte físico <em>Cut-Through</em> en la tarjeta de red en <strong className="text-[#38BDF8]">219 NS POR PAQUETE</strong> antes del sistema operativo y sincronización RDMA RoCEv2 a escala de 100GbE/400GbE.
                   </p>
                 </div>
                 <button
