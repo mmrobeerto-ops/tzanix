@@ -98,7 +98,7 @@ function App() {
       <main className="w-full">
         
         {/* ========================================================================= */}
-        {/* 1. HERO PRINCIPAL: TZANIX ÆTHER-CORE // DEFENSA DE SILICIO EN 10.0 NS     */}
+        {/* 1. HERO PRINCIPAL: TZANIX ÆTHER-CORE // DEFENSA DE SILICIO EN  219 NS POR PAQUETE */}
         {/* ========================================================================= */}
         <section id="hero" className="spacex-section">
           <SpacexBackground />
