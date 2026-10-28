@@ -82,7 +82,7 @@ function App() {
           TZANIX SIGNAL TECHNOLOGIES // NAVEGACIÓN EJECUTIVA
         </div>
         <a href="#hero" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-white hover:text-[#38BDF8] transition">ARQUITECTURA TRIDENTE</a>
-        <a href="#vertice-fpga" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-slate-300 hover:text-white transition">I. ESCUDO FPGA Q16.16 (10.0 ns)</a>
+        <a href="#vertice-fpga" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-slate-300 hover:text-white transition">I. ESCUDO FPGA Q16.16 (219 NS POR PAQUETE)</a>
         <a href="#vertice-gpu" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-slate-300 hover:text-white transition">II. CEREBRO ESPECTRAL GPU FFT-16</a>
         <a href="#vertice-rdma" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-slate-300 hover:text-white transition">III. CLÚSTER RDMA RoCEv2</a>
         <a href="#live-soc" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-[#38BDF8] hover:text-white transition">CONSOLA TÁCTICA SOC &amp; FORENSE</a>
