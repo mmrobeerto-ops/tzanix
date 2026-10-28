@@ -111,7 +111,7 @@ function App() {
             </div>
             <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.96] text-white">
               TZANIX ÆTHER-CORE <br className="hidden sm:inline" />
-              <span className="text-[#38BDF8]">10.0 NANOSEGUNDOS</span>
+              <span className="text-[#38BDF8]">219 NS POR PAQUETE</span>
             </h1>
             <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-2xl font-normal tracking-wide leading-relaxed">
               Los firewalls tradicionales tardan milisegundos y colapsan la CPU bajo ataques volumétricos. <strong className="text-white">TZANIX Æther-Core</strong> opera directamente en el silicio y en el acceso de red (<code>#![no_std]</code>, Zero-Heap), procesando <strong className="text-white">16.86 Millones de paquetes por segundo</strong> para neutralizar ataques DDoS y botnets periódicas con <strong className="text-white">0.00% de falsos positivos</strong>.
