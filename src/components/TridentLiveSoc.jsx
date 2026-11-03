@@ -1,91 +1,78 @@
 import React, { useState, useEffect } from 'react';
 
+// IPs exclusivas de documentación según RFC 5737 (192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24)
+// Ninguna IP o ASN real de terceros se muestra como atacante en la demostración.
 const THREAT_POOL = [
   {
-    ip: '185.220.101.44',
+    ip: '198.51.100.44',
     proto: 'IPv4',
-    country: 'Frankfurt, DE',
-    asn: 'AS205100 (Tor Exit Node)',
-    vector: 'Low-Rate Pulsing Botnet (Nyquist Bin #8)',
-    reaction: '256 muestras (GPU FFT-16)',
-    rdmaSync: 'RoCEv2 8/8 Nodos · CSR 3.5200',
+    country: 'TEST-NET-2 (RFC 5737)',
+    asn: 'AS64496 (RFC 5398 Doc ASN)',
+    vector: 'Ráfaga periódica en Zona Gris (Estado Suspect -> Mirror)',
+    reaction: 'Muestreo por ventana (2048 pkts)',
+    rdmaSync: 'MirrorInspection · CSR 6.0000 bits',
   },
   {
-    ip: '45.155.205.233',
+    ip: '192.0.2.233',
     proto: 'IPv4',
-    country: 'Moscú, RU',
-    asn: 'AS49505 (Selectel Network)',
-    vector: 'SYN-Flood Volumétrico (H > 3.91)',
-    reaction: '10.0 ns (Fast-Path FPGA)',
-    rdmaSync: 'Cut-Through Drop · CSR 1.9000',
+    country: 'TEST-NET-1 (RFC 5737)',
+    asn: 'AS64497 (RFC 5398 Doc ASN)',
+    vector: 'SYN-Flood Monofuente (Caída de H < 1.50 bits · Cuota > 10%)',
+    reaction: 'Drop selectivo por bucket O(1)',
+    rdmaSync: 'DropHardware (Solo Bucket Dominante)',
   },
   {
-    ip: '240e:978:201::88a',
-    proto: 'IPv6',
-    country: 'Shenzhen, CN',
-    asn: 'AS132203 (Tencent Cloud)',
-    vector: 'UDP Amplification Flood',
-    reaction: '10.0 ns (Fast-Path FPGA)',
-    rdmaSync: 'Cut-Through Drop · CSR 1.9000',
-  },
-  {
-    ip: '91.92.240.118',
+    ip: '203.0.113.88',
     proto: 'IPv4',
-    country: 'Ámsterdam, NL',
-    asn: 'AS202425 (IP Volume)',
-    vector: 'Anomalía de Entropía L7 (Zona Gris H=3.32)',
-    reaction: '256 muestras (GPU FFT-16)',
-    rdmaSync: 'RoCEv2 8/8 Nodos · CSR 3.5200',
+    country: 'TEST-NET-3 (RFC 5737)',
+    asn: 'AS64498 (RFC 5398 Doc ASN)',
+    vector: 'UDP Flood Concentrado (Cuota de Bucket > 35%)',
+    reaction: 'Drop selectivo por bucket O(1)',
+    rdmaSync: 'DropHardware (Tráfico legítimo intacto)',
   },
   {
-    ip: '2a0b:f4c2:10::12',
-    proto: 'IPv6',
-    country: 'Zúrich, CH',
-    asn: 'AS51396 (Pfcloud Infrastructure)',
-    vector: 'AI / API Scraping Burst Periódico',
-    reaction: '256 muestras (GPU FFT-16)',
-    rdmaSync: 'RoCEv2 8/8 Nodos · CSR 3.5200',
+    ip: '198.51.100.118',
+    proto: 'IPv4',
+    country: 'TEST-NET-2 (RFC 5737)',
+    asn: 'AS64499 (RFC 5398 Doc ASN)',
+    vector: 'Dispersión de IPs de origen (Alta entropía H > 7.60 bits)',
+    reaction: 'Estado Suspect (Sin auto-DoS)',
+    rdmaSync: 'MirrorInspection / SYN-Cookies',
   },
 ];
 
 export default function TridentLiveSoc() {
   const [scenario, setScenario] = useState('clean'); // 'clean' | 'ddos' | 'grayzone'
-  const [csrThreshold, setCsrThreshold] = useState(1.9000);
-  const [forwards, setForwards] = useState(7000394);
+  const [csrThreshold, setCsrThreshold] = useState(6.0000);
+  const [forwards, setForwards] = useState(7000000);
   const [drops, setDrops] = useState(2999744);
   const [grayZone, setGrayZone] = useState(256);
-  const [epoch, setEpoch] = useState(5341890);
+  const [epoch, setEpoch] = useState(4882);
   const [fftBins, setFftBins] = useState([
     18, 22, 15, 28, 19, 24, 16, 21, 24, 17, 25, 20, 14, 23, 29, 19
   ]);
-  const [forensicRows, setForensicRows] = useState(THREAT_POOL.slice(0, 4));
+  const [forensicRows, setForensicRows] = useState(THREAT_POOL);
   const [logs, setLogs] = useState([
-    { time: '18:24:01.004', level: 'NOMINAL', msg: '[VÉRTICE I] Bus AXI4-Stream 512-bit operando a 16.86 Mpps (10.0 ns/flit).' },
-    { time: '18:24:02.118', level: 'RDMA', msg: '[VÉRTICE III] Sincronización RoCEv2 (32B) verificada en 8 nodos BlueField DPU.' },
-    { time: '18:24:03.492', level: 'GPU-FFT', msg: '[VÉRTICE II] Muestreo espectral Radix-2 FFT-16 activo sobre Zona Gris.' },
+    { time: '18:24:01.004', level: 'SIM-CPU', msg: '[DEMO] Simulador interactivo iniciado. Contadores exactos: 7,000,000 Forwards + 2,999,744 Drops + 256 Mirror = 10,000,000.' },
+    { time: '18:24:02.118', level: 'VENTANA', msg: '[Q16.16] WindowEntropy operando sobre 256 buckets de IPv4 (rango 0.00 a 8.00 bits, mínimo 2,048 muestras).' },
+    { time: '18:24:03.492', level: 'NO-DOS', msg: '[POLÍTICA] Mitigación por cuota de bucket activa: el tráfico de clientes legítimos no se descarta durante alertas.' },
   ]);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setEpoch((prev) => prev + 1);
       if (scenario === 'clean') {
-        setForwards((prev) => prev + Math.floor(Math.random() * 14000 + 8000));
         setFftBins(Array.from({ length: 16 }, () => Math.floor(Math.random() * 20 + 12)));
       } else if (scenario === 'ddos') {
-        setForwards((prev) => prev + Math.floor(Math.random() * 4000 + 2000));
-        setDrops((prev) => prev + Math.floor(Math.random() * 28000 + 18000));
         setFftBins(Array.from({ length: 16 }, (_, i) => (i % 3 === 0 ? Math.floor(Math.random() * 35 + 30) : Math.floor(Math.random() * 20 + 10))));
       } else if (scenario === 'grayzone') {
-        setForwards((prev) => prev + Math.floor(Math.random() * 6000 + 3000));
-        setDrops((prev) => prev + Math.floor(Math.random() * 19000 + 12000));
-        setGrayZone((prev) => prev + 16);
         setFftBins(
           Array.from({ length: 16 }, (_, i) =>
-            i === 8 ? Math.floor(Math.random() * 6 + 92) : Math.floor(Math.random() * 18 + 8)
+            i === 4 ? Math.floor(Math.random() * 6 + 88) : Math.floor(Math.random() * 18 + 8)
           )
         );
       }
-    }, 900);
+    }, 1100);
     return () => clearInterval(timer);
   }, [scenario]);
 
@@ -93,73 +80,73 @@ export default function TridentLiveSoc() {
     setScenario(mode);
     const now = new Date().toISOString().split('T')[1].slice(0, 12);
     if (mode === 'clean') {
-      setCsrThreshold(1.9000);
+      setCsrThreshold(6.0000);
       setLogs((prev) => [
-        { time: now, level: 'NOMINAL', msg: '[FAST-PATH] Tráfico empresarial legítimo verificado. CSR en 1.9000 (0x0001E666).' },
+        { time: now, level: 'NORMAL', msg: '[SIMULACIÓN] Estado WindowState::Normal. Línea base EWMA actualizada en 6.0000 bits.' },
         ...prev.slice(0, 7),
       ]);
     } else if (mode === 'ddos') {
-      setCsrThreshold(2.4500);
+      setCsrThreshold(4.5000);
       const item = THREAT_POOL[1];
-      setForensicRows((prev) => [item, ...prev.slice(0, 4)]);
+      setForensicRows((prev) => [item, ...prev.slice(0, 3)]);
       setLogs((prev) => [
-        { time: now, level: 'ALERTA', msg: `[CUT-THROUGH] Ataque SYN-Flood desde ${item.ip} (${item.country}) descartado en 10.0 ns.` },
+        { time: now, level: 'ATTACK', msg: `[SIMULACIÓN] Caída de entropía por origen ${item.ip}. Drop aplicado solo al bucket dominante (>10% share).` },
         ...prev.slice(0, 7),
       ]);
     } else if (mode === 'grayzone') {
-      setCsrThreshold(3.5200);
-      const item = THREAT_POOL[0];
-      setForensicRows((prev) => [item, ...prev.slice(0, 4)]);
+      setCsrThreshold(7.2500);
+      const item = THREAT_POOL[3];
+      setForensicRows((prev) => [item, ...prev.slice(0, 3)]);
       setLogs((prev) => [
-        { time: now, level: 'GPU-FFT', msg: `[AUTO-HARDENING] Pico espectral en Nyquist Bin #8 (94.2% PSD). CSR elevado a 3.5200 en 8 nodos RDMA.` },
+        { time: now, level: 'SUSPECT', msg: `[SIMULACIÓN] Alta dispersión de IPs (${item.ip}). Estado Suspect -> MirrorInspection (sin bloquear clientes).` },
         ...prev.slice(0, 7),
       ]);
     }
   };
 
-  const run10MAvalanche = () => {
+  const resetExact10MBenchmark = () => {
     const now = new Date().toISOString().split('T')[1].slice(0, 12);
-    setScenario('grayzone');
-    setCsrThreshold(3.5200);
-    setForwards(7000394);
+    setScenario('clean');
+    setCsrThreshold(6.0000);
+    setForwards(7000000);
     setDrops(2999744);
     setGrayZone(256);
     setLogs((prev) => [
-      { time: now, level: 'BENCHMARK', msg: '[AVALANCHA 10M] 10,000,000 flits procesados en 0.5931s (16.86 Mpps · ROC AUC 0.9937 · 0.00% FP).' },
+      { time: now, level: 'BENCHMARK', msg: '[TEST SINTÉTICO CPU] n=10,000,000 exactos (7,000,000 Forward + 2,999,744 Drop + 256 Mirror = 10,000,000 · 0.00256% Mirror).' },
       ...prev.slice(0, 7),
     ]);
   };
 
   const exportForensicJson = () => {
     const report = {
-      report_id: `TZANIX-FORENSIC-${Date.now()}`,
+      report_id: `TZANIX-SIM-DEMO-${Date.now()}`,
+      notice: 'DATOS SIMULADOS DE DEMOSTRACIÓN — DIRECCIONES IP DE DOCUMENTACIÓN RFC 5737',
       generated_at_utc: new Date().toISOString(),
-      engine: 'TZANIX Aether-Core (Trident Architecture - Fast-Path Defense)',
-      privacy_architecture: 'Zero-Retention (0 Bytes Payload Stored - Header Metadata Only, HIPAA/SOC2/ISO-27001 Aligned)',
-      hardware_pipeline: {
-        vertex_1_fpga: 'Q16.16 Fixed-Point WindowEntropy (256 IP Buckets) + Shannon BRAM (2 KB, 10.0 ns Cut-Through)',
-        vertex_2_gpu: 'Radix-2 DIT FFT-16 (Nyquist Bin #8 Anomaly Hunter in 256 samples)',
-        vertex_3_rdma: 'RoCEv2 32-Byte Descriptor Sync across 8 BlueField DPU Nodes',
-        internal_telemetry: 'LatencyWatchdog (Serialized RDTSCP / CNTVCT_EL0 Overrun Monitor)',
+      engine: 'TZANIX Aether-Core (Rust no_std Library + Simulation Demo)',
+      data_retention_policy: 'Zero-Payload Storage. En despliegues reales se registran únicamente metadatos L3/L4 (IP origen, puerto, longitud, timestamp) con rotación configurable.',
+      measured_vs_simulated: {
+        window_entropy_q16: 'Implementado en Rust (256 buckets IPv4, O(1) incremental, escala 0..8 bits)',
+        cpu_synthetic_benchmark: '16.86 Mpps (59.31 ns tiempo medio/paquete, 1 hilo CPU, datos sintéticos)',
+        fpga_rtl_model: 'Modelo SystemVerilog de 4 etapas (10.0 ns proyectados en lógica interna @ 400 MHz, excluye MAC/PHY)',
       },
       telemetry_snapshot: {
-        throughput_mpps: 16.86,
+        total_packets_evaluated: forwards + drops + grayZone,
         fast_path_forwards: forwards,
-        cut_through_drops: drops,
-        gpu_fft16_inspections: grayZone,
-        active_csr_threshold_q16_16: csrThreshold,
-        active_csr_hex: `0x000${Math.round(csrThreshold * 65536).toString(16).toUpperCase()}`,
-        rdma_cluster_epoch: epoch,
-        roc_auc_benchmark: 0.9937,
-        false_positive_rate: 0.0,
+        selective_bucket_drops: drops,
+        mirror_inspections: grayZone,
+        mirror_fraction_percent: 0.00256,
+        baseline_entropy_bits_q16_16: csrThreshold,
+        baseline_entropy_hex: `0x000${Math.round(csrThreshold * 65536).toString(16).toUpperCase()}`,
+        synthetic_roc_auc: 0.9937,
+        synthetic_fpr_at_calibrated_threshold: 0.0,
       },
-      forensic_incidents: forensicRows,
+      simulated_incidents_rfc5737: forensicRows,
     };
     const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `tzanix-forensic-audit-${Date.now()}.json`;
+    a.download = `tzanix-simulated-demo-report-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -170,19 +157,18 @@ export default function TridentLiveSoc() {
     <section id="live-soc" className="w-full pt-28 pb-24 px-5 sm:px-[4vw] bg-[#06090F] border-t border-slate-800/90 relative overflow-hidden scroll-mt-20">
       <div className="max-w-7xl mx-auto space-y-8 relative z-10">
         
-        {/* CABECERA EJECUTIVA DEL CENTRO DE COMANDO SOC */}
+        {/* CABECERA CON ETIQUETA EXPLÍCITA DE DEMO SIMULADA */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-slate-800 pb-6">
           <div>
-            <div className="inline-flex items-center gap-2.5 text-xs font-mono font-semibold uppercase tracking-[0.28em] text-[#38BDF8] mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
-              <span>TELEMETRÍA DE SILICIO EN TIEMPO REAL · AUDITORÍA FORENSE ZERO-RETENTION</span>
+            <div className="inline-flex items-center gap-2.5 px-3 py-1 bg-amber-950/50 border border-amber-500/40 text-xs font-mono font-semibold uppercase tracking-[0.2em] text-amber-300 mb-3">
+              <span className="w-2 h-2 rounded-full bg-amber-400" />
+              <span>DEMO INTERACTIVA EN NAVEGADOR (DATOS SIMULADOS · IPs RFC 5737)</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight uppercase text-white">
-              CONSOLA TÁCTICA SOC &amp; FORENSE
+              SIMULADOR DE CONSOLA SOC
             </h2>
           </div>
 
-          {/* CONTROLES DE ESCENARIO UNIFICADOS (ESTÉTICA INSTITUCIONAL SOBRIA) */}
           <div className="flex flex-wrap gap-2.5">
             <button
               onClick={() => triggerScenario('clean')}
@@ -192,7 +178,7 @@ export default function TridentLiveSoc() {
                   : 'border-slate-800 bg-[#0B111E] text-slate-400 hover:border-slate-600 hover:text-slate-200'
               }`}
             >
-              1. Tráfico Nominal
+              1. Estado Normal
             </button>
             <button
               onClick={() => triggerScenario('ddos')}
@@ -202,7 +188,7 @@ export default function TridentLiveSoc() {
                   : 'border-slate-800 bg-[#0B111E] text-slate-400 hover:border-slate-600 hover:text-slate-200'
               }`}
             >
-              2. DDoS Cut-Through
+              2. Ataque (Cuota por Bucket)
             </button>
             <button
               onClick={() => triggerScenario('grayzone')}
@@ -212,69 +198,68 @@ export default function TridentLiveSoc() {
                   : 'border-slate-800 bg-[#0B111E] text-slate-400 hover:border-slate-600 hover:text-slate-200'
               }`}
             >
-              3. Zona Gris (GPU FFT-16)
+              3. Estado Suspect (Mirror)
             </button>
             <button
-              onClick={run10MAvalanche}
+              onClick={resetExact10MBenchmark}
               className="px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider bg-[#0F172A] text-slate-200 border border-slate-700 hover:border-[#38BDF8] hover:text-white transition-all"
             >
-              Prueba Estrés 10M Flits
+              Ver Corte Exacto 10M
             </button>
             <button
               onClick={exportForensicJson}
               className="px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider border border-[#38BDF8]/60 bg-[#38BDF8]/10 text-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#06090F] transition-all"
             >
-              Exportar Log de Prueba (.JSON)
+              Descargar JSON de Ejemplo
             </button>
           </div>
         </div>
 
-        {/* 5 TARJETAS DE TELEMETRÍA CON PALETA INSTITUCIONAL UNIFICADA */}
+        {/* 5 TARJETAS CON SUMA EXACTA = 10,000,000 Y ETIQUETAS HONESTAS */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 font-mono">
           <div className="bg-[#0B111E] border border-slate-800 p-5">
-            <div className="text-[11px] text-slate-400 uppercase tracking-wider">CAUDAL EN LÍNEA (FPGA)</div>
+            <div className="text-[11px] text-slate-400 uppercase tracking-wider">THROUGHPUT CPU (1 HILO)</div>
             <div className="text-2xl sm:text-3xl font-bold text-white mt-2">16.86 Mpps</div>
-            <div className="text-[11px] text-[#38BDF8] mt-1">Latencia Fija: 10.0 ns</div>
+            <div className="text-[11px] text-[#38BDF8] mt-1">59.31 ns medio/pkt (Sintético)</div>
           </div>
 
           <div className="bg-[#0B111E] border border-slate-800 p-5">
             <div className="text-[11px] text-slate-400 uppercase tracking-wider">FAST-PATH FORWARDS</div>
             <div className="text-2xl sm:text-3xl font-bold text-white mt-2">{forwards.toLocaleString()}</div>
-            <div className="text-[11px] text-slate-400 mt-1">100.0% Integridad · 0% FP</div>
+            <div className="text-[11px] text-slate-400 mt-1">70.00000% del lote (10M)</div>
           </div>
 
           <div className="bg-[#0B111E] border border-slate-800 p-5">
-            <div className="text-[11px] text-slate-400 uppercase tracking-wider">CUT-THROUGH DROPS</div>
+            <div className="text-[11px] text-slate-400 uppercase tracking-wider">DROPS POR BUCKET</div>
             <div className="text-2xl sm:text-3xl font-bold text-white mt-2">{drops.toLocaleString()}</div>
-            <div className="text-[11px] text-slate-400 mt-1">m_axis_tuser_drop = 1</div>
+            <div className="text-[11px] text-slate-400 mt-1">29.99744% del lote (10M)</div>
           </div>
 
           <div className="bg-[#0B111E] border border-slate-800 p-5">
-            <div className="text-[11px] text-slate-400 uppercase tracking-wider">INSPECCIÓN GPU FFT-16</div>
+            <div className="text-[11px] text-slate-400 uppercase tracking-wider">MIRROR INSPECTION</div>
             <div className="text-2xl sm:text-3xl font-bold text-white mt-2">{grayZone.toLocaleString()}</div>
-            <div className="text-[11px] text-slate-400 mt-1">Convergencia: 0.0256%</div>
+            <div className="text-[11px] text-slate-400 mt-1">0.00256% (256 / 10,000,000)</div>
           </div>
 
           <div className="bg-[#0B111E] border border-[#38BDF8]/40 p-5">
-            <div className="text-[11px] text-slate-400 uppercase tracking-wider">REGISTRO CSR (Q16.16)</div>
+            <div className="text-[11px] text-slate-400 uppercase tracking-wider">LÍNEA BASE H (0–8 BITS)</div>
             <div className="text-2xl sm:text-3xl font-bold text-[#38BDF8] mt-2">{csrThreshold.toFixed(4)}</div>
-            <div className="text-[11px] text-slate-400 mt-1">{q16Hex} ({Math.round(csrThreshold * 65536)})</div>
+            <div className="text-[11px] text-slate-400 mt-1">{q16Hex} (Q16.16)</div>
           </div>
         </div>
 
-        {/* PANEL CENTRAL: ESPECTRO GPU FFT-16 + MALLA RDMA 8 NODOS */}
+        {/* PANEL CENTRAL */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
-          {/* VÉRTICE II: ESPECTRO FFT-16 */}
           <div className="lg:col-span-7 bg-[#0B111E] border border-slate-800 p-6 flex flex-col justify-between">
             <div>
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-4">
                 <div>
                   <h3 className="text-sm sm:text-base font-bold uppercase tracking-wider text-white">
-                    VÉRTICE II · ANALIZADOR ESPECTRAL GPU RADIX-2 FFT-16
+                    SIMULACIÓN DE ESPECTRO EN ZONA DE TRANSICIÓN (FFT-16)
                   </h3>
                   <p className="text-xs text-slate-400 font-mono mt-0.5">
-                    Detección de armónicos periódicos en la &quot;Zona Gris&quot; · Frecuencia de Nyquist (<span className="text-[#38BDF8]">Bin #8</span>)
+                    Visualización didáctica de concentración armónica sobre lotes derivados a <code className="text-[#38BDF8]">MirrorInspection</code>
                   </p>
                 </div>
                 <span className={`px-3 py-1 text-[11px] font-mono font-semibold border ${
@@ -282,14 +267,13 @@ export default function TridentLiveSoc() {
                     ? 'bg-[#38BDF8]/15 border-[#38BDF8] text-white'
                     : 'bg-[#06090F] border-slate-700 text-slate-300'
                 }`}>
-                  {scenario === 'grayzone' ? 'ANOMALÍA PERIÓDICA AISLADA (PSD 94.2%)' : 'ESPECTRO NOMINAL · PSD (11.2%)'}
+                  {scenario === 'grayzone' ? 'ESTADO: SUSPECT (INSPECCIÓN)' : 'ESTADO: NORMAL'}
                 </span>
               </div>
 
-              {/* BARRAS DE ESPECTRO FFT-16 UNIFICADAS */}
               <div className="mt-6 h-52 flex items-end justify-between gap-1.5 sm:gap-2 pt-6 px-3 bg-[#06090F] border border-slate-800/90">
                 {fftBins.map((val, idx) => {
-                  const isNyquist = idx === 8 && scenario === 'grayzone';
+                  const isPeak = idx === 4 && scenario === 'grayzone';
                   return (
                     <div key={idx} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
                       <div className="text-[9px] font-mono text-slate-400">{val}%</div>
@@ -297,16 +281,13 @@ export default function TridentLiveSoc() {
                         className="w-full transition-all duration-500"
                         style={{
                           height: `${Math.max(val, 8)}%`,
-                          background: isNyquist
+                          background: isPeak
                             ? 'linear-gradient(180deg, #FFFFFF 0%, #38BDF8 55%, #0284C7 100%)'
                             : 'linear-gradient(180deg, #38BDF8 0%, #0369A1 65%, #0F172A 100%)',
-                          opacity: isNyquist ? 1 : 0.75,
-                          boxShadow: isNyquist
-                            ? '0 0 18px rgba(56, 189, 248, 0.7)'
-                            : 'none',
+                          opacity: isPeak ? 1 : 0.75,
                         }}
                       />
-                      <div className={`text-[10px] font-mono pb-1 ${idx === 8 ? 'text-[#38BDF8] font-bold' : 'text-slate-500'}`}>
+                      <div className={`text-[10px] font-mono pb-1 ${idx === 4 ? 'text-[#38BDF8] font-bold' : 'text-slate-500'}`}>
                         B{idx}
                       </div>
                     </div>
@@ -315,47 +296,46 @@ export default function TridentLiveSoc() {
               </div>
             </div>
 
-            {/* CONTROL DESLIZANTE CSR Q16.16 */}
             <div className="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <div className="text-xs font-mono font-semibold text-white uppercase">
-                  CONTROL MANUAL / AUTO-HARDENING DEL REGISTRO CSR (FPGA)
+                  SIMULADOR DE LÍNEA BASE DE ENTROPÍA (0.00 A 8.00 BITS · 256 BUCKETS)
                 </div>
                 <div className="text-[11px] font-mono text-slate-400">
-                  Ajusta en vivo el umbral de corte en punto fijo Q16.16 sincronizado por RoCEv2
+                  Ajusta el valor de referencia Q16.16 en la demostración interactiva
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <input
                   type="range"
-                  min="1.50"
-                  max="4.20"
-                  step="0.01"
+                  min="1.00"
+                  max="7.90"
+                  step="0.05"
                   value={csrThreshold}
                   onChange={(e) => setCsrThreshold(parseFloat(e.target.value))}
                   className="w-40 sm:w-52 accent-[#38BDF8] cursor-pointer"
                 />
-                <span className="font-mono text-base font-bold text-[#38BDF8] w-16 text-right">
-                  {csrThreshold.toFixed(2)}
+                <span className="font-mono text-base font-bold text-[#38BDF8] w-20 text-right">
+                  {csrThreshold.toFixed(2)} b
                 </span>
               </div>
             </div>
           </div>
 
-          {/* VÉRTICE III: MALLA RDMA ROCEV2 (8 NODOS CON COLOR UNIFICADO) */}
+          {/* SIMULACIÓN DE NODOS */}
           <div className="lg:col-span-5 bg-[#0B111E] border border-slate-800 p-6 flex flex-col justify-between space-y-6">
             <div>
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                 <div>
                   <h3 className="text-sm sm:text-base font-bold uppercase tracking-wider text-white">
-                    VÉRTICE III · MALLA RDMA ROCEV2 (8 NODOS)
+                    SIMULACIÓN DE RÉPLICA DE UMBRAL (8 NODOS)
                   </h3>
                   <p className="text-xs text-slate-400 font-mono mt-0.5">
-                    Sincronización Zero-CPU (<code className="text-[#38BDF8]">RDMA_WRITE 32B</code>) en microsegundos
+                    Descriptor <code className="text-[#38BDF8]">RdmaClusterSyncPacket (32B)</code> en memoria
                   </p>
                 </div>
                 <span className="text-xs font-mono text-[#38BDF8] bg-[#06090F] px-2.5 py-1 border border-slate-800">
-                  ÉPOCA #{epoch.toLocaleString()}
+                  VENTANA #{epoch.toLocaleString()}
                 </span>
               </div>
 
@@ -363,27 +343,23 @@ export default function TridentLiveSoc() {
                 {Array.from({ length: 8 }, (_, i) => (
                   <div
                     key={i}
-                    className="bg-[#06090F] border border-slate-800 hover:border-[#38BDF8]/60 p-3 relative transition-all"
+                    className="bg-[#06090F] border border-slate-800 p-3 relative"
                   >
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-[11px] font-bold text-white">NODO-0{i + 1}</span>
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#38BDF8] opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#38BDF8]"></span>
-                      </span>
+                      <span className="inline-flex rounded-full h-2 w-2 bg-[#38BDF8]"></span>
                     </div>
-                    <div className="text-[11px] text-[#38BDF8] font-semibold">CSR: {csrThreshold.toFixed(4)}</div>
-                    <div className="text-[10px] text-slate-500 mt-0.5">CRC32: VERIFIED</div>
+                    <div className="text-[11px] text-[#38BDF8] font-semibold">H: {csrThreshold.toFixed(2)}b</div>
+                    <div className="text-[10px] text-slate-500 mt-0.5">TAG: 32B SYNC</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* TERMINAL DE AUDITORÍA DE SILICIO */}
             <div className="bg-[#06090F] border border-slate-800 p-4 font-mono text-xs space-y-2 h-44 overflow-y-auto">
               <div className="text-[10px] text-slate-400 uppercase tracking-widest border-b border-slate-800/80 pb-1.5 mb-2 flex justify-between">
-                <span>BITÁCORA DE SILICIO // STREAM DE EVENTOS</span>
-                <span className="text-[#38BDF8]">● ACTIVO</span>
+                <span>REGISTRO DE EVENTOS DEL SIMULADOR</span>
+                <span className="text-amber-300">● MODO DEMO</span>
               </div>
               {logs.map((log, i) => (
                 <div key={i} className="leading-relaxed text-[11px]">
@@ -396,19 +372,19 @@ export default function TridentLiveSoc() {
           </div>
         </div>
 
-        {/* TABLA DE INTELIGENCIA DE AMENAZAS Y ORIGEN GEOIP / ASN */}
+        {/* TABLA DE EVENTOS SIMULADOS CON IPs RFC 5737 Y AVISO DE RETENCIÓN REALISTA */}
         <div className="bg-[#0B111E] border border-slate-800 p-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4 mb-4">
             <div>
               <h3 className="text-sm sm:text-base font-bold uppercase tracking-wider text-white">
-                INTELIGENCIA DE AMENAZAS FORENSE (GEOIP · ASN · TAXONOMÍA · TIEMPO DE REACCIÓN)
+                EJEMPLO DE BITÁCORA DE CABECERAS L3/L4 (IPs DE DOCUMENTACIÓN RFC 5737)
               </h3>
               <p className="text-xs text-slate-400 font-mono">
-                Registro de metadatos de cabecera para auditoría técnica (Arquitectura Zero-Retention · 0 Bytes de Payload almacenados)
+                No almacenamos payload de aplicación (0 bytes de contenido). Los metadatos de cabecera (IP, puerto, longitud) se retienen temporalmente para auditoría.
               </p>
             </div>
             <span className="text-xs font-mono text-slate-300">
-              PRIVACIDAD EN TRÁNSITO: <strong className="text-[#38BDF8]">0 BYTES PAYLOAD (ZERO-RETENTION)</strong>
+              PAYLOAD ALMACENADO: <strong className="text-[#38BDF8]">0 BYTES (SOLO METADATOS L3/L4)</strong>
             </span>
           </div>
 
@@ -416,12 +392,12 @@ export default function TridentLiveSoc() {
             <table className="w-full text-left font-mono text-xs">
               <thead>
                 <tr className="border-b border-slate-800 text-slate-400 uppercase text-[11px]">
-                  <th className="py-3 px-3">IP Origen (IPv4/IPv6)</th>
-                  <th className="py-3 px-3">Jurisdicción / GeoIP</th>
-                  <th className="py-3 px-3">Sistema Autónomo (ASN)</th>
-                  <th className="py-3 px-3">Taxonomía del Vector</th>
-                  <th className="py-3 px-3">Tiempo de Reacción</th>
-                  <th className="py-3 px-3 text-right">Sincronización Clúster RDMA</th>
+                  <th className="py-3 px-3">IP Origen (RFC 5737)</th>
+                  <th className="py-3 px-3">Bloque de Documentación</th>
+                  <th className="py-3 px-3">ASN de Documentación (RFC 5398)</th>
+                  <th className="py-3 px-3">Señal Detectada (L3/L4)</th>
+                  <th className="py-3 px-3">Mecanismo</th>
+                  <th className="py-3 px-3 text-right">Acción del Pipeline</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60">
