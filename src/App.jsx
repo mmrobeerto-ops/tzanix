@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import QuickstartOnboarding from './components/QuickstartOnboarding';
+import ModoSombra from './components/ModoSombra';
 import LandingContent from './LandingContent';
 import CompanyModals from './components/CompanyModals';
 import SpacexBackground from './components/SpacexBackground';
@@ -91,9 +92,13 @@ function App() {
         </section>
 
         {/* Additional sections (placeholders) */}
+        {/* MODO SOMBRA SECTION */}
+        <section id="modo-sombra">
+          <ModoSombra />
+        </section>
         <LandingContent />
         <section id="el-motor"><QuickstartOnboarding selectedTier={selectedTier} onSelectTier={handleSelectTier} /></section>
-        <section id="modo-sombra"><CompanyModals /></section>
+        <section id="modo-sombra-modals"><CompanyModals /></section>
         <section id="rendimiento"><MatrixBackground /></section>
         <section id="isps-hosters"><FluidBackground /></section>
         <section id="contacto"><DataPurificationVisualizer /></section>
