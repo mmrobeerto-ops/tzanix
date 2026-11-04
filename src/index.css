@@ -31,3 +31,12 @@
     @apply text-xs font-semibold tracking-[0.18em] uppercase text-brand-600;
   }
 }
+
+/* Logo: el wordmark cambia de color según el tema */
+.wm-dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .wm-light { display: none; }
+  :root:not([data-theme="light"]) .wm-dark { display: inline-block; }
+}
+:root[data-theme="dark"] .wm-light { display: none; }
+:root[data-theme="dark"] .wm-dark { display: inline-block; }

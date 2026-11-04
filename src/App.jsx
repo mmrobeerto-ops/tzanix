@@ -33,8 +33,9 @@ export default function App() {
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
           <a href="#inicio" className="flex items-center gap-2.5">
-            <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-brand-500 text-white"><Icon name="shield" className="w-5 h-5" /></span>
-            <span className="text-xl font-extrabold tracking-[0.18em] uppercase">TZANIX</span>
+            <img src="/logo-icon-blue.png" alt="TZANIX" width="36" height="36" className="w-9 h-9" />
+            <img src="/wordmark-dark.png" alt="TZANIX" className="wm-light h-5 w-auto" />
+            <img src="/wordmark-white.png" alt="TZANIX" className="wm-dark h-5 w-auto" />
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
             {NAV.map((n) => (
@@ -247,8 +248,9 @@ tzanix-status{'\n\n'}
       <footer className="border-t border-slate-200 bg-white">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
           <div className="flex items-center gap-2 font-extrabold tracking-[0.18em] uppercase text-ink">
-            <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-brand-500 text-white"><Icon name="shield" className="w-4 h-4" /></span>
-            TZANIX
+            <img src="/logo-icon-blue.png" alt="TZANIX" className="w-7 h-7" />
+            <img src="/wordmark-dark.png" alt="TZANIX" className="wm-light h-4 w-auto" />
+            <img src="/wordmark-white.png" alt="TZANIX" className="wm-dark h-4 w-auto" />
           </div>
           <p>© {new Date().getFullYear()} TZANIX · Protección DDoS para servidores · Sin almacenar datos privados</p>
         </div>
