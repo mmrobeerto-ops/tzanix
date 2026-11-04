@@ -13,7 +13,7 @@ jobs:
     name: Auditoría de dependencias (npm)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -24,7 +24,7 @@ jobs:
     name: Búsqueda de secretos filtrados
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: gitleaks
