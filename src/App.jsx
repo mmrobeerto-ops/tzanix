@@ -220,7 +220,7 @@ tzanix-status{'\n\n'}
             </p>
           </div>
           <p className="mt-6 text-sm text-slate-500">
-            La latencia en hardware FPGA (10 ns) es una <strong>proyección</strong>, aún sin medir en silicio físico.{' '}
+            La latencia en FPGA (10 ns = pipeline de 4 ciclos a 400 MHz) está <strong>verificada en simulación RTL</strong>; falta confirmarla con síntesis en una FPGA física.{' '}
             <a href="https://github.com/mmrobeerto-ops/eather-core" target="_blank" rel="noopener noreferrer" className="text-brand-600 font-semibold hover:underline">Código y pruebas en GitHub →</a>
           </p>
         </div>
