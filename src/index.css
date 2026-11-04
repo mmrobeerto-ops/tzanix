@@ -3,101 +3,31 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    background-color: #000000;
-    color: #ffffff;
-    overflow-x: hidden;
+  html {
     scroll-behavior: smooth;
+  }
+  body {
+    background-color: #ffffff;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: #dbeafe;
+    color: #172554;
   }
 }
 
 @layer components {
-  /* Sección Fullscreen adaptable a móviles y desktop */
-  .spacex-section {
-    @apply relative w-full min-h-[100dvh] md:h-screen flex flex-col justify-end px-5 sm:px-[4vw] pt-24 md:pt-0 pb-12 md:pb-[8vh] overflow-hidden;
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-brand-500 text-white font-semibold text-sm sm:text-base shadow-soft hover:bg-brand-600 transition-colors;
   }
-
-  /* Video de Fondo Fullscreen */
-  .bg-video {
-    @apply absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover z-0;
-    filter: brightness(0.65) contrast(1.15);
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-slate-300 bg-white text-ink font-semibold text-sm sm:text-base hover:border-brand-500 hover:text-brand-600 transition-colors;
   }
-
-  /* Degradado Cinematográfico Inferior */
-  .video-overlay {
-    @apply absolute inset-0 z-10;
-    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.92) 100%);
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white p-7 shadow-soft;
   }
-
-  /* Botón Oficial Estilo SpaceX adaptable */
-  .btn-spacex {
-    @apply relative inline-flex items-center justify-center px-6 sm:px-[38px] py-3.5 sm:py-[16px] text-[10px] sm:text-[11px] font-[800] tracking-[0.2em] sm:tracking-[0.25em] uppercase text-white border-2 border-white/85 bg-transparent cursor-pointer transition-all duration-300 overflow-hidden no-underline w-fit;
-  }
-
-  .btn-spacex::before {
-    content: '';
-    @apply absolute top-0 left-0 w-full h-full bg-white transform translate-y-full transition-transform duration-300 z-0;
-  }
-
-  .btn-spacex:hover::before {
-    @apply translate-y-0;
-  }
-
-  .btn-spacex:hover {
-    @apply text-black border-white;
-  }
-
-  .btn-spacex span {
-    @apply relative z-20 flex items-center justify-center gap-[10px] sm:gap-[12px];
-  }
-}
-
-@layer utilities {
-  /* Efecto de Vidrio Holográfico */
-  .glass-panel {
-    background: rgba(7, 13, 24, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 240, 255, 0.15);
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(0, 240, 255, 0.02);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .glass-panel:hover {
-    border-color: rgba(0, 240, 255, 0.4);
-    box-shadow: 0 15px 50px -10px rgba(0, 240, 255, 0.15), inset 0 0 25px rgba(0, 240, 255, 0.06);
-  }
-  
-  /* Gradiente de Texto Metálico TZANiX */
-  .metallic-text {
-    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #00f0ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Resplandor del núcleo */
-  .core-glow {
-    box-shadow: 0 0 50px #00f0ff, 0 0 100px rgba(0, 240, 255, 0.4);
-  }
-
-  /* Scrollbar estilizado para modales y paneles */
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.6);
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(0, 240, 255, 0.35);
-    border-radius: 3px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 240, 255, 0.7);
-  }
-}
-
-@layer base {
-  ::selection {
-    background-color: rgba(56, 189, 248, 0.3);
+  .eyebrow {
+    @apply text-xs font-semibold tracking-[0.18em] uppercase text-brand-600;
   }
 }
