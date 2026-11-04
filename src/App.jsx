@@ -211,11 +211,12 @@ tzanix-status{'\n\n'}
             <p className="mt-3 text-slate-700 leading-relaxed">
               Analizamos <strong>67.000 peticiones reales</strong> de un servidor en producción. TZANIX detectó
               <strong> 2 botnets</strong> que escaneaban el servidor buscando archivos de credenciales (<code className="text-brand-600">.env</code>)
-              —eran más de la mitad del tráfico— y concentró los bloqueos en ellas.
+              —eran más de la mitad del tráfico— y <strong>el 99% de los bloqueos cayó sobre esos atacantes</strong>,
+              enviando <strong>menos del 4% del resto</strong> del tráfico a inspección.
             </p>
             <p className="mt-3 text-slate-600 leading-relaxed text-sm">
-              Siendo honestos: en servidores de <strong>bajo volumen</strong> el motor todavía marca de más y lo seguimos afinando,
-              por eso hoy lo recomendamos en <strong>modo observación</strong> antes de activar el bloqueo automático.
+              Siendo honestos: afinamos la calibración tras esta prueba (bajamos los falsos positivos del 31% al 4% con datos reales).
+              Seguimos validándolo en más entornos, por eso lo recomendamos primero en <strong>modo observación</strong> antes de activar el bloqueo automático.
             </p>
           </div>
           <p className="mt-6 text-sm text-slate-500">
