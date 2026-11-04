@@ -137,7 +137,7 @@ export default function TridentLiveSoc() {
         mirror_fraction_percent: 0.00256,
         baseline_entropy_bits_q16_16: csrThreshold,
         baseline_entropy_hex: `0x000${Math.round(csrThreshold * 65536).toString(16).toUpperCase()}`,
-        synthetic_roc_auc: 0.9937,
+        synthetic_roc_auc: 0.9687,
         synthetic_fpr_at_calibrated_threshold: 0.0,
       },
       simulated_incidents_rfc5737: forensicRows,

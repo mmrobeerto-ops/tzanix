@@ -116,7 +116,7 @@ function App() {
               <strong className="text-white">TZANIX Æther-Core</strong> opera directamente en el silicio y en el acceso de red
               (<code className="text-[#38BDF8]">#![no_std]</code>, Zero-Heap), procesando{' '}
               <strong className="text-white">16.86 millones de paquetes por segundo</strong> para neutralizar ataques DDoS y botnets
-              periódicas con <strong className="text-white">cero falsos positivos en nuestras pruebas de laboratorio</strong> (ROC AUC 0.9937).
+              periódicas con <strong className="text-white">cero falsos positivos en nuestras pruebas de laboratorio</strong> (ROC AUC 0.9687).
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <a href="#despliegue" className="btn-spacex !border-[#38BDF8] bg-[#38BDF8] text-[#06090F]">

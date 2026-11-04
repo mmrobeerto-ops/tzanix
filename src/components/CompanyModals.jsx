@@ -30,7 +30,7 @@ export default function CompanyModals() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
             <div className="p-4 bg-[#06090F] border border-slate-800">
               <div className="text-xs font-mono text-[#38BDF8] uppercase mb-1">Determinismo Físico</div>
-              <p className="text-xs text-slate-400">Cero recolector de basura, cero asignaciones en el Heap (#![no_std]) y latencia ultrarrápida en CPU (59.31 ns) y FPGA (10.0 ns).</p>
+              <p className="text-xs text-slate-400">Cero recolector de basura, cero asignaciones en el Heap (#![no_std]) y latencia ultrarrápida medida en CPU (59.31 ns, software) con proyección a 10.0 ns en silicio FPGA (modelo RTL).</p>
             </div>
             <div className="p-4 bg-[#06090F] border border-slate-800">
               <div className="text-xs font-mono text-[#38BDF8] uppercase mb-1">Precisión Matemática</div>
