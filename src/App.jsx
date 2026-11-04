@@ -197,7 +197,7 @@ tzanix-status{'\n\n'}
             {[
               { v: '16.86 M', l: 'paquetes/seg (software, 1 núcleo)' },
               { v: '~59 ns', l: 'por paquete (software)' },
-              { v: '0.9687', l: 'ROC AUC (datos de laboratorio)' },
+              { v: '0.89', l: 'ROC AUC (tráfico real etiquetado)' },
               { v: '2 botnets', l: 'detectadas en tráfico real (Tokio)' },
             ].map((m) => (
               <div key={m.l} className="rounded-xl bg-white border border-slate-200 p-5">
@@ -217,6 +217,10 @@ tzanix-status{'\n\n'}
             <p className="mt-3 text-slate-600 leading-relaxed text-sm">
               Siendo honestos: afinamos la calibración tras esta prueba (bajamos los falsos positivos del 31% al 4% con datos reales).
               Seguimos validándolo en más entornos, por eso lo recomendamos primero en <strong>modo observación</strong> antes de activar el bloqueo automático.
+            </p>
+            <p className="mt-3 text-slate-600 leading-relaxed text-sm">
+              Y en un <strong>benchmark reproducible</strong> con tráfico real etiquetado (tráfico legítimo real + un SYN flood de CIC-DDoS2019),
+              alcanzó <strong>ROC AUC 0.89</strong> — en su mejor punto, <strong>83% de ataques detectados con 6% de falsos positivos</strong> (precisión 87%).
             </p>
           </div>
           <p className="mt-6 text-sm text-slate-500">
