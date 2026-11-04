@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
 import QuickstartOnboarding from './components/QuickstartOnboarding';
 import ModoSombra from './components/ModoSombra';
-import LandingContent from './LandingContent';
 import CompanyModals from './components/CompanyModals';
 import SpacexBackground from './components/SpacexBackground';
-import MatrixBackground from './components/MatrixBackground';
-import FluidBackground from './components/FluidBackground';
-import DataPurificationVisualizer from './components/DataPurificationVisualizer';
 import ScientificDocs from './components/ScientificDocs';
 import TridentLiveSoc from './components/TridentLiveSoc';
 
+const NAV_LINKS = [
+  { href: '#el-motor', label: 'EL MOTOR (~219 NS)' },
+  { href: '#modo-sombra', label: 'MODO SOMBRA' },
+  { href: '#rendimiento', label: 'SOC EN VIVO' },
+  { href: '#despliegue', label: 'DESPLIEGUE', accent: true },
+  { href: '#contacto', label: 'CONTACTO' },
+];
+
 function App() {
-  const [selectedTier, setSelectedTier] = useState('docker');
+  const [selectedTier] = useState('docker');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleSelectTier = (tier) => {
-    setSelectedTier(tier);
-    setTimeout(() => {
-      document.getElementById('onboarding-section')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  };
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <div className="font-sans antialiased relative min-h-screen bg-[#06090F] text-slate-100">
@@ -34,14 +33,30 @@ function App() {
             ÆTHER-CORE
           </span>
         </a>
+
         {/* Desktop nav */}
         <nav className="hidden xl:flex items-center gap-7 text-[11px] font-mono font-semibold tracking-[0.18em] uppercase text-slate-300">
-          <a href="#el-motor" className="whitespace-nowrap hover:text-white transition-colors">EL MOTOR (~219 NS)</a>
-          <a href="#modo-sombra" className="whitespace-nowrap hover:text-white transition-colors">MODO SOMBRA</a>
-          <a href="#rendimiento" className="whitespace-nowrap hover:text-white transition-colors">RENDIMIENTO Y BENCHMARKS</a>
-          <a href="#isps-hosters" className="whitespace-nowrap text-[#38BDF8] hover:text-white transition-colors">ISPS Y HOSTERS</a>
-          <a href="#contacto" className="whitespace-nowrap px-4 py-2 border border-slate-600 bg-slate-900/80 text-white hover:border-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#06090F] font-bold transition-all">CONTACTO</a>
+          {NAV_LINKS.map((l) =>
+            l.accent ? (
+              <a
+                key={l.href}
+                href={l.href}
+                className="whitespace-nowrap px-4 py-2 border border-slate-600 bg-slate-900/80 text-white hover:border-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#06090F] font-bold transition-all"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <a
+                key={l.href}
+                href={l.href}
+                className="whitespace-nowrap hover:text-white transition-colors"
+              >
+                {l.label}
+              </a>
+            )
+          )}
         </nav>
+
         {/* Hamburger */}
         <button
           className="text-white space-y-1.5 focus:outline-none cursor-pointer z-[60] relative p-2 shrink-0 xl:ml-4"
@@ -59,50 +74,119 @@ function App() {
         <div className="text-xs font-mono tracking-[0.35em] uppercase text-[#38BDF8] mb-2">
           TZANIX SIGNAL TECHNOLOGIES // NAVEGACIÓN EJECUTIVA
         </div>
-        <a href="#el-motor" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-white hover:text-[#38BDF8] transition">EL MOTOR (~219 NS)</a>
-        <a href="#modo-sombra" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-slate-300 hover:text-white transition">MODO SOMBRA</a>
-        <a href="#rendimiento" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-slate-300 hover:text-white transition">RENDIMIENTO Y BENCHMARKS</a>
-        <a href="#isps-hosters" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-[#38BDF8] hover:text-white transition">ISPS Y HOSTERS</a>
-        <a href="#contacto" onClick={() => setIsMenuOpen(false)} className="text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase text-slate-300 hover:text-white transition">CONTACTO EJECUTIVO</a>
+        {NAV_LINKS.map((l) => (
+          <a
+            key={l.href}
+            href={l.href}
+            onClick={closeMenu}
+            className={`text-lg sm:text-2xl font-bold tracking-[0.22em] uppercase transition ${l.accent ? 'text-[#38BDF8] hover:text-white' : 'text-slate-300 hover:text-white'}`}
+          >
+            {l.label}
+          </a>
+        ))}
         <div className="w-24 h-px bg-slate-800 my-2" />
-        <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="text-sm sm:text-base font-mono font-bold tracking-[0.25em] uppercase px-6 py-3 border border-[#38BDF8] text-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#06090F] transition">
+        <a
+          href="#despliegue"
+          onClick={closeMenu}
+          className="text-sm sm:text-base font-mono font-bold tracking-[0.25em] uppercase px-6 py-3 border border-[#38BDF8] text-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#06090F] transition"
+        >
           DESPLEGAR CONTENEDOR PoC →
         </a>
       </div>
 
+      {/* Fondo global de partículas (fijo, detrás de todo) */}
+      <SpacexBackground />
+
       {/* Main content */}
-      <main className="w-full">
+      <main className="relative z-10 w-full">
         {/* HERO */}
-        <section id="hero" className="spacex-section">
-          <SpacexBackground />
+        <section id="hero" className="spacex-section scroll-mt-20">
           <div className="video-overlay" />
-          <div className="relative z-10 max-w-5xl space-y-5 pt-20">
+          <div className="relative z-10 max-w-5xl space-y-6 pt-20">
             <div className="inline-flex items-center gap-3 px-3.5 py-1.5 border border-slate-700/80 bg-[#0B111E]/90 text-[10px] sm:text-xs font-mono font-semibold tracking-[0.25em] uppercase text-[#38BDF8]">
-              <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
+              <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse" />
               <span>ARQUITECTURA TRIDENTE // DEFENSA CIBERNÉTICA DE SILICIO</span>
             </div>
             <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.96] text-white">
               TZANIX ÆTHER-CORE <br className="hidden sm:inline" />
               <span className="text-[#38BDF8]">219 NS POR PAQUETE</span>
             </h1>
-            <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-2xl font-normal tracking-wide leading-relaxed">
-              Los firewalls tradicionales tardan milisegundos y colapsan la CPU bajo ataques volumétricos. <strong className="text-white">TZANIX Æther-Core</strong> opera directamente en el silicio y en el acceso de red (<code>#![no_std]</code>, Zero-Heap), procesando <strong className="text-white">16.86 Millones de paquetes por segundo</strong> para neutralizar ataques DDoS y botnets periódicas con <strong className="text-white">0.00% de falsos positivos</strong>.
+            <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl font-normal tracking-wide leading-relaxed">
+              Los firewalls tradicionales tardan milisegundos y colapsan la CPU bajo ataques volumétricos.{' '}
+              <strong className="text-white">TZANIX Æther-Core</strong> opera directamente en el silicio y en el acceso de red
+              (<code className="text-[#38BDF8]">#![no_std]</code>, Zero-Heap), procesando{' '}
+              <strong className="text-white">16.86 millones de paquetes por segundo</strong> para neutralizar ataques DDoS y botnets
+              periódicas con <strong className="text-white">cero falsos positivos en nuestras pruebas de laboratorio</strong> (ROC AUC 0.9687).
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <a href="#despliegue" className="btn-spacex !border-[#38BDF8] bg-[#38BDF8] text-[#06090F]">
+                <span>DESPLEGAR PoC 14 DÍAS →</span>
+              </a>
+              <a href="#el-motor" className="btn-spacex">
+                <span>VER ARQUITECTURA</span>
+              </a>
+            </div>
           </div>
         </section>
 
-        {/* Additional sections (placeholders) */}
-        {/* MODO SOMBRA SECTION */}
-        <section id="modo-sombra">
+        {/* EL MOTOR — arquitectura Tridente + benchmark de laboratorio */}
+        <div id="el-motor" className="scroll-mt-20">
+          <ScientificDocs />
+        </div>
+
+        {/* MODO SOMBRA — visualización de purificación de paquetes */}
+        <div id="modo-sombra" className="scroll-mt-20">
           <ModoSombra />
+        </div>
+
+        {/* SOC EN VIVO / RENDIMIENTO */}
+        <div id="rendimiento" className="scroll-mt-20">
+          <TridentLiveSoc />
+        </div>
+
+        {/* DESPLIEGUE SELF-SERVICE */}
+        <section id="despliegue" className="w-full py-28 px-5 sm:px-[4vw] bg-[#0B0F17] border-t border-slate-800/90 scroll-mt-20">
+          <div className="max-w-7xl mx-auto space-y-10">
+            <div className="border-b border-slate-800 pb-6 space-y-3">
+              <p className="text-xs font-mono font-semibold tracking-[0.3em] uppercase text-[#38BDF8]">
+                DESPLIEGUE SELF-SERVICE // AGENTE NATIVO LINUX &amp; CONTENEDOR DOCKER
+              </p>
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight uppercase text-white">
+                Blíndate en menos de 5 minutos
+              </h2>
+              <p className="text-slate-400 max-w-3xl text-sm sm:text-base leading-relaxed">
+                Para VPS compartidos sin hardware FPGA, descarga el <strong className="text-white">instalador nativo estático</strong>{' '}
+                (<code className="text-[#38BDF8]">install-tzanix-linux.sh</code>) que se integra con CSF/LFD e iptables sin depender de Docker
+                ni de librerías del sistema operativo — o levanta la Consola SOC con <code className="text-[#38BDF8]">docker compose up -d</code>.
+                Genera tu licencia piloto de 14 días aquí abajo.
+              </p>
+            </div>
+            <QuickstartOnboarding selectedTier={selectedTier} />
+          </div>
         </section>
-        <LandingContent />
-        <section id="el-motor"><QuickstartOnboarding selectedTier={selectedTier} onSelectTier={handleSelectTier} /></section>
-        <section id="modo-sombra-modals"><CompanyModals /></section>
-        <section id="rendimiento"><MatrixBackground /></section>
-        <section id="isps-hosters"><FluidBackground /></section>
-        <section id="contacto"><DataPurificationVisualizer /></section>
+
+        {/* IDENTIDAD CORPORATIVA + CONTACTO (incluye #contacto) */}
+        <CompanyModals />
       </main>
+
+      {/* FOOTER */}
+      <footer className="relative z-10 w-full border-t border-slate-800/90 bg-[#06090F] px-5 sm:px-8 lg:px-12 py-10">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <span className="text-lg font-black tracking-[0.32em] uppercase text-white">TZANIX</span>
+            <span className="h-4 w-px bg-slate-700" />
+            <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-[#38BDF8]">ÆTHER-CORE</span>
+          </div>
+          <p className="text-[11px] font-mono text-slate-500 text-center">
+            © {new Date().getFullYear()} TZANIX SIGNAL TECHNOLOGIES · DEFENSA CIBERNÉTICA DE SILICIO · ZERO-RETENTION
+          </p>
+          <div className="flex gap-5 font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">
+            <a href="#el-motor" className="hover:text-[#38BDF8] transition">Motor</a>
+            <a href="#despliegue" className="hover:text-[#38BDF8] transition">Despliegue</a>
+            <a href="#contacto" className="hover:text-[#38BDF8] transition">Contacto</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

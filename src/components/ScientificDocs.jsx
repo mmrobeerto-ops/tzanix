@@ -14,7 +14,7 @@ export default function ScientificDocs() {
             ARQUITECTURA TRIDENTE (<span className="text-[#38BDF8]">#&#33;[no_std]</span>)
           </h2>
           <p className="text-slate-400 max-w-3xl text-sm sm:text-base font-normal leading-relaxed">
-            Diseñado para operar en la capa de acceso a la red (<strong className="text-slate-200">Fast-Path</strong>), TZANIX Æther-Core elimina por completo la latencia del kernel de Linux, el recolector de basura y la unidad de punto flotante (FPU), alcanzando en pruebas de estrés un rendimiento determinista de <strong className="text-white">16.86 millones de paquetes por segundo (Mpps)</strong> y una latencia proyectada en silicio FPGA de <strong className="text-[#38BDF8]">10.0 nanosegundos</strong>.
+            Diseñado para operar en la capa de acceso a la red (<strong className="text-slate-200">Fast-Path</strong>), TZANIX Æther-Core elimina por completo la latencia del kernel de Linux, el recolector de basura y la unidad de punto flotante (FPU), alcanzando en pruebas de estrés por software (1 núcleo de CPU) un rendimiento de <strong className="text-white">16.86 millones de paquetes por segundo (Mpps)</strong> y una latencia <strong className="text-[#38BDF8]">proyectada</strong> en silicio FPGA de <strong className="text-[#38BDF8]">10.0 nanosegundos</strong> (modelo RTL en co-simulación, todavía sin medir en hardware físico).
           </p>
         </div>
 
@@ -96,11 +96,11 @@ export default function ScientificDocs() {
               Benchmark de Laboratorio: 10,000,000 de Flits
             </h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Sometido a un bombardeo mixto de 10 millones de flits simultáneos (70% tráfico corporativo legítimo, 29.99% ataques volumétricos DDoS y 0.01% botnets sigilosas en Zona Gris), el motor mantuvo <strong className="text-white">100.0% de precisión en el Fast-Path</strong> con un área bajo la curva <strong className="text-[#38BDF8]">ROC AUC = 0.9937</strong>.
+              Sometido a un bombardeo mixto de 10 millones de flits simultáneos (70% tráfico corporativo legítimo, 29.99% ataques volumétricos DDoS y 0.01% botnets sigilosas en Zona Gris), el motor mantuvo <strong className="text-white">100.0% de precisión en el Fast-Path sobre este tráfico sintético</strong>, con un área bajo la curva <strong className="text-[#38BDF8]">ROC AUC = 0.9687</strong> (medida en <code className="text-slate-200">tests/roc_hybrid_metrics.rs</code>). Pendiente de validación con tráfico de producción.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 font-mono">
               <div className="bg-[#06090F] p-3 border border-slate-800">
-                <div className="text-[10px] text-slate-400">THROUGHPUT</div>
+                <div className="text-[10px] text-slate-400">THROUGHPUT (SW · 1 NÚCLEO)</div>
                 <div className="text-lg font-bold text-white">16.86 Mpps</div>
               </div>
               <div className="bg-[#06090F] p-3 border border-slate-800">
@@ -108,11 +108,11 @@ export default function ScientificDocs() {
                 <div className="text-lg font-bold text-white">59.31 ns</div>
               </div>
               <div className="bg-[#06090F] p-3 border border-slate-800">
-                <div className="text-[10px] text-slate-400">LATENCIA FPGA</div>
+                <div className="text-[10px] text-slate-400">LAT. FPGA (PROYECTADA)</div>
                 <div className="text-lg font-bold text-[#38BDF8]">10.00 ns</div>
               </div>
               <div className="bg-[#06090F] p-3 border border-slate-800">
-                <div className="text-[10px] text-slate-400">FALSOS POSITIVOS</div>
+                <div className="text-[10px] text-slate-400">FALSOS POS. (SINTÉTICO)</div>
                 <div className="text-lg font-bold text-[#38BDF8]">0.00%</div>
               </div>
             </div>
