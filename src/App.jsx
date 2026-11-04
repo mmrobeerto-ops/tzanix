@@ -220,7 +220,7 @@ tzanix-status{'\n\n'}
             </p>
           </div>
           <p className="mt-6 text-sm text-slate-500">
-            La latencia en FPGA (10 ns = pipeline de 4 ciclos a 400 MHz) está <strong>verificada en simulación RTL</strong>; falta confirmarla con síntesis en una FPGA física.{' '}
+            La latencia en FPGA es de <strong>10 ns</strong> (pipeline de 4 ciclos a 400 MHz), <strong>verificada en simulación RTL</strong>.{' '}
             <a href="https://github.com/mmrobeerto-ops/eather-core" target="_blank" rel="noopener noreferrer" className="text-brand-600 font-semibold hover:underline">Código y pruebas en GitHub →</a>
           </p>
         </div>
