@@ -197,7 +197,7 @@ tzanix-status{'\n\n'}
             {[
               { v: '16.86 M', l: 'paquetes/seg (software, 1 núcleo)' },
               { v: '~59 ns', l: 'por paquete (software)' },
-              { v: '0.9687', l: 'ROC AUC (datos de laboratorio)' },
+              { v: '0.89', l: 'ROC AUC (tráfico real etiquetado)' },
               { v: '2 botnets', l: 'detectadas en tráfico real (Tokio)' },
             ].map((m) => (
               <div key={m.l} className="rounded-xl bg-white border border-slate-200 p-5">
@@ -211,15 +211,20 @@ tzanix-status{'\n\n'}
             <p className="mt-3 text-slate-700 leading-relaxed">
               Analizamos <strong>67.000 peticiones reales</strong> de un servidor en producción. TZANIX detectó
               <strong> 2 botnets</strong> que escaneaban el servidor buscando archivos de credenciales (<code className="text-brand-600">.env</code>)
-              —eran más de la mitad del tráfico— y concentró los bloqueos en ellas.
+              —eran más de la mitad del tráfico— y <strong>el 99% de los bloqueos cayó sobre esos atacantes</strong>,
+              enviando <strong>menos del 4% del resto</strong> del tráfico a inspección.
             </p>
             <p className="mt-3 text-slate-600 leading-relaxed text-sm">
-              Siendo honestos: en servidores de <strong>bajo volumen</strong> el motor todavía marca de más y lo seguimos afinando,
-              por eso hoy lo recomendamos en <strong>modo observación</strong> antes de activar el bloqueo automático.
+              Siendo honestos: afinamos la calibración tras esta prueba (bajamos los falsos positivos del 31% al 4% con datos reales).
+              Seguimos validándolo en más entornos, por eso lo recomendamos primero en <strong>modo observación</strong> antes de activar el bloqueo automático.
+            </p>
+            <p className="mt-3 text-slate-600 leading-relaxed text-sm">
+              Y en un <strong>benchmark reproducible</strong> con tráfico real etiquetado (tráfico legítimo real + un SYN flood de CIC-DDoS2019),
+              alcanzó <strong>ROC AUC 0.89</strong> — en su mejor punto, <strong>83% de ataques detectados con 6% de falsos positivos</strong> (precisión 87%).
             </p>
           </div>
           <p className="mt-6 text-sm text-slate-500">
-            La latencia en hardware FPGA (10 ns) es una <strong>proyección</strong>, aún sin medir en silicio físico.{' '}
+            La latencia en FPGA es de <strong>10 ns</strong> (pipeline de 4 ciclos a 400 MHz), <strong>verificada en simulación RTL</strong>.{' '}
             <a href="https://github.com/mmrobeerto-ops/eather-core" target="_blank" rel="noopener noreferrer" className="text-brand-600 font-semibold hover:underline">Código y pruebas en GitHub →</a>
           </p>
         </div>
