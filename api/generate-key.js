@@ -46,8 +46,8 @@ export default async function handler(req, res) {
     
     // Notificación a Web3Forms
     try {
-      // Usar llave quemada o la del env para seguridad
-      const accessKey = process.env.WEB3FORMS_ACCESS_KEY || '72ab50e1-c1fc-4828-8f95-f2e20093d125';
+      // La llave viene SOLO de la variable de entorno. Nunca en el código.
+      const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
       if (accessKey) {
         await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
