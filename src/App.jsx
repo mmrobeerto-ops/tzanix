@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const WHATSAPP = 'https://wa.me/526647247803?text=Hola%2C%20quiero%20probar%20TZANIX%20en%20mi%20servidor.';
+const WHATSAPP = 'https://wa.me/526371377861?text=Hola%2C%20quiero%20mi%20reporte%20de%20amenazas%20gratis.';
 const EMAIL = 'mailto:mmrobeerto@gmail.com?subject=Quiero%20probar%20TZANIX%20(14%20d%C3%ADas)';
 
 const NAV = [
