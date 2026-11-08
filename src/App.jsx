@@ -242,7 +242,7 @@ tzanix-status{'\n\n'}
               { v: '16.86 M', l: 'paquetes/seg (software, 1 núcleo)' },
               { v: '~59 ns', l: 'por paquete (software)' },
               { v: '0.89', l: 'ROC AUC (tráfico real etiquetado)' },
-              { v: '2 botnets', l: 'detectadas en tráfico real (Tokio)' },
+              { v: '2 bots', l: 'escáneres cazados en tráfico real (Tokio)' },
             ].map((m) => (
               <div key={m.l} className="rounded-xl bg-white border border-slate-200 p-5">
                 <div className="text-2xl font-extrabold text-brand-600">{m.v}</div>
@@ -253,10 +253,15 @@ tzanix-status{'\n\n'}
           <div className="mt-8 max-w-3xl mx-auto rounded-2xl bg-white border border-slate-200 p-6 text-left">
             <p className="eyebrow">Prueba con tráfico real · servidor en Tokio</p>
             <p className="mt-3 text-slate-700 leading-relaxed">
-              Analizamos <strong>67.000 peticiones reales</strong> de un servidor en producción. TZANIX detectó
-              <strong> 2 botnets</strong> que escaneaban el servidor buscando archivos de credenciales (<code className="text-brand-600">.env</code>)
-              —eran más de la mitad del tráfico— y <strong>el 99% de los bloqueos cayó sobre esos atacantes</strong>,
-              enviando <strong>menos del 4% del resto</strong> del tráfico a inspección.
+              Analizamos <strong>73.814 peticiones reales</strong> de un servidor en producción. TZANIX detectó
+              <strong> 2 escáneres</strong> que buscaban archivos sensibles para robar datos (<code className="text-brand-600">.env</code>, <code className="text-brand-600">.bak</code>, <code className="text-brand-600">.conf</code>)
+              y que <strong>falsificaban su identidad</strong> —se hacían pasar por Googlebot, Chrome o <code className="text-brand-600">curl</code> en cada petición para evadir filtros—.
+              Concentraban <strong>más del 40% del tráfico</strong>, y <strong>más del 90% de los descartes cayó sobre ellos</strong>,
+              enviando <strong>menos del 5% del resto</strong> a inspección.
+            </p>
+            <p className="mt-3 text-slate-700 leading-relaxed">
+              Lo clave: los cazó por su <strong>comportamiento</strong> (el martilleo concentrado), <strong>no por su disfraz</strong>.
+              Un filtro que confía en el user-agent se los habría tragado como “Googlebot”.
             </p>
             <p className="mt-3 text-slate-600 leading-relaxed text-sm">
               Siendo honestos: afinamos la calibración tras esta prueba (bajamos los falsos positivos del 31% al 4% con datos reales).
