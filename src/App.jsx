@@ -127,6 +127,14 @@ function ChequeoForm() {
             </div>
           )}
 
+          {res.avisos?.length > 0 && (
+            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3">
+              {res.avisos.map((a, i) => (
+                <p key={i} className="text-xs text-slate-500 flex gap-2"><span>ℹ️</span><span>{a}</span></p>
+              ))}
+            </div>
+          )}
+
           <div className="mt-5 rounded-xl bg-brand-900 text-white p-4 text-center">
             <p className="text-sm">¿Quieres que te ayudemos a cerrar esto?</p>
             <a href={WHATSAPP_CHEQUEO} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex btn-primary !bg-white !text-brand-700">Escríbenos por WhatsApp →</a>
