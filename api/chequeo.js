@@ -86,7 +86,8 @@ async function detectaWP(base, body) {
   } catch { /* ignore */ }
   try {
     const r = await fetchT(base.replace(/\/$/, '') + '/wp-json/', { ms: 5000 });
-    if (r.status === 200) return 'desconocida';
+    const ct = (r.headers.get('content-type') || '').toLowerCase();
+    if (r.status === 200 && ct.includes('json')) return 'desconocida';
   } catch { /* ignore */ }
   return null;
 }
@@ -113,6 +114,7 @@ export default async function handler(req, res) {
   const criticos = [];
   const menores = [];
   const ok = [];
+  const avisos = [];
 
   // 1 + 2 + 3: página principal, HTTPS, servidor, headers
   let finalUrl = target.toString();
@@ -160,17 +162,34 @@ export default async function handler(req, res) {
     }
   } catch { /* ignore */ }
 
-  // 5: archivos sensibles expuestos (CRÍTICO) — en paralelo
+  // 5: archivos sensibles expuestos (CRÍTICO) — con anti-falsos-positivos
   try {
     const base = finalUrl.replace(/\/$/, '');
-    const probes = await Promise.all(SENSIBLES.map(async (p) => {
-      try {
-        const r = await fetchT(base + p, { ms: 5000 });
-        return { p, status: r.status };
-      } catch { return { p, status: 0 }; }
-    }));
-    for (const { p, status } of probes) {
-      if (status === 200) criticos.push(`Archivo sensible EXPUESTO: ${p}`);
+    // Baseline: ¿el sitio responde 200 a una ruta que NO existe? (catch-all)
+    let catchAll = false;
+    try {
+      const rnd = base + '/tzanix-noexiste-' + Math.random().toString(36).slice(2, 12) + '.txt';
+      const br = await fetchT(rnd, { ms: 5000 });
+      catchAll = br.status === 200;
+    } catch { /* ignore */ }
+
+    if (catchAll) {
+      // Responde 200 a todo: NO afirmamos nada (evita falsos positivos).
+      avisos.push('Este sitio responde "200 OK" a cualquier dirección, así que no podemos confirmar de forma fiable si hay archivos sensibles expuestos. Conviene revisarlo a mano.');
+    } else {
+      const probes = await Promise.all(SENSIBLES.map(async (p) => {
+        try {
+          const r = await fetchT(base + p, { ms: 5000 });
+          const ct = (r.headers.get('content-type') || '').toLowerCase();
+          return { p, status: r.status, ct };
+        } catch { return { p, status: 0, ct: '' }; }
+      }));
+      for (const { p, status, ct } of probes) {
+        // Solo "expuesto" si da 200 y NO es una página HTML (un .env/.sql real no es HTML).
+        if (status === 200 && !ct.includes('text/html')) {
+          criticos.push(`Archivo sensible EXPUESTO: ${p}`);
+        }
+      }
     }
   } catch { /* ignore */ }
 
@@ -194,6 +213,7 @@ export default async function handler(req, res) {
     criticos,
     menores,
     ok,
+    avisos,
     wp: wpInfo,
     nota: 'Chequeo pasivo desde afuera. No sustituye una auditoría completa.',
   });
