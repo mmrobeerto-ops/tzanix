@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const WHATSAPP = 'https://wa.me/526371377861?text=Hola%2C%20quiero%20mi%20reporte%20de%20amenazas%20gratis.';
 const EMAIL = 'mailto:mmrobeerto@gmail.com?subject=Quiero%20probar%20TZANIX%20(14%20d%C3%ADas)';
+const GITHUB = 'https://github.com/mmrobeerto-ops/aether-core';
 
 const NAV = [
   { href: '#que-hace', label: 'Qué hace' },
@@ -43,6 +44,10 @@ export default function App() {
             ))}
           </nav>
           <div className="flex items-center gap-3">
+            <a href={GITHUB} target="_blank" rel="noopener noreferrer" title="Código abierto en GitHub (AGPL-3.0)" className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" /></svg>
+              GitHub
+            </a>
             <a href={EMAIL} className="hidden sm:inline-flex btn-primary !px-5 !py-2.5 !text-sm">Probar gratis</a>
             <button className="md:hidden p-2 text-ink" onClick={() => setOpen(!open)} aria-label="Menú">
               <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2"><path d={open ? 'M6 6l12 12M6 18L18 6' : 'M4 7h16M4 12h16M4 17h16'} strokeLinecap="round" /></svg>
@@ -54,6 +59,7 @@ export default function App() {
             {NAV.map((n) => (
               <a key={n.href} href={n.href} onClick={close} className="hover:text-brand-600">{n.label}</a>
             ))}
+            <a href={GITHUB} target="_blank" rel="noopener noreferrer" onClick={close} className="hover:text-brand-600">Código en GitHub ↗</a>
             <a href={EMAIL} onClick={close} className="btn-primary">Probar gratis 14 días</a>
           </div>
         )}
@@ -226,7 +232,7 @@ tzanix-status{'\n\n'}
           </div>
           <p className="mt-6 text-sm text-slate-500">
             La latencia en FPGA es de <strong>10 ns</strong> (pipeline de 4 ciclos a 400 MHz), <strong>verificada en simulación RTL</strong>.{' '}
-            <a href="https://github.com/mmrobeerto-ops/eather-core" target="_blank" rel="noopener noreferrer" className="text-brand-600 font-semibold hover:underline">Código y pruebas en GitHub →</a>
+            <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="text-brand-600 font-semibold hover:underline">Código y pruebas en GitHub →</a>
           </p>
         </div>
       </section>
@@ -252,7 +258,13 @@ tzanix-status{'\n\n'}
             <img src="/wordmark-dark.png" alt="TZANIX" className="wm-light h-4 w-auto" />
             <img src="/wordmark-white.png" alt="TZANIX" className="wm-dark h-4 w-auto" />
           </div>
-          <p>© {new Date().getFullYear()} TZANIX · Protección DDoS para servidores · Sin almacenar datos privados</p>
+          <div className="flex flex-col sm:items-end gap-1.5">
+            <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-semibold text-slate-600 hover:text-brand-600 transition-colors">
+              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" /></svg>
+              Código abierto · AGPL-3.0
+            </a>
+            <p>© {new Date().getFullYear()} TZANIX · Protección DDoS para servidores · Sin almacenar datos privados</p>
+          </div>
         </div>
       </footer>
     </div>
