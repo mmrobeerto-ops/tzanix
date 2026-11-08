@@ -26,6 +26,118 @@ function Icon({ name, className = 'w-7 h-7' }) {
   return null;
 }
 
+function ChequeoForm() {
+  const [url, setUrl] = useState('');
+  const [estado, setEstado] = useState('idle'); // idle | cargando | listo | error
+  const [res, setRes] = useState(null);
+  const [err, setErr] = useState('');
+
+  async function revisar(e) {
+    e.preventDefault();
+    const u = url.trim();
+    if (!u) return;
+    setEstado('cargando'); setErr(''); setRes(null);
+    try {
+      const r = await fetch('/api/chequeo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: u }),
+      });
+      const data = await r.json();
+      if (!r.ok || data.error) {
+        setErr(data.error || 'No se pudo revisar el sitio.');
+        setEstado('error');
+        return;
+      }
+      setRes(data);
+      setEstado('listo');
+    } catch {
+      setErr('Hubo un problema de conexión. Intenta de nuevo.');
+      setEstado('error');
+    }
+  }
+
+  const colores = {
+    critico: 'bg-red-50 border-red-200 text-red-800',
+    menor: 'bg-amber-50 border-amber-200 text-amber-800',
+    bien: 'bg-green-50 border-green-200 text-green-800',
+  };
+  const emoji = { critico: '🔴', menor: '🟡', bien: '✅' };
+
+  return (
+    <div className="mt-10 max-w-2xl mx-auto">
+      <form onSubmit={revisar} className="flex flex-col sm:flex-row gap-3">
+        <input
+          type="text"
+          inputMode="url"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          placeholder="tu-sitio.com"
+          className="flex-1 rounded-xl border border-slate-300 px-4 py-3 text-ink placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-400"
+        />
+        <button type="submit" disabled={estado === 'cargando'} className="btn-primary whitespace-nowrap disabled:opacity-60">
+          {estado === 'cargando' ? 'Revisando…' : 'Revisar mi sitio →'}
+        </button>
+      </form>
+      <p className="mt-3 text-center text-xs text-slate-500">
+        Revisamos solo lo público, desde afuera. No tocamos ni entramos a nada. No pedimos contraseñas aquí.
+      </p>
+
+      {estado === 'error' && (
+        <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-4 text-red-800 text-sm">{err}</div>
+      )}
+
+      {estado === 'listo' && res && (
+        <div className="mt-6 text-left">
+          <div className={`rounded-xl border p-4 font-semibold ${colores[res.nivel]}`}>
+            {emoji[res.nivel]} {res.veredicto}
+          </div>
+          <p className="mt-2 text-xs text-slate-500 break-all">Revisado: {res.url}</p>
+
+          {res.criticos?.length > 0 && (
+            <div className="mt-4">
+              <p className="font-bold text-red-700 text-sm">🔴 Crítico (ciérralo ya):</p>
+              <ul className="mt-2 space-y-1">
+                {res.criticos.map((c, i) => (
+                  <li key={i} className="text-sm text-slate-700 flex gap-2"><span>•</span><span>{c}</span></li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {res.menores?.length > 0 && (
+            <div className="mt-4">
+              <p className="font-bold text-amber-700 text-sm">🟡 Menor (higiene, sin prisa):</p>
+              <ul className="mt-2 space-y-1">
+                {res.menores.map((c, i) => (
+                  <li key={i} className="text-sm text-slate-600 flex gap-2"><span>•</span><span>{c}</span></li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {res.ok?.length > 0 && (
+            <div className="mt-4">
+              <p className="font-bold text-green-700 text-sm">✅ Lo que está bien:</p>
+              <ul className="mt-2 space-y-1">
+                {res.ok.map((c, i) => (
+                  <li key={i} className="text-sm text-slate-600 flex gap-2"><span>•</span><span>{c}</span></li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div className="mt-5 rounded-xl bg-brand-900 text-white p-4 text-center">
+            <p className="text-sm">¿Quieres que te ayudemos a cerrar esto?</p>
+            <a href={WHATSAPP_CHEQUEO} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex btn-primary !bg-white !text-brand-700">Escríbenos por WhatsApp →</a>
+          </div>
+          <p className="mt-3 text-center text-xs text-slate-400">{res.nota}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function App() {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
@@ -138,8 +250,8 @@ export default function App() {
             </span>
             <h2 className="mt-5 text-3xl sm:text-4xl font-extrabold tracking-tight">Chequeo de seguridad gratis</h2>
             <p className="mt-4 text-slate-600 text-lg leading-relaxed">
-              Antes de proteger nada, te decimos <strong className="text-ink">cómo estás hoy</strong>. Nos mandas la dirección de tu
-              sitio y, si quieres, tus contraseñas — y te damos un reporte honesto. Sin costo y sin tocar nada de tu servidor.
+              Pon la dirección de tu sitio y te decimos <strong className="text-ink">cómo estás hoy</strong>, al instante:
+              HTTPS, software viejo, protecciones que faltan y archivos sensibles expuestos. Sin costo y sin tocar nada de tu servidor.
             </p>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
@@ -154,11 +266,12 @@ export default function App() {
               </div>
             ))}
           </div>
-          <div className="mt-10 text-center">
-            <a href={WHATSAPP_CHEQUEO} target="_blank" rel="noopener noreferrer" className="btn-primary">Pedir mi chequeo gratis por WhatsApp →</a>
-            <p className="mt-4 text-sm text-slate-500">
+          <ChequeoForm />
+          <div className="mt-8 text-center">
+            <p className="text-sm text-slate-500">
               Te decimos claro qué es <strong>crítico</strong> y qué es <strong>menor</strong>. No inventamos miedo para venderte.
             </p>
+            <a href={WHATSAPP_CHEQUEO} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex text-brand-700 font-semibold hover:underline">¿Prefieres que lo revisemos a fondo? Escríbenos por WhatsApp →</a>
           </div>
         </div>
       </section>
