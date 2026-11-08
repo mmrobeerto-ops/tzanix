@@ -384,6 +384,13 @@ tzanix-status{'\n\n'}
               Lo clave: los cazó por su <strong>comportamiento</strong> (el martilleo concentrado), <strong>no por su disfraz</strong>.
               Un filtro que confía en el user-agent se los habría tragado como “Googlebot”.
             </p>
+            <div className="mt-4 rounded-xl bg-red-50 border border-red-200 p-4">
+              <p className="text-sm text-slate-700 leading-relaxed">
+                <strong className="text-red-700">Dato real:</strong> en ese servidor registramos <strong>9,366 peticiones que se anunciaban como “Googlebot”</strong>.
+                Al verificarlas contra los <strong>rangos de IP oficiales de Google</strong>, <strong className="text-red-700">el 100% resultaron falsas</strong> —
+                impostores buscando credenciales. Un filtro que confía en el user-agent las habría dejado pasar todas.
+              </p>
+            </div>
             <p className="mt-3 text-slate-600 leading-relaxed text-sm">
               Siendo honestos: afinamos la calibración tras esta prueba (bajamos los falsos positivos del 31% al 4% con datos reales).
               Seguimos validándolo en más entornos, por eso lo recomendamos primero en <strong>modo observación</strong> antes de activar el bloqueo automático.
