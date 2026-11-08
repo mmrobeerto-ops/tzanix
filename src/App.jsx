@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
 const WHATSAPP = 'https://wa.me/526371377861?text=Hola%2C%20quiero%20mi%20reporte%20de%20amenazas%20gratis.';
-const EMAIL = 'mailto:mmrobeerto@gmail.com?subject=Quiero%20probar%20TZANIX%20(14%20d%C3%ADas)';
+const EMAIL = 'mailto:mmrobeerto@gmail.com?subject=Quiero%20instalar%20TZANIX%20(gratis)';
+const WHATSAPP_CHEQUEO = 'https://wa.me/526371377861?text=Hola%2C%20quiero%20mi%20chequeo%20de%20seguridad%20gratis.';
 const GITHUB = 'https://github.com/mmrobeerto-ops/aether-core';
 
 const NAV = [
   { href: '#que-hace', label: 'Qué hace' },
+  { href: '#chequeo', label: 'Chequeo gratis' },
   { href: '#como-funciona', label: 'Cómo funciona' },
   { href: '#instalar', label: 'Instalar' },
   { href: '#contacto', label: 'Contacto' },
@@ -60,7 +62,7 @@ export default function App() {
               <a key={n.href} href={n.href} onClick={close} className="hover:text-brand-600">{n.label}</a>
             ))}
             <a href={GITHUB} target="_blank" rel="noopener noreferrer" onClick={close} className="hover:text-brand-600">Código en GitHub ↗</a>
-            <a href={EMAIL} onClick={close} className="btn-primary">Probar gratis 14 días</a>
+            <a href={EMAIL} onClick={close} className="btn-primary">Empezar gratis</a>
           </div>
         )}
       </header>
@@ -79,9 +81,10 @@ export default function App() {
           <p className="mt-6 max-w-2xl mx-auto text-lg text-slate-600 leading-relaxed">
             TZANIX vigila tu tráfico y bloquea en el acto a quien ataca, dejando pasar siempre a tus usuarios reales.
             Se instala en <strong className="text-ink">5 minutos</strong> en cualquier servidor Linux.
+            <strong className="text-ink"> Gratis y de código abierto.</strong>
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <a href={EMAIL} className="btn-primary">Probar gratis 14 días →</a>
+            <a href={EMAIL} className="btn-primary">Empezar gratis →</a>
             <a href="#como-funciona" className="btn-ghost">Ver cómo funciona</a>
           </div>
           <p className="mt-6 text-sm text-slate-500">Para servidores VPS, hosting, SaaS, tiendas online y APIs.</p>
@@ -126,6 +129,40 @@ export default function App() {
         </div>
       </section>
 
+      {/* CHEQUEO DE SEGURIDAD GRATIS */}
+      <section id="chequeo" className="max-w-6xl mx-auto px-5 sm:px-8 py-16 scroll-mt-20">
+        <div className="rounded-3xl border border-brand-200 bg-brand-50 p-8 sm:p-12">
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-brand-700 text-xs font-semibold tracking-wide">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" /> NUEVO · 100% GRATIS
+            </span>
+            <h2 className="mt-5 text-3xl sm:text-4xl font-extrabold tracking-tight">Chequeo de seguridad gratis</h2>
+            <p className="mt-4 text-slate-600 text-lg leading-relaxed">
+              Antes de proteger nada, te decimos <strong className="text-ink">cómo estás hoy</strong>. Nos mandas la dirección de tu
+              sitio y, si quieres, tus contraseñas — y te damos un reporte honesto. Sin costo y sin tocar nada de tu servidor.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {[
+              { t: '¿Tus contraseñas están filtradas?', d: 'Revisamos si aparecen en filtraciones reales (base de ~1,000 millones de contraseñas robadas). Nunca vemos tu contraseña completa.' },
+              { t: '¿Tu sitio está al día?', d: 'Vemos desde afuera si usas software viejo (WordPress y otros) con fallas conocidas, o si revelas datos que ayudan al atacante.' },
+              { t: '¿Dejas archivos expuestos?', d: 'Buscamos archivos sensibles abiertos al público (respaldos, llaves, configuración) — la causa #1 de fugas de datos.' },
+            ].map((c) => (
+              <div key={c.t} className="card !bg-white">
+                <h3 className="text-lg font-bold">{c.t}</h3>
+                <p className="mt-2 text-slate-600 leading-relaxed">{c.d}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <a href={WHATSAPP_CHEQUEO} target="_blank" rel="noopener noreferrer" className="btn-primary">Pedir mi chequeo gratis por WhatsApp →</a>
+            <p className="mt-4 text-sm text-slate-500">
+              Te decimos claro qué es <strong>crítico</strong> y qué es <strong>menor</strong>. No inventamos miedo para venderte.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CÓMO FUNCIONA: 3 pasos */}
       <section id="como-funciona" className="bg-slate-50 border-y border-slate-200 scroll-mt-20">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
@@ -156,11 +193,11 @@ export default function App() {
             <p className="eyebrow">Instalar</p>
             <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Listo en 5 minutos</h2>
             <p className="mt-4 text-slate-600 text-lg leading-relaxed">
-              Funciona en cualquier VPS Linux (CentOS, AlmaLinux, Ubuntu), con o sin Docker. Pides tu licencia de prueba,
+              Funciona en cualquier VPS Linux (CentOS, AlmaLinux, Ubuntu), con o sin Docker. Nos escribes,
               ejecutas un comando y TZANIX empieza a proteger tu servidor.
             </p>
             <ul className="mt-6 space-y-3">
-              {['Prueba gratis de 14 días, sin tarjeta.', 'Un solo comando de instalación.', 'No frena a tus usuarios reales.'].map((li) => (
+              {['Gratis y de código abierto (licencia AGPL-3.0).', 'Un solo comando de instalación.', 'No frena a tus usuarios reales.'].map((li) => (
                 <li key={li} className="flex items-start gap-3 text-slate-700">
                   <span className="mt-1 inline-flex items-center justify-center w-5 h-5 rounded-full bg-brand-100 text-brand-600 shrink-0">
                     <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12l5 5L20 7" /></svg>
@@ -170,7 +207,7 @@ export default function App() {
               ))}
             </ul>
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <a href={EMAIL} className="btn-primary">Pedir mi prueba de 14 días →</a>
+              <a href={EMAIL} className="btn-primary">Empezar gratis →</a>
               <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="btn-ghost">Preguntar por WhatsApp</a>
             </div>
           </div>
@@ -241,7 +278,7 @@ tzanix-status{'\n\n'}
       <section id="contacto" className="max-w-4xl mx-auto px-5 sm:px-8 py-20 text-center scroll-mt-20">
         <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">¿Protegemos tu servidor?</h2>
         <p className="mt-4 text-slate-600 text-lg max-w-xl mx-auto">
-          Escríbenos y te ayudamos a montar tu prueba de 14 días en menos de 5 minutos.
+          Escríbenos y te ayudamos a montar tu instalación gratis en menos de 5 minutos.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <a href={EMAIL} className="btn-primary">Escribir por correo →</a>
