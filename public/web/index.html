@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TZANIX — Páginas web rápidas, seguras y que venden</title>
+<meta name="description" content="Páginas web profesionales para tu negocio: rápidas, para celular y seguras. Te la hacemos, publicamos y cuidamos. Hecho en México.">
+<style>
+  :root{
+    --navy:#0e2048;--navy2:#0a1733;--black:#080b14;--ink:#0f1626;
+    --mut:#6d7688;--white:#ffffff;--off:#f6f7f9;--silver:#c3ccd8;--silver2:#e7ebf1;
+    --gold:#e5b325;--gold2:#c08f1c;--goldgrad:linear-gradient(135deg,#ffde7a,#e5b325 48%,#b8860b);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--white);line-height:1.55}
+  .wrap{max-width:430px;margin:0 auto;background:var(--white);overflow:hidden}
+  header{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--silver2);padding:15px 20px;display:flex;align-items:center;justify-content:space-between;z-index:30}
+  .logo img{height:22px;display:block}
+  .cta{background:var(--navy);color:#fff;border-radius:10px;padding:10px 16px;font-weight:700;font-size:13px;text-decoration:none}
+  .goldline{height:3px;background:var(--goldgrad)}
+  .hero{padding:46px 24px 38px;text-align:center;background:linear-gradient(180deg,#fbfcfd,#fff)}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;padding:7px 15px;border-radius:999px;letter-spacing:.5px}
+  .pill b{color:var(--gold)}
+  h1{font-size:38px;line-height:1.08;font-weight:800;letter-spacing:-1.2px;margin:22px 0 14px;color:var(--navy)}
+  h1 span{color:var(--gold2)}
+  .hero p{color:var(--mut);font-size:16px;max-width:345px;margin:0 auto 24px}
+  .btns{display:flex;flex-direction:column;gap:11px}
+  .btn{padding:16px;border-radius:12px;font-weight:700;font-size:15.5px;text-decoration:none;text-align:center;display:block}
+  .btn-gold{background:var(--goldgrad);color:#3a2c05;box-shadow:0 8px 22px rgba(229,179,37,.35)}
+  .btn-out{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
+  .trustbar{display:flex;justify-content:center;flex-wrap:wrap;gap:9px 20px;margin-top:24px;font-size:12.5px;color:var(--navy);font-weight:600}
+  .trustbar span{display:inline-flex;align-items:center;gap:6px}
+  .trustbar .ck{color:var(--gold2);font-weight:900}
+  .guarantee{background:var(--navy);color:#fff;text-align:center;padding:18px 24px;display:flex;align-items:center;justify-content:center;gap:12px}
+  .guarantee .ico{font-size:30px}
+  .guarantee b{color:var(--gold);font-size:15px}
+  .guarantee small{display:block;color:#aeb7c7;font-size:12.5px}
+  section{padding:42px 24px}
+  .eyebrow{color:var(--gold2);font-weight:800;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;text-align:center}
+  h2{text-align:center;font-size:28px;margin:12px 0 6px;letter-spacing:-.5px;font-weight:800;color:var(--navy)}
+  .sub{text-align:center;color:var(--mut);font-size:15px;margin-bottom:26px;max-width:360px;margin-left:auto;margin-right:auto}
+  .inc{display:grid;gap:13px}
+  .card{background:#fff;border:1px solid var(--silver2);border-radius:16px;padding:18px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 2px 10px rgba(14,32,72,.04)}
+  .card .ic{width:46px;height:46px;border-radius:12px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+  .card h3{font-size:15.5px;margin-bottom:3px;color:var(--navy)}
+  .card p{font-size:13px;color:var(--mut)}
+  .why{background:var(--black);color:#fff}
+  .why h2{color:#fff}.why .eyebrow{color:var(--gold)}
+  .wrow{display:flex;gap:14px;align-items:center;margin:18px 0;padding-bottom:18px;border-bottom:1px solid #1b2234}
+  .wrow:last-child{border-bottom:none}
+  .wrow .ic{width:48px;height:48px;border-radius:12px;background:var(--goldgrad);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+  .wrow b{font-size:15.5px}.wrow small{color:#9aa3b5;font-size:12.5px;display:block;margin-top:2px}
+  .port{display:grid;gap:18px}
+  .pcard{background:#fff;border:1px solid var(--silver2);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(14,32,72,.08)}
+  .pcard .img{height:155px;overflow:hidden;background:var(--off)}
+  .pcard .img img{width:100%;display:block}
+  .pcard .cap{padding:15px 18px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--silver2)}
+  .pcard .cap b{font-size:15.5px;color:var(--navy)}.pcard .cap small{color:var(--mut);font-size:12px;display:block}
+  .pcard .tag{background:var(--navy);color:var(--gold);font-size:11px;font-weight:800;padding:6px 11px;border-radius:7px}
+  .step{display:flex;gap:16px;align-items:flex-start;margin:20px 0}
+  .step .n{width:46px;height:46px;border-radius:12px;background:var(--navy);color:var(--gold);font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;border:1px solid var(--gold2)}
+  .step h3{font-size:16px;color:var(--navy)}.step p{font-size:13.5px;color:var(--mut);margin-top:2px}
+  .price{background:var(--navy);color:#fff;border-radius:22px;padding:4px}
+  .price .inner{border:1px solid rgba(229,179,37,.45);border-radius:19px;padding:30px 24px;text-align:center}
+  .price .top{font-size:12px;color:var(--gold);font-weight:800;letter-spacing:2px;text-transform:uppercase}
+  .price .big{font-size:29px;font-weight:800;margin:10px 0 4px}
+  .price .note{color:#9aa3b5;font-size:13.5px}
+  .price ul{list-style:none;text-align:left;margin:20px 0;display:grid;gap:11px}
+  .price li{display:flex;gap:11px;font-size:14.5px;color:#e6eaf1}
+  .price li .ck{color:var(--gold);font-weight:900}
+  .faq{background:var(--off)}
+  .qa{background:#fff;border:1px solid var(--silver2);border-radius:14px;padding:18px 20px;margin-bottom:12px}
+  .qa h3{font-size:15.5px;color:var(--navy);display:flex;gap:9px;align-items:flex-start}
+  .qa h3 .q{color:var(--gold2);font-weight:900}
+  .qa p{font-size:13.5px;color:var(--mut);margin-top:7px;padding-left:22px}
+  .bottom{background:var(--navy);color:#fff;text-align:center;padding:46px 26px;border-top:3px solid;border-image:var(--goldgrad) 1}
+  .bottom h2{color:#fff;font-size:29px}
+  .bottom p{color:#aeb7c7;font-size:15px;margin:12px 0 22px}
+  footer{background:var(--black);color:#7e889b;text-align:center;padding:30px;font-size:12.5px}
+  footer img{height:20px;margin-bottom:12px;opacity:.9}
+  footer a{color:var(--gold);text-decoration:none;font-weight:700}
+  .wa-float{position:fixed;bottom:18px;right:calc(50% - 215px + 18px);width:58px;height:58px;border-radius:50%;background:#1f9d57;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(31,157,87,.4);z-index:40;border:2px solid rgba(255,255,255,.2)}
+  .wa-float svg{width:31px;height:31px;fill:#fff}
+  @media(max-width:430px){.wa-float{right:18px}}
+</style></head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><img src="assets/word_dark.png" alt="TZANIX"></div>
+    <a href="#contacto" class="cta">Cotizar gratis</a>
+  </header>
+  <div class="goldline"></div>
+
+  <div class="hero">
+    <span class="pill">★ Páginas web premium <b>·</b> Hecho en México 🇲🇽</span>
+    <h1>Tu negocio merece una página que <span>inspire confianza</span></h1>
+    <p>Rápidas, para celular y seguras. Yo te la hago, la publico y <strong>te la cuido</strong>. Tú solo atiende a tus clientes.</p>
+    <div class="btns">
+      <a href="#contacto" class="btn btn-gold">Quiero mi página</a>
+      <a href="#ejemplos" class="btn btn-out">Ver ejemplos</a>
+    </div>
+    <div class="trustbar">
+      <span><span class="ck">✓</span> Trato directo</span><span><span class="ck">✓</span> Seguridad incluida</span><span><span class="ck">✓</span> Sin letras chiquitas</span>
+    </div>
+  </div>
+
+  <div class="guarantee">
+    <span class="ico">🤝</span>
+    <div style="text-align:left"><b>Primera propuesta GRATIS</b><small>Si no te gusta el diseño, no pagas nada.</small></div>
+  </div>
+
+  <section>
+    <div class="eyebrow">Qué incluye</div>
+    <h2>Todo listo, sin complicaciones</h2>
+    <p class="sub">Un solo paquete con todo lo que tu negocio necesita para verse profesional.</p>
+    <div class="inc">
+      <div class="card"><span class="ic">🎨</span><div><h3>Diseño a tu medida</h3><p>Hecha para tu negocio, con tus colores, fotos y tu info.</p></div></div>
+      <div class="card"><span class="ic">📱</span><div><h3>Perfecta en el celular</h3><p>Donde tu cliente de verdad la ve. Rápida y clara.</p></div></div>
+      <div class="card"><span class="ic">💬</span><div><h3>Botón de WhatsApp</h3><p>Para que te contacten y te compren en un toque.</p></div></div>
+      <div class="card"><span class="ic">🌐</span><div><h3>Hosting y dominio</h3><p>Yo me encargo de todo lo técnico. Tú no ves nada de eso.</p></div></div>
+      <div class="card"><span class="ic">🛡️</span><div><h3>Seguridad y respaldos</h3><p>La cuido, la respaldo y la mantengo al día. Siempre arriba.</p></div></div>
+      <div class="card"><span class="ic">🔧</span><div><h3>Cambios cada mes</h3><p>¿Nuevo precio o promoción? Me escribes y lo actualizo.</p></div></div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="eyebrow">Por qué conmigo</div>
+    <h2>No solo te la hago. Te la cuido.</h2>
+    <div class="wrow"><span class="ic">⚡</span><div><b>Rápida de verdad</b><small>Si tarda en cargar, tu cliente se va. La mía vuela.</small></div></div>
+    <div class="wrow"><span class="ic">🤝</span><div><b>Trato directo, en español</b><small>Hablas conmigo por WhatsApp, no con un robot ni una empresa gigante.</small></div></div>
+    <div class="wrow"><span class="ic">🔒</span><div><b>Seguridad real</b><small>Vengo del mundo de la ciberseguridad. Tu página y tus datos, protegidos.</small></div></div>
+    <div class="wrow"><span class="ic">✅</span><div><b>Honestidad</b><small>Te digo las cosas claras, sin letras chiquitas ni humo.</small></div></div>
+  </section>
+
+  <section id="ejemplos">
+    <div class="eyebrow">Ejemplos</div>
+    <h2>Así quedan</h2>
+    <p class="sub">Algunos diseños. La tuya se ve igual de bien.</p>
+    <div class="port">
+      <div class="pcard"><div class="img"><img src="assets/dentista.png"></div><div class="cap"><div><b>Dentista</b><small>Agenda citas, confianza</small></div><span class="tag">Salud</span></div></div>
+      <div class="pcard"><div class="img"><img src="assets/yonke.png"></div><div class="cap"><div><b>Yonke / Autopartes</b><small>Catálogo, subastas, WhatsApp</small></div><span class="tag">Automotriz</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Cómo funciona</div>
+    <h2>Lista en 3 pasos</h2>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><div><h3>Me escribes</h3><p>Me cuentas de tu negocio por WhatsApp. Sin compromiso.</p></div></div>
+      <div class="step"><span class="n">2</span><div><h3>La diseñamos juntos</h3><p>Te muestro cómo quedaría y la ajustamos a tu gusto.</p></div></div>
+      <div class="step"><span class="n">3</span><div><h3>La publico y la cuido</h3><p>Queda en línea, segura y respaldada. Tú solo recibes clientes.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="price">
+      <div class="inner">
+        <div class="top">Un paquete, todo incluido</div>
+        <div class="big">Creación + mensualidad</div>
+        <p class="note">Precios justos para negocios chicos. Pide tu cotización gratis.</p>
+        <ul>
+          <li><span class="ck">✓</span> Diseño profesional a tu medida</li>
+          <li><span class="ck">✓</span> Hosting + dominio + seguridad</li>
+          <li><span class="ck">✓</span> Respaldos y mantenimiento</li>
+          <li><span class="ck">✓</span> Cambios mensuales + soporte WhatsApp</li>
+        </ul>
+        <a href="#contacto" class="btn btn-gold">Pedir cotización gratis</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="eyebrow">Preguntas frecuentes</div>
+    <h2>Lo que todos preguntan</h2>
+    <div style="margin-top:8px">
+      <div class="qa"><h3><span class="q">?</span> ¿Cuánto tarda en estar lista?</h3><p>Normalmente entre 3 y 7 días ya está en línea, según el tamaño.</p></div>
+      <div class="qa"><h3><span class="q">?</span> ¿El dominio y la página son míos?</h3><p>Sí, siempre. Tu página y tu dominio son tuyos, nunca los pierdes.</p></div>
+      <div class="qa"><h3><span class="q">?</span> ¿Puedo pedir cambios después?</h3><p>Claro. Incluye cambios cada mes, y para cualquier duda me escribes por WhatsApp.</p></div>
+      <div class="qa"><h3><span class="q">?</span> ¿Y si no me gusta?</h3><p>La primera propuesta es gratis. Si no te late, no pagas nada. Sin riesgo.</p></div>
+    </div>
+  </section>
+
+  <div class="bottom" id="contacto">
+    <h2>¿Listo para tu página?</h2>
+    <p>Escríbeme y platicamos. Te hago una propuesta sin costo y sin compromiso.</p>
+    <a href="https://wa.me/526371377861?text=Hola%2C%20quiero%20una%20p%C3%A1gina%20web%20para%20mi%20negocio." class="btn btn-gold">💬 Escríbeme por WhatsApp</a>
+  </div>
+
+  <footer>
+    <img src="assets/word_white.png"><br>
+    Páginas web rápidas y seguras · Hecho en México 🇲🇽<br>
+    <a href="https://wa.me/526371377861">WhatsApp: +52 637 137 7861</a> · tzanix.com
+  </footer>
+  <a href="https://wa.me/526371377861?text=Hola%2C%20quiero%20una%20p%C3%A1gina%20web." class="wa-float" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3.2-.5s0-.3 0-.5l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3a3 3 0 0 0-1 2.3 5.3 5.3 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c.6.3 1.1.4 1.5.5a3.6 3.6 0 0 0 1.6.1c.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1z"/></svg></a>
+</div>
+</body></html>
