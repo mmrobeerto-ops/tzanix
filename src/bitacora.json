@@ -1,0 +1,38 @@
+[
+  {
+    "fecha": "13 nov 2026",
+    "tipo": "fallo",
+    "titulo": "Falso positivo en prueba real: marcamos una IP de Cloudflare",
+    "detalle": "Al probar en un servidor real, el detector marcó una IP de Cloudflare como sospechosa. Lo corregimos el mismo día con una lista blanca de los rangos oficiales de Cloudflare, Google y Bing."
+  },
+  {
+    "fecha": "13 nov 2026",
+    "tipo": "logro",
+    "titulo": "La detección de atacantes sigilosos subió de 48% a 95%",
+    "detalle": "Añadimos señales de tiempo (ritmo y regularidad). Un robot lento pero metronómico ahora se delata. El ROC-AUC pasó de 0.89 a 0.96 en el banco de pruebas."
+  },
+  {
+    "fecha": "13 nov 2026",
+    "tipo": "limite",
+    "titulo": "Límite honesto: al que imita perfecto a un humano, no lo caza el comportamiento",
+    "detalle": "Medimos un atacante que se comporta idéntico a un usuario legítimo: el comportamiento solo lo detecta 0%. Por eso la red colaborativa es clave — si se esconde contigo, ya atacó a otro y quedó marcado."
+  },
+  {
+    "fecha": "12 nov 2026",
+    "tipo": "logro",
+    "titulo": "Analista en español, en vivo",
+    "detalle": "Cada ataque se traduce a lenguaje de negocio: qué pasó, qué significa, qué hicimos y qué recomendamos. En español, para el dueño, no para un ingeniero."
+  },
+  {
+    "fecha": "12 nov 2026",
+    "tipo": "logro",
+    "titulo": "Hub de inteligencia desplegado y público con HTTPS",
+    "detalle": "Primer servidor conectado reportando atacantes reales a la red. La base de la inteligencia colaborativa quedó en producción."
+  },
+  {
+    "fecha": "nov 2026",
+    "tipo": "dato",
+    "titulo": "Prueba con tráfico real: 73,814 peticiones (servidor en Tokio)",
+    "detalle": "Cazamos 2 escáneres por su comportamiento. De 9,366 peticiones que decían ser 'Googlebot', el 100% resultaron falsas al verificarlas contra los rangos oficiales de Google."
+  }
+]

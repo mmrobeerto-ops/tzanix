@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import BITACORA from './bitacora.json';
 
 const WHATSAPP = 'https://wa.me/526371377861?text=Hola%2C%20quiero%20mi%20reporte%20de%20amenazas%20gratis.';
 const EMAIL = 'mailto:mmrobeerto@gmail.com?subject=Quiero%20instalar%20TZANIX%20(gratis)';
@@ -12,6 +13,7 @@ const NAV = [
   { href: '#como-funciona', label: 'Cómo funciona' },
   { href: '#teoria', label: 'La teoría' },
   { href: '#instalar', label: 'Instalar' },
+  { href: '#bitacora', label: 'Bitácora' },
   { href: '#contacto', label: 'Contacto' },
 ];
 
@@ -487,6 +489,42 @@ tzanix-status{'\n\n'}
           <p className="mt-6 text-sm text-slate-500">
             La latencia en FPGA es de <strong>10 ns</strong> (pipeline de 4 ciclos a 400 MHz), <strong>verificada en simulación RTL</strong>.{' '}
             <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="text-brand-600 font-semibold hover:underline">Código y pruebas en GitHub →</a>
+          </p>
+        </div>
+      </section>
+
+      {/* BITÁCORA DE RESULTADOS (día a día: logros y fallos) */}
+      <section id="bitacora" className="bg-slate-50 border-y border-slate-200 scroll-mt-20">
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16">
+          <div className="text-center max-w-2xl mx-auto">
+            <p className="eyebrow">Bitácora · día a día</p>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Lo que logramos y lo que fallamos</h2>
+            <p className="mt-4 text-slate-600 text-lg leading-relaxed">
+              Transparencia de verdad: anotamos cada avance <strong className="text-ink">y cada tropiezo</strong>, con fecha. Así se construye un producto honesto.
+            </p>
+          </div>
+          <ol className="mt-10 space-y-3">
+            {BITACORA.map((e, i) => {
+              const S = {
+                logro:  { tag: 'Logro',     cls: 'bg-green-100 text-green-800', bar: 'border-green-400' },
+                fallo:  { tag: 'Fallo',     cls: 'bg-red-100 text-red-800',     bar: 'border-red-400' },
+                limite: { tag: 'Límite',    cls: 'bg-amber-100 text-amber-800', bar: 'border-amber-400' },
+                dato:   { tag: 'Dato',      cls: 'bg-brand-100 text-brand-700', bar: 'border-brand-400' },
+              }[e.tipo] || { tag: 'Nota', cls: 'bg-slate-100 text-slate-700', bar: 'border-slate-300' };
+              return (
+                <li key={i} className={`rounded-xl bg-white border border-slate-200 border-l-4 ${S.bar} p-4 sm:p-5`}>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${S.cls}`}>{S.tag}</span>
+                    <span className="text-xs text-slate-400 font-mono">{e.fecha}</span>
+                  </div>
+                  <h3 className="mt-2 font-bold text-ink leading-snug">{e.titulo}</h3>
+                  <p className="mt-1.5 text-sm text-slate-600 leading-relaxed">{e.detalle}</p>
+                </li>
+              );
+            })}
+          </ol>
+          <p className="mt-8 text-center text-sm text-slate-500">
+            Esta bitácora crece con cada resultado real — los buenos y los malos.
           </p>
         </div>
       </section>
