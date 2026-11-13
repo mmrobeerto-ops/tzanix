@@ -28,9 +28,26 @@ import tzanix_ml_demo as ml
 import tzanix_ai
 
 BLOQUEAR_UMBRAL, REVISAR_UMBRAL = 0.72, 0.60
-ALLOW = [ipaddress.ip_network(c) for c in
-         ["10.0.0.0/8","172.16.0.0/12","192.168.0.0/16","127.0.0.0/8",
-          "66.249.64.0/19","173.245.48.0/20","157.55.39.0/24"]]
+ALLOW_CIDRS = [
+    "10.0.0.0/8","172.16.0.0/12","192.168.0.0/16","127.0.0.0/8",
+    "66.249.64.0/19","157.55.39.0/24",             # Googlebot / Bingbot
+    # Cloudflare (rangos oficiales IPv4):
+    "173.245.48.0/20","103.21.244.0/22","103.22.200.0/22","103.31.4.0/22",
+    "141.101.64.0/18","108.162.192.0/18","190.93.240.0/20","188.114.96.0/20",
+    "197.234.240.0/22","198.41.128.0/17","162.158.0.0/15","104.16.0.0/13",
+    "104.24.0.0/14","172.64.0.0/13","131.0.72.0/22"]
+ALLOW = [ipaddress.ip_network(c) for c in ALLOW_CIDRS]
+
+ALLOWLIST_FILE = "/etc/tzanix/allowlist.txt"   # tus rangos de confianza (editable)
+def cargar_allowlist_usuario():
+    try:
+        for ln in open(ALLOWLIST_FILE):
+            ln = ln.split("#")[0].strip()
+            if ln:
+                try: ALLOW.append(ipaddress.ip_network(ln, strict=False))
+                except ValueError: pass
+    except FileNotFoundError:
+        pass
 
 def ssh_ip():
     return (os.environ.get("SSH_CONNECTION","").split() or [None])[0]
@@ -82,6 +99,7 @@ def main():
     ap.add_argument("--limpiar", action="store_true", help="quita todas las reglas tzanix-ml")
     ap.add_argument("--hub"); ap.add_argument("--key")
     a = ap.parse_args()
+    cargar_allowlist_usuario()   # suma tus rangos de confianza de /etc/tzanix/allowlist.txt
 
     if a.limpiar:
         if os.geteuid()!=0: print("Usa: sudo python3 tzanix-vigilante.py --limpiar"); return
