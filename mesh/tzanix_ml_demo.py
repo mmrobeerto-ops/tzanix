@@ -2,13 +2,14 @@
 # =============================================================================
 #  tzanix_ml_demo — EL CEREBRO: detección de anomalías con Isolation Forest
 #
-#  Implementa un Isolation Forest DE CERO (sin numpy ni scikit-learn), para
-#  que corra en cualquier servidor y para que veas cómo funciona "la IA" por
-#  dentro. No necesita etiquetas: aprende lo "normal" y aísla lo raro.
+#  Isolation Forest DE CERO (sin numpy ni scikit-learn), corre en cualquier
+#  servidor. No necesita etiquetas: aprende lo "normal" y aísla lo raro.
 #
-#  Clave: caza a los atacantes por su COMPORTAMIENTO (muchos errores 404,
-#  rutas sensibles, user-agents que rotan), NO por el volumen. Un Googlebot
-#  legítimo manda mucho tráfico pero se comporta normal -> no lo marca.
+#  5 señales de COMPORTAMIENTO (no volumen):
+#    1. user-agents que rota     2. % errores (404/403)   3. % rutas sensibles
+#    4. ritmo (peticiones/min)   5. REGULARIDAD (qué tan metronómico es)
+#  La #5 es clave contra los SIGILOSOS: un robot lento pero metronómico se
+#  delata; un humano nunca es tan regular.
 #
 #  Uso:
 #    python3 tzanix_ml_demo.py                 (genera un log de ejemplo)
@@ -37,13 +38,10 @@ class ITree:
             mn, mx = min(vals), max(vals)
             if mn < mx:
                 p = random.uniform(mn, mx)
-                left  = [r for r in X if r[q] <  p]
-                right = [r for r in X if r[q] >= p]
                 self.leaf = False; self.q = q; self.p = p
-                self.l = ITree(left, depth + 1, max_depth)
-                self.r = ITree(right, depth + 1, max_depth)
+                self.l = ITree([r for r in X if r[q] <  p], depth+1, max_depth)
+                self.r = ITree([r for r in X if r[q] >= p], depth+1, max_depth)
                 return
-        # todos iguales -> hoja
 
     def path(self, x, depth):
         if self.leaf:
@@ -54,15 +52,14 @@ class ITree:
 def train_forest(X, n_trees=140, sample=256):
     sub = min(sample, len(X))
     max_depth = math.ceil(math.log2(max(sub, 2)))
-    trees = [ITree(random.sample(X, sub), 0, max_depth) for _ in range(n_trees)]
-    return trees, c_factor(sub)
+    return [ITree(random.sample(X, sub), 0, max_depth) for _ in range(n_trees)], c_factor(sub)
 
 def anomaly_score(trees, c, x):
     h = sum(t.path(x, 0) for t in trees) / len(trees)
-    return 2.0 ** (-h / c)          # ~1 = anómalo, ~0.5 = normal
+    return 2.0 ** (-h / c)
 
 # --------------------------------------------------------------------------
-#  2) GENERAR UN LOG DE EJEMPLO (si no te pasan uno real)
+#  2) LOG DE EJEMPLO (con marcas de tiempo realistas por IP)
 # --------------------------------------------------------------------------
 NORMALES = ["/", "/index.html", "/productos", "/nosotros", "/contacto",
             "/css/app.css", "/js/app.js", "/img/logo.png", "/favicon.ico",
@@ -74,74 +71,93 @@ UA_BROWSER = "Mozilla/5.0 (Windows NT 10.0) Chrome/120 Safari/537.36"
 UA_FAKES = ["Googlebot/2.1", "curl/7.68.0", "python-requests/2.25.1",
             "Mozilla/5.0 (X11; Linux) Chrome/118"]
 
+def _ts(seg):
+    seg %= 86400
+    return f"13/Nov/2026:{seg//3600:02d}:{seg%3600//60:02d}:{seg%60:02d} +0000"
+
+def _emit(L, ip, n, paths, status_pool, ua_fn, cadence, t0=None):
+    t = t0 if t0 is not None else random.randint(0, 70000)
+    for _ in range(n):
+        L.append(f'{ip} - - [{_ts(int(t))}] "GET {random.choice(paths)} '
+                 f'HTTP/1.1" {random.choice(status_pool)} 512 "-" "{ua_fn()}"')
+        t += max(1, cadence())
+
 def generar_log(path):
-    lineas = []
-    def L(ip, ruta, status, ua):
-        lineas.append(f'{ip} - - [13/Nov/2026:09:00:00] "GET {ruta} HTTP/1.1" '
-                      f'{status} 512 "-" "{ua}"')
-    # 35 usuarios normales
-    for i in range(35):
+    L = []
+    irregular = lambda: random.uniform(1,15) if random.random()<0.7 else random.uniform(60,600)
+    for i in range(35):   # usuarios normales (ritmo irregular, humano)
         ip = f"187.188.{i}.{random.randint(2,250)}"
-        for _ in range(random.randint(6, 30)):
-            L(ip, random.choice(NORMALES), random.choice([200]*9+[304,404]), UA_BROWSER)
-    # 1 Googlebot LEGÍTIMO: mucho volumen, pero se porta bien
-    gb = "66.249.66.1"
-    for _ in range(70):
-        L(gb, random.choice(NORMALES), random.choice([200,200,200,304]), "Googlebot/2.1")
-    # 3 ATACANTES disfrazados: muchos 404, rutas sensibles, UAs que rotan
-    for ip in ["45.148.10.238", "193.47.62.109", "139.162.119.12"]:
-        for _ in range(random.randint(90, 180)):
-            ruta = random.choice(SENSIBLES if random.random() < 0.9 else NORMALES)
-            L(ip, ruta, random.choice([404,404,403,404,200]), random.choice(UA_FAKES))
-    random.shuffle(lineas)
-    open(path, "w").write("\n".join(lineas) + "\n")
-    return len([l for l in lineas])
+        _emit(L, ip, random.randint(6,30), NORMALES, [200]*9+[304,404],
+              lambda: UA_BROWSER, irregular)
+    _emit(L, "66.249.66.1", 70, NORMALES, [200]*9+[304],  # Googlebot legítimo
+          lambda: "Googlebot/2.1", lambda: random.uniform(2,8))
+    for ip in ["45.148.10.238","193.47.62.109"]:  # escáneres rápidos+regulares
+        _emit(L, ip, random.randint(90,160),
+              SENSIBLES*4+NORMALES, [404,404,403,404,200],
+              lambda: random.choice(UA_FAKES), lambda: random.uniform(0.3,2))
+    base = random.uniform(40,120)  # SIGILOSO: lento pero metronómico
+    _emit(L, "139.162.119.12", random.randint(12,28),
+          NORMALES*5+SENSIBLES, [200,200,404,403],
+          lambda: UA_BROWSER, lambda: base+random.uniform(-base*0.08, base*0.08))
+    random.shuffle(L)
+    open(path,"w").write("\n".join(L)+"\n")
+    return len(L)
 
 # --------------------------------------------------------------------------
-#  3) PARSEAR LOG -> features por IP
+#  3) PARSEAR LOG -> features por IP (incluye TIEMPO)
 # --------------------------------------------------------------------------
-PAT = re.compile(r'^(\S+).*?"GET (\S+) HTTP[^"]*"\s+(\d{3}).*"([^"]*)"\s*$')
+PAT = re.compile(r'^(\S+).*?\[[^:]+:(\d{2}):(\d{2}):(\d{2})[^\]]*\].*?'
+                 r'"GET (\S+) HTTP[^"]*"\s+(\d{3}).*"([^"]*)"\s*$')
 SENS = re.compile(r'\.env|\.git|wp-login|wp-admin|/admin|backup|\.bak|phpinfo|'
                   r'credentials|shell|config\.php|/vendor', re.I)
+
+def _stats_tiempo(times):
+    if len(times) < 3:
+        return float(len(times)), 35.0      # ritmo bajo, regularidad neutra
+    times = sorted(times)
+    span = times[-1] - times[0]
+    gaps = [b-a for a,b in zip(times, times[1:])]
+    m = sum(gaps)/len(gaps)
+    var = sum((g-m)**2 for g in gaps)/len(gaps)
+    cv = (var**0.5)/m if m > 0 else 0.0
+    regular = 100.0/(1.0+cv)                 # 0..100, alto = metronómico (robot)
+    rate = len(times)/max(span/60.0, 1/60.0) # peticiones por minuto
+    return min(rate, 5000.0), regular
 
 def extraer_features(path):
     data = {}
     for ln in open(path, errors="ignore"):
         m = PAT.search(ln)
         if not m: continue
-        ip, ruta, status, ua = m.group(1), m.group(2), int(m.group(3)), m.group(4)
-        d = data.setdefault(ip, {"n":0,"paths":set(),"uas":set(),"err":0,"sens":0})
-        d["n"] += 1; d["paths"].add(ruta); d["uas"].add(ua)
+        ip = m.group(1); seg = int(m.group(2))*3600+int(m.group(3))*60+int(m.group(4))
+        ruta = m.group(5); status = int(m.group(6)); ua = m.group(7)
+        d = data.setdefault(ip, {"n":0,"paths":set(),"uas":set(),"err":0,"sens":0,"t":[]})
+        d["n"] += 1; d["paths"].add(ruta); d["uas"].add(ua); d["t"].append(seg)
         if status >= 400: d["err"] += 1
         if SENS.search(ruta): d["sens"] += 1
     ips, X, info = [], [], []
     for ip, d in data.items():
-        if d["n"] < 6: continue   # con <6 peticiones no hay señal confiable (ruido de muestra chica)
-        # OJO: medimos COMPORTAMIENTO (no volumen). Por eso un Googlebot que
-        # manda mucho tráfico pero se porta bien NO se marca.
-        # suavizado (additive smoothing): un ratio de pocas muestras no debe gritar "ataque"
-        f = [len(d["uas"]), 100*d["err"]/(d["n"]+8), 100*d["sens"]/(d["n"]+8)]
+        if d["n"] < 6: continue
+        rate, regular = _stats_tiempo(d["t"])
+        f = [len(d["uas"]), 100*d["err"]/(d["n"]+8), 100*d["sens"]/(d["n"]+8), rate, regular]
         ips.append(ip); X.append(f); info.append(d)
     return ips, X, info
 
-FNAMES = ["user-agents que rota", "% errores (404/403)", "% rutas sensibles"]
+FNAMES = ["user-agents que rota", "% errores (404/403)", "% rutas sensibles",
+          "ritmo (pet/min)", "regularidad (robot)"]
 
-def explicar(x, mediana, mad):
-    # nombra las 2-3 features más extremas vs lo normal (z robusto)
-    zs = []
-    for i,(v,me,ma) in enumerate(zip(x, mediana, mad)):
-        z = abs(v-me)/ma if ma>1e-9 else (0 if v==me else 9)
-        zs.append((z, i, v))
-    zs.sort(reverse=True)
+def mediana(col):
+    s = sorted(col); n = len(s); return s[n//2] if n%2 else (s[n//2-1]+s[n//2])/2
+
+def explicar(x, med, mad):
+    zs = sorted(((abs(v-me)/ma if ma>1e-9 else (0 if v==me else 9), i, v)
+                 for i,(v,me,ma) in enumerate(zip(x,med,mad))), reverse=True)
     partes = []
     for z,i,v in zs[:3]:
         if z < 2: break
-        val = f"{v:.0f}%" if "%" in FNAMES[i] else f"{v:.0f}"
+        val = f"{v:.0f}%" if "%" in FNAMES[i] or "regular" in FNAMES[i] else f"{v:.0f}"
         partes.append(f"{FNAMES[i]}: {val}")
     return " · ".join(partes) or "patrón inusual"
-
-def mediana(col):
-    s=sorted(col); n=len(s); return s[n//2] if n%2 else (s[n//2-1]+s[n//2])/2
 
 # --------------------------------------------------------------------------
 #  4) CORRER
@@ -149,47 +165,32 @@ def mediana(col):
 def main():
     path = sys.argv[1] if len(sys.argv) > 1 else "/tmp/tzanix-sample-access.log"
     if len(sys.argv) <= 1:
-        n = generar_log(path)
-        print(f"(Generé un log de ejemplo con {n} peticiones en {path})\n")
+        print(f"(Generé un log de ejemplo con {generar_log(path)} peticiones en {path})\n")
 
     ips, X, info = extraer_features(path)
     if len(X) < 5:
-        print("Muy pocos datos para entrenar. Usa un log más grande."); return
-
+        print("Muy pocos datos para entrenar."); return
     trees, c = train_forest(X)
-    med = [mediana([row[i] for row in X]) for i in range(len(X[0]))]
-    mad = [mediana([abs(row[i]-med[i]) for row in X]) or 1 for i in range(len(X[0]))]
+    med = [mediana([r[i] for r in X]) for i in range(len(X[0]))]
+    mad = [mediana([abs(r[i]-med[i]) for r in X]) or 1 for i in range(len(X[0]))]
+    filas = sorted(((anomaly_score(trees,c,x), ip, x) for ip,x in zip(ips,X)), reverse=True)
 
-    filas = []
-    for ip, x, d in zip(ips, X, info):
-        s = anomaly_score(trees, c, x)
-        filas.append((s, ip, x, d))
-    filas.sort(reverse=True)
-
-    BLOQUEAR, REVISAR = 0.72, 0.60     # 3 niveles: claro / dudoso / normal
-    print("=" * 66)
-    print("   🧠  TZANIX · Cerebro ML — detección de anomalías")
+    BLOQUEAR, REVISAR = 0.72, 0.60
+    print("="*70)
+    print("   🧠  TZANIX · Cerebro ML — detección de anomalías (5 señales)")
     print(f"   {len(X)} IPs analizadas · Isolation Forest (sin librerías)")
-    print("=" * 66)
+    print("="*70)
     print(f"\n{'IP':<17}{'score':>7}  {'veredicto':<14} por qué")
-    print("-" * 66)
-    n_bloq = n_rev = 0
-    for s, ip, x, d in filas:
-        if s >= BLOQUEAR:
-            verd = "🔴 bloquear"; porque = explicar(x, med, mad); n_bloq += 1
-        elif s >= REVISAR:
-            verd = "🟡 al analista"; porque = explicar(x, med, mad); n_rev += 1
-        else:
-            verd = "✅ normal"; porque = ""
+    print("-"*70)
+    n_b = n_r = 0
+    for s, ip, x in filas:
+        if s >= BLOQUEAR:   verd, n_b = "🔴 bloquear", n_b+1; porque = explicar(x,med,mad)
+        elif s >= REVISAR:  verd, n_r = "🟡 al analista", n_r+1; porque = explicar(x,med,mad)
+        else:               verd, porque = "✅ normal", ""
         print(f"{ip:<17}{s:>7.3f}  {verd:<14} {porque}")
-
-    print("-" * 66)
-    print(f"🔴 {n_bloq} para bloqueo automático · 🟡 {n_rev} dudoso(s) al analista · "
-          f"el resto, normal.")
-    print("Los cazó por COMPORTAMIENTO (errores, rutas sensibles, user-agents que")
-    print("rotan), sin lista negra ni conocer sus IPs. Lo claro se bloquea solo; lo")
-    print("dudoso lo revisa el analista (la IA que explica) antes de actuar.")
-    print("=" * 66)
+    print("-"*70)
+    print(f"🔴 {n_b} bloqueo automático · 🟡 {n_r} al analista · el resto, normal.")
+    print("="*70)
 
 if __name__ == "__main__":
     main()
