@@ -107,7 +107,7 @@ def generar_log(path):
 #  3) PARSEAR LOG -> features por IP (incluye TIEMPO)
 # --------------------------------------------------------------------------
 PAT = re.compile(r'^(\S+).*?\[[^:]+:(\d{2}):(\d{2}):(\d{2})[^\]]*\].*?'
-                 r'"GET (\S+) HTTP[^"]*"\s+(\d{3}).*"([^"]*)"\s*$')
+                 r'"[A-Z]+ (\S+) HTTP[^"]*"\s+(\d{3}).*"([^"]*)"\s*$')
 SENS = re.compile(r'\.env|\.git|wp-login|wp-admin|/admin|backup|\.bak|phpinfo|'
                   r'credentials|shell|config\.php|/vendor', re.I)
 
