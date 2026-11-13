@@ -1,0 +1,8 @@
+[Unit]
+Description=TZANIX mesh - reporta atacantes y baja el feed del foso
+After=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/tzanix/mesh.env
+ExecStart=/usr/bin/python3 -I /usr/local/bin/tzanix-guard-mesh.py ${HUB_URL} ${API_KEY}

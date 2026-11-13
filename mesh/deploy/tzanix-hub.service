@@ -1,0 +1,25 @@
+[Unit]
+Description=TZANIX Mesh Hub (red de inteligencia compartida)
+After=network.target
+
+[Service]
+Type=simple
+User=tzanix
+WorkingDirectory=/opt/tzanix-hub
+EnvironmentFile=/opt/tzanix-hub/hub.env
+ExecStart=/usr/bin/python3 -I /opt/tzanix-hub/tzanix_hub_server.py 8787
+Restart=always
+RestartSec=3
+# --- endurecimiento del servicio (systemd sandbox) ---
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/tzanix-hub
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+MemoryMax=512M
+
+[Install]
+WantedBy=multi-user.target

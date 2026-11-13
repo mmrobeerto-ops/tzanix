@@ -1,0 +1,19 @@
+# TZANIX Mesh Hub — TLS automático (Let's Encrypt) para hub.aureasystems.mx
+# Requisito: un registro DNS A  hub.aureasystems.mx -> IP del servidor de Tokio
+# Caddy saca y renueva el certificado solo. Pon tu correo abajo.
+
+{
+    email tu-correo@aureasystems.mx
+}
+
+hub.aureasystems.mx {
+    encode gzip
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        -Server
+    }
+    # el hub escucha solo en loopback; Caddy es la única cara pública
+    reverse_proxy 127.0.0.1:8787
+}
