@@ -128,8 +128,9 @@ display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0
 h1{{font-size:28px;margin:.2em 0}}.m{{color:#8b949e;font-size:14px}}
 .n{{font-size:40px;font-weight:800;color:#d4a017}}</style>
 <div class=c><h1>🛡️ TZANIX</h1><p class=d>● Red de inteligencia EN LÍNEA</p>
-<p class=n>{ips}</p><p class=m>IPs atacantes en el feed compartido · protegiendo a la red</p>
-<p class=m>API para agentes: <code>/report</code> · <code>/feed</code></p></div></html>"""
+<p class=n>{ips}</p><p class=m>IPs atacantes en el feed compartido</p>
+<p class=m style="max-width:430px;margin:14px auto 0;line-height:1.5">Red colaborativa: cuando una IP ataca a un servidor, los demas la bloquean antes de ser atacados.</p>
+<p class=m style="margin-top:16px">API para agentes: <code>/report</code> · <code>/feed</code></p></div></html>"""
 
 
 class H(BaseHTTPRequestHandler):
