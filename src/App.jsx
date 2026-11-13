@@ -10,6 +10,7 @@ const NAV = [
   { href: '#red', label: 'La red' },
   { href: '#chequeo', label: 'Chequeo gratis' },
   { href: '#como-funciona', label: 'Cómo funciona' },
+  { href: '#teoria', label: 'La teoría' },
   { href: '#instalar', label: 'Instalar' },
   { href: '#contacto', label: 'Contacto' },
 ];
@@ -353,6 +354,41 @@ export default function App() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* LA TEORÍA: cómo detecta y por qué importa */}
+      <section id="teoria" className="max-w-6xl mx-auto px-5 sm:px-8 py-16 scroll-mt-20">
+        <div className="text-center max-w-2xl mx-auto">
+          <p className="eyebrow">La teoría</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Detectamos por comportamiento, no por listas</h2>
+          <p className="mt-4 text-slate-600 text-lg leading-relaxed">
+            Las listas negras se evaden: el atacante cambia de IP o de disfraz. El <strong className="text-ink">comportamiento</strong> es mucho más difícil de falsificar. Por eso TZANIX aprende cómo se ve tu tráfico normal y aísla lo raro, mirando cinco señales:
+          </p>
+        </div>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+          {[
+            ['Ritmo', 'Cuántas peticiones por minuto, y si llegan en ráfaga o a goteo.'],
+            ['Regularidad', 'Un robot lento pero metronómico se delata. Un humano nunca es tan regular.'],
+            ['Errores', 'Muchos 404/403 = alguien probando puertas que no existen.'],
+            ['Rutas sensibles', 'Intentos a /.env, /wp-login o respaldos: comportamiento de escáner.'],
+            ['Disfraz', 'User-agents que rotan (Googlebot, curl, Chrome) para evadir filtros.'],
+            ['La red', 'Lo que aprende un servidor protege a todos los demás de esa misma IP.'],
+          ].map(([t, d]) => (
+            <div key={t} className="card">
+              <h3 className="text-base font-bold">{t}</h3>
+              <p className="mt-1.5 text-sm text-slate-600 leading-relaxed">{d}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-10 max-w-3xl mx-auto rounded-2xl border-l-4 border-brand-500 bg-brand-50 p-6">
+          <h3 className="text-lg font-bold">¿Y si el atacante imita perfecto a un humano?</h3>
+          <p className="mt-2 text-slate-700 leading-relaxed">
+            Honestamente: al que se porta idéntico a un usuario legítimo, el comportamiento solo <strong>no</strong> lo caza — ningún sistema puede. Ahí entra la <strong className="text-brand-700">red colaborativa</strong>: aunque contigo se esconda, ya atacó a otro servidor y quedó marcado. La inteligencia de todos ve lo que uno solo no puede.
+          </p>
+        </div>
+        <p className="mt-8 text-center text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <strong className="text-ink">Por qué importa:</strong> la seguridad vale lo que su punto más débil — una contraseña reusada, un archivo expuesto, un servidor sin parchar. Por eso no basta un solo muro: ponemos capas — comportamiento, reputación y red.
+        </p>
       </section>
 
       {/* INSTALAR */}

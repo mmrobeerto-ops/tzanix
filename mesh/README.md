@@ -32,6 +32,38 @@ llano, en "manzanas".
 Hoy el analista es un motor de reglas (gratis, instantáneo, sin internet). El
 código deja listo el enchufe para un LLM (`explicar_con_llm`) sin cambiar el resto.
 
+## El cerebro: detección por comportamiento (ML)
+
+El guardián no usa listas negras (se evaden cambiando de IP o de disfraz).
+Detecta por **comportamiento**, con un **Isolation Forest implementado de cero**
+(sin numpy ni scikit-learn — corre en cualquier servidor). Aprende lo "normal" y
+aísla lo raro, usando **5 señales**:
+
+1. User-agents que rota · 2. % de errores (404/403) · 3. % de rutas sensibles ·
+4. Ritmo (peticiones/min) · 5. **Regularidad** (un robot lento pero metronómico
+se delata; un humano nunca es tan regular — caza al sigiloso *low-and-slow*).
+
+El `tzanix-vigilante.py` conecta las tres piezas en un flujo autónomo:
+`log → cerebro ML → 🔴 bloquea (iptables) · 🟡 al analista · ✅ normal`, con
+observación por defecto y protección anti-candado de tu IP SSH.
+
+### Resultados del benchmark (metodología institucional)
+
+| Métrica | 3 señales | 5 señales (con tiempo) |
+|---|---|---|
+| ROC-AUC | 0.89 | **0.96** ± 0.005 |
+| Sigiloso *low-and-slow* | 48% | **95%** |
+| Punto de operación (1% FP) | — | 82% recall |
+| Throughput | — | ~237k líneas/seg (sin GPU) |
+
+**Límite honesto:** a un atacante que imita a un humano en TODO (ritmo irregular,
+pocos errores, sin rutas sensibles), el comportamiento solo lo caza **0%**. Por
+eso existe la **red colaborativa**: si se esconde contigo, ya atacó a otro y quedó
+marcado. Comportamiento + reputación + red, en capas.
+
+> Cifras sobre tráfico **sintético con traslape realista**; la validación final
+> requiere datos reales etiquetados. Correr: `python3 tzanix_benchmark.py`.
+
 ## Componentes
 
 | Archivo | Qué es |
