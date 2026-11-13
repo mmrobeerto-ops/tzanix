@@ -7,6 +7,7 @@ const GITHUB = 'https://github.com/mmrobeerto-ops/aether-core';
 
 const NAV = [
   { href: '#que-hace', label: 'Qué hace' },
+  { href: '#red', label: 'La red' },
   { href: '#chequeo', label: 'Chequeo gratis' },
   { href: '#como-funciona', label: 'Cómo funciona' },
   { href: '#instalar', label: 'Instalar' },
@@ -246,6 +247,53 @@ export default function App() {
               <p className="mt-2 text-slate-600 leading-relaxed">{c.d}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* RED COLABORATIVA + ANALISTA EN ESPAÑOL */}
+      <section id="red" className="bg-slate-50 border-y border-slate-200 scroll-mt-20">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-brand-700 text-xs font-semibold tracking-wide">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" /> NUEVO
+            </span>
+            <h2 className="mt-5 text-3xl sm:text-4xl font-extrabold tracking-tight">Una red que aprende de cada ataque. Y te lo explica.</h2>
+            <p className="mt-4 text-slate-600 text-lg leading-relaxed">
+              No solo frenamos ataques en tu servidor. Los compartimos con una red para protegerte <strong className="text-ink">antes</strong>, y te explicamos cada uno en español.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            <div className="card !bg-white">
+              <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-50 text-brand-600"><Icon name="users" /></span>
+              <h3 className="mt-5 text-lg font-bold">Inteligencia colaborativa</h3>
+              <p className="mt-2 text-slate-600 leading-relaxed">
+                Cuando una IP ataca a un servidor de la red TZANIX, los demás la bloquean <strong className="text-ink">antes</strong> de ser atacados. Cada cliente se protege con lo aprendido de todos los demás.
+              </p>
+            </div>
+            <div className="card !bg-white">
+              <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-50 text-brand-600"><Icon name="shield" /></span>
+              <h3 className="mt-5 text-lg font-bold">Un analista que te lo explica</h3>
+              <p className="mt-2 text-slate-600 leading-relaxed">
+                No te dejamos una lista de IPs que no entiendes. Te decimos <strong className="text-ink">qué pasó, qué significa y qué hicimos</strong> — como dueño de negocio, no como ingeniero.
+              </p>
+            </div>
+          </div>
+          <div className="mt-8 max-w-2xl mx-auto rounded-2xl bg-ink text-slate-100 p-6 font-mono text-sm shadow-soft">
+            <div className="flex items-center gap-2 pb-4 border-b border-white/10">
+              <span className="w-3 h-3 rounded-full bg-red-400" />
+              <span className="w-3 h-3 rounded-full bg-amber-400" />
+              <span className="w-3 h-3 rounded-full bg-green-400" />
+              <span className="ml-2 text-slate-400 text-xs">tzanix · informe en español</span>
+            </div>
+            <pre className="mt-4 leading-relaxed whitespace-pre-wrap">
+<span className="text-red-400">🔴 Riesgo ALTO · 45.148.10.238</span>{'\n'}
+<span className="text-brand-400">Qué pasó:</span> tocó tu servidor 640 veces probando entrar.{'\n'}
+<span className="text-brand-400">Qué significa:</span> un robot que ataca a todo servidor mal protegido.{'\n'}
+<span className="text-brand-400">Qué hice:</span> lo corté solo. Ya no puede volver.{'\n'}
+<span className="text-brand-400">Te recomiendo:</span> nada. Yo me encargo.{'\n\n'}
+<span className="text-green-400">✓ Tu equipo de seguridad, 24/7</span>
+            </pre>
+          </div>
         </div>
       </section>
 
