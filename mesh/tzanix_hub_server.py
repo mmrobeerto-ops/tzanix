@@ -24,6 +24,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from tzanix_hub import MeshHub
+import tzanix_ai
 
 DB = os.environ.get("TZANIX_DB", os.path.join(HERE, "hub.db"))
 ADMIN = os.environ.get("TZANIX_ADMIN_TOKEN", "")
@@ -107,6 +108,13 @@ class Hub:
         with self.lock: return self.mem.feed()
     def limpiar(self):
         with self.lock: self.mem.limpiar()
+    def informe(self):
+        # el "analista": traduce los atacantes de la red a español de negocio
+        with self.lock:
+            eventos = [tzanix_ai.explicar_atacante(
+                           ip, max(v[0] for v in d.values()), clientes_red=len(d))
+                       for ip, d in self.mem.sightings.items()]
+        return tzanix_ai.informe_texto(eventos, negocio="tu red TZANIX")
     def stats(self):
         with self.lock:
             m = self.mem
@@ -129,7 +137,7 @@ h1{{font-size:28px;margin:.2em 0}}.m{{color:#8b949e;font-size:14px}}
 .n{{font-size:40px;font-weight:800;color:#d4a017}}</style>
 <div class=c><h1>🛡️ TZANIX</h1><p class=d>● Red de inteligencia EN LÍNEA</p>
 <p class=n>{ips}</p><p class=m>IPs atacantes en el feed compartido</p>
-<p class=m style="max-width:430px;margin:14px auto 0;line-height:1.5">Red colaborativa: cuando una IP ataca a un servidor, los demas la bloquean antes de ser atacados.</p>
+<p class=m style="max-width:430px;margin:14px auto 0;line-height:1.5">Red colaborativa: cuando una IP ataca a un servidor, los demas la bloquean antes de ser atacados. Con <b style="color:#d4a017">analista en espanol</b> que te traduce cada ataque a lenguaje de negocio.</p>
 <p class=m style="margin-top:16px">API para agentes: <code>/report</code> · <code>/feed</code></p></div></html>"""
 
 
@@ -151,6 +159,12 @@ class H(BaseHTTPRequestHandler):
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(b))); self.end_headers()
         self.wfile.write(b)
+    def _text(self, code, s):
+        b = s.encode()
+        self.send_response(code); self._hdr()
+        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.send_header("Content-Length", str(len(b))); self.end_headers()
+        self.wfile.write(b)
     def _apikey(self):
         k = self.headers.get("X-Api-Key", "")
         return k if HUB.llave_valida(k) else None
@@ -170,6 +184,9 @@ class H(BaseHTTPRequestHandler):
         if self.path == "/stats":
             if not self._admin(): return self._json(403, {"error": "solo admin"})
             return self._json(200, HUB.stats())
+        if self.path == "/informe":
+            if not self._admin(): return self._json(403, {"error": "solo admin"})
+            return self._text(200, HUB.informe())
         if self.path == "/feed":
             if not self._apikey(): return self._json(401, {"error": "llave inválida"})
             return self._json(200, {"feed": HUB.feed()})

@@ -19,12 +19,27 @@ de la red, los demás la **pre-bloquean antes** de ser atacados.
 4. **Pre-bloqueo** — todos los agentes bajan el feed y bloquean esas IPs antes
    de recibir el ataque.
 
+## El diferenciador: analista de seguridad en español 🗣️
+
+Una blocklist cruda no le sirve al dueño de una PyME, que no entiende tecnicismos.
+TZANIX añade una **capa de IA** (`tzanix_ai.py`) que traduce cada ataque a lenguaje
+de negocio: *qué pasó · qué significa · qué hice · qué te recomiendo*. En español
+llano, en "manzanas".
+
+- Comando de informe para un cliente:  `python3 tzanix-informe.py /var/log/tzanix-guard.log "Nombre del negocio"`
+- Endpoint del hub (admin):  `GET /informe`
+
+Hoy el analista es un motor de reglas (gratis, instantáneo, sin internet). El
+código deja listo el enchufe para un LLM (`explicar_con_llm`) sin cambiar el resto.
+
 ## Componentes
 
 | Archivo | Qué es |
 |---|---|
 | `tzanix_hub.py` | Motor de consenso: k-anonimato, reputación, lista blanca, rate-limit, caducidad, tope de memoria. |
-| `tzanix_hub_server.py` | Servicio HTTP + SQLite + llaves de API + página de estado. |
+| `tzanix_hub_server.py` | Servicio HTTP + SQLite + llaves de API + página de estado + `/informe`. |
+| `tzanix_ai.py` | Capa de analista: traduce ataques a español de negocio. |
+| `tzanix-informe.py` | Genera el informe en español para un cliente (lee el log del guard). |
 | `tzanix-guard-mesh.py` | Agente: reporta atacantes y baja el feed. |
 | `deploy/` | Instaladores (systemd, Caddy/nginx) y guía de despliegue. |
 
