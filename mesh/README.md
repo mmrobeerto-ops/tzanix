@@ -59,6 +59,22 @@ código deja listo el enchufe para un LLM (`explicar_con_llm`) sin cambiar el re
 
 Correr una:  `python3 -I harden_test.py`
 
+## Qué podemos hacer (visión)
+
+TZANIX hoy es un **MVP funcional y desplegado**. A dónde puede llegar:
+
+- **IA generativa real** en el analista (hoy es motor de reglas; el enchufe para un LLM ya está listo).
+- **Foco vertical:** el mejor guardián para **tiendas WordPress / WooCommerce en LatAm**.
+- **Montarse sobre [CrowdSec](https://crowdsec.net)** (su motor + su red de 300k nodos) y poner encima el **servicio + IA en español** — nuestra capa, no reinventar la rueda.
+- **Canal de agencias / hosting:** un nodo protege a decenas de clientes de golpe.
+- **Detección de sesión / cuenta robada** (el hueco que el MFA no cubre).
+
+## Estado y colaboración
+
+Proyecto en **etapa temprana**, construido y desplegado como MVP (hub público con
+HTTPS, red con datos reales, analista en español funcionando). **Abierto a sumar a
+alguien** que quiera convertirlo en algo serio — ver la propuesta para socios.
+
 ## Despliegue
 
 Ver [`deploy/LEEME-DESPLIEGUE.md`](deploy/LEEME-DESPLIEGUE.md).
