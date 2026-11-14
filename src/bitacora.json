@@ -1,5 +1,17 @@
 [
   {
+    "fecha": "14 nov 2026",
+    "tipo": "logro",
+    "titulo": "La red caza al evasor que el comportamiento no podía (0% → 100%)",
+    "detalle": "Probamos un atacante que imita perfecto a un humano: el análisis local lo detecta 0%. Correlacionando su huella a nivel red (misma huella atacando a varios servidores = campaña), lo cazamos al 100% de las campañas, con ~1.65% de falsos positivos. La detección por capas (comportamiento + red) cierra el hueco."
+  },
+  {
+    "fecha": "13 nov 2026",
+    "tipo": "logro",
+    "titulo": "Lista blanca real: ya no confundimos infraestructura legítima",
+    "detalle": "Añadimos los rangos oficiales de Cloudflare, Google y Bing, más un archivo editable para tus IPs de confianza. Las infraestructuras buenas dejan de marcarse como sospechosas."
+  },
+  {
     "fecha": "13 nov 2026",
     "tipo": "fallo",
     "titulo": "Falso positivo en prueba real: marcamos una IP de Cloudflare",

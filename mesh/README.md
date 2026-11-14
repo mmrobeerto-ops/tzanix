@@ -73,6 +73,10 @@ marcado. Comportamiento + reputación + red, en capas.
 | `tzanix_ai.py` | Capa de analista: traduce ataques a español de negocio. |
 | `tzanix-informe.py` | Genera el informe en español para un cliente (lee el log del guard). |
 | `tzanix-guard-mesh.py` | Agente: reporta atacantes y baja el feed. |
+| `tzanix_ml_demo.py` | Cerebro ML: Isolation Forest (5 señales) para detectar anomalías. |
+| `tzanix-vigilante.py` | Conecta cerebro + bloqueo iptables + analista (observación por defecto). |
+| `tzanix_benchmark.py` | Evaluación institucional: ROC-AUC, recall por tipo, FP, throughput. |
+| `tzanix_red_anclas.py` | Experimento: la RED caza al evasor que el comportamiento no (0%→100%). |
 | `deploy/` | Instaladores (systemd, Caddy/nginx) y guía de despliegue. |
 
 ## Seguridad y diseño
@@ -100,6 +104,16 @@ TZANIX hoy es un **MVP funcional y desplegado**. A dónde puede llegar:
 - **Montarse sobre [CrowdSec](https://crowdsec.net)** (su motor + su red de 300k nodos) y poner encima el **servicio + IA en español** — nuestra capa, no reinventar la rueda.
 - **Canal de agencias / hosting:** un nodo protege a decenas de clientes de golpe.
 - **Detección de sesión / cuenta robada** (el hueco que el MFA no cubre).
+
+### Resultado de roadmap (medido): la red cierra el hueco del comportamiento
+
+El evasor que imita a un humano se le escapa al análisis **local** (0%). Pero
+deja una **huella invariante** y la usa contra muchos servidores. Correlacionando
+esa huella a nivel **red** (campaña = misma huella en ≥K servidores), el
+experimento `tzanix_red_anclas.py` lo caza al **100%** de las campañas, con
+~1.65% de falsos positivos. Detección por **capas**: comportamiento (local) +
+anclas/red (colectivo). Pendiente real: capturar la huella (TLS/JA3, orden de
+cabeceras) — es ingeniería, no solo leer el log. Y es carrera armamentista.
 
 ## Estado y colaboración
 
