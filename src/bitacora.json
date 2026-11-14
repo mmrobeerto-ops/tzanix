@@ -2,6 +2,12 @@
   {
     "fecha": "14 nov 2026",
     "tipo": "logro",
+    "titulo": "Probado con clientes reales: la huella delata al disfraz",
+    "detalle": "Un escáner rotó 5 user-agents distintos (incluido 'Googlebot'), pero su huella por orden de cabeceras HTTP quedó idéntica — una sola huella, 5 mentiras. El nombre se cambia, la huella no. Probado con clientes reales (curl, Python, navegador), no simulado."
+  },
+  {
+    "fecha": "14 nov 2026",
+    "tipo": "logro",
     "titulo": "La red caza al evasor que el comportamiento no podía (0% → 100%)",
     "detalle": "Probamos un atacante que imita perfecto a un humano: el análisis local lo detecta 0%. Correlacionando su huella a nivel red (misma huella atacando a varios servidores = campaña), lo cazamos al 100% de las campañas, con ~1.65% de falsos positivos. La detección por capas (comportamiento + red) cierra el hueco."
   },

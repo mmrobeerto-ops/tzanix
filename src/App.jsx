@@ -373,7 +373,7 @@ export default function App() {
             ['Regularidad', 'Un robot lento pero metronómico se delata. Un humano nunca es tan regular.'],
             ['Errores', 'Muchos 404/403 = alguien probando puertas que no existen.'],
             ['Rutas sensibles', 'Intentos a /.env, /wp-login o respaldos: comportamiento de escáner.'],
-            ['Disfraz', 'User-agents que rotan (Googlebot, curl, Chrome) para evadir filtros.'],
+            ['Disfraz', 'Cambian de nombre (Googlebot, curl, Chrome), pero su huella de cabeceras no — y eso los delata.'],
             ['La red', 'Lo que aprende un servidor protege a todos los demás de esa misma IP.'],
           ].map(([t, d]) => (
             <div key={t} className="card">

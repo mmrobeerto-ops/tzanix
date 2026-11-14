@@ -112,8 +112,31 @@ deja una **huella invariante** y la usa contra muchos servidores. Correlacionand
 esa huella a nivel **red** (campaña = misma huella en ≥K servidores), el
 experimento `tzanix_red_anclas.py` lo caza al **100%** de las campañas, con
 ~1.65% de falsos positivos. Detección por **capas**: comportamiento (local) +
-anclas/red (colectivo). Pendiente real: capturar la huella (TLS/JA3, orden de
-cabeceras) — es ingeniería, no solo leer el log. Y es carrera armamentista.
+anclas/red (colectivo).
+
+Y la **ancla ya se probó REAL** (no simulada): `tzanix_fp_real.py` captura la
+huella por **orden de cabeceras HTTP** de clientes reales. Un escáner que rotó
+**5 user-agents** (incluido "Googlebot") quedó con **una sola huella** — el
+disfraz cambió, la huella no. Límite honesto: un atacante que fabrique cabeceras
+idénticas a un navegador evade esta señal sola; por eso suma TLS/JA3 + la red.
+Carrera armamentista, pero le sube mucho el costo de atacarte.
+
+## Licencia
+
+**Doble licencia**, pensada para ser libre hoy y poder ser empresa mañana:
+- **GNU AGPL-3.0** — libre para usar, estudiar y modificar. Si alguien corre una
+  versión modificada como servicio, debe publicar su código (protege contra que
+  un tercero la cierre y la revenda sin aportar).
+- **Licencia comercial** — por contrato, para quien quiera usarla sin las
+  obligaciones del AGPL (empresas, productos cerrados, servicio gestionado).
+
+El titular de los derechos (Aurea Systems / TZANIX) conserva el copyright, así
+que puede ofrecer ambas. La **marca "TZANIX"** es aparte del código: aunque el
+código es abierto, el nombre es tuyo. Ver archivo `LICENSE` (texto oficial AGPL-3.0).
+
+> Nota honesta: el archivo de licencia es el paso técnico; para constituir la
+> empresa, la doble-licencia formal y los acuerdos de colaboradores, conviene un
+> abogado (sobre todo en México / si vas a Canadá).
 
 ## Estado y colaboración
 
