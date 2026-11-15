@@ -1,5 +1,11 @@
 [
   {
+    "fecha": "15 nov 2026",
+    "tipo": "logro",
+    "titulo": "El analista ahora habla el idioma de la industria",
+    "detalle": "Cada ataque en el informe queda clasificado con MITRE ATT&CK (Escaneo activo T1595; si golpea rutas como /wp-login o /.env, Explotar app pública T1190) y el informe sigue la estructura de respuesta a incidentes de NIST SP 800-61. Mismo lenguaje llano para el dueño, pero con la etiqueta que un técnico de empresa respeta. Honesto: solo donde de verdad aplica — no hacemos gestión de riesgos ni Zero Trust."
+  },
+  {
     "fecha": "14 nov 2026",
     "tipo": "logro",
     "titulo": "Probado con clientes reales: la huella delata al disfraz",

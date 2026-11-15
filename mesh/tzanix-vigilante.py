@@ -145,9 +145,15 @@ def main():
                 print(f"     ↳ {'avisé a la red TZANIX' if ok else 'no pude avisar a la red'}")
             n_bloq += 1
         elif s >= REVISAR_UMBRAL:
-            ev = tzanix_ai.explicar_atacante(ip, d["n"], modo="observacion")
+            # x[2] = % de peticiones a rutas sensibles (/wp-login, /.env, ...).
+            # Si es alto, no es solo escaneo: busca explotar la app -> T1190.
+            tecnica = "T1190" if len(x) > 2 and x[2] >= 15 else "T1595"
+            ev = tzanix_ai.explicar_atacante(ip, d["n"], modo="observacion",
+                                             tecnica=tecnica)
             print(f"🟡 {ip}  ({s:.2f})  AL ANALISTA — no se bloquea solo")
             print(f"     {ev['que_significa']}")
+            print(f"     Técnica (MITRE ATT&CK): {ev['marco']['id']} · "
+                  f"{ev['marco']['nombre']}")
             print(f"     Recomiendo: {ev['recomendacion']}")
             n_rev += 1
 

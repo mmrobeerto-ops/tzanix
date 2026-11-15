@@ -34,7 +34,32 @@ def _es_rango_malo(ip):
     return any(ip.startswith(p) for p in RANGOS_MALOS)
 
 
-def explicar_atacante(ip, descartes, clientes_red=1, modo="observacion"):
+# --------------------------------------------------------------------------
+#  Mapeo a MITRE ATT&CK — solo lo que DE VERDAD observamos.
+#  Lo que vemos es una máquina tocando muchas puertas: eso es "Escaneo activo"
+#  (reconocimiento). Si quien llama sabe más (p.ej. fue fuerza bruta a un
+#  login), puede pasar la técnica correcta por `tecnica`. No inventamos
+#  técnicas que no podamos sostener con la señal que tenemos.
+# --------------------------------------------------------------------------
+TECNICAS_ATTACK = {
+    "T1595": ("Escaneo activo", "Reconocimiento",
+              "Prueba puertas y rutas de tu servidor buscando una mal protegida."),
+    "T1110": ("Fuerza bruta", "Acceso a credenciales",
+              "Intenta adivinar usuario y contraseña probando muchas veces."),
+    "T1190": ("Explotar app pública", "Acceso inicial",
+              "Busca una falla conocida en tu web para entrar por ahí."),
+}
+
+
+def _marco_attack(tecnica=None):
+    """Mapeo honesto a MITRE ATT&CK de lo observado. Por defecto, escaneo."""
+    tid = tecnica if tecnica in TECNICAS_ATTACK else "T1595"
+    nombre, tactica, que_es = TECNICAS_ATTACK[tid]
+    return {"id": tid, "nombre": nombre, "tactica": tactica, "que_es": que_es}
+
+
+def explicar_atacante(ip, descartes, clientes_red=1, modo="observacion",
+                      tecnica=None):
     """Devuelve un dict con la explicación humana de UN atacante."""
     nivel, icono = _nivel(descartes, clientes_red)
     conocido = clientes_red >= 3 or _es_rango_malo(ip)
@@ -70,10 +95,12 @@ def explicar_atacante(ip, descartes, clientes_red=1, modo="observacion"):
     else:
         reco = "Sin acción necesaria. Solo te lo reporto para que sepas que vigilo."
 
+    marco = _marco_attack(tecnica)
+
     return {"ip": ip, "nivel": nivel, "icono": icono, "descartes": descartes,
             "clientes_red": clientes_red, "que_paso": que_paso,
             "que_significa": que_significa, "que_hice": que_hice,
-            "recomendacion": reco}
+            "recomendacion": reco, "marco": marco}
 
 
 def resumen_ejecutivo(eventos):
@@ -118,9 +145,16 @@ def informe_texto(eventos, negocio="tu negocio", modo="observacion"):
         L.append(f"   Qué significa: {e['que_significa']}")
         L.append(f"   Qué hice:      {e['que_hice']}")
         L.append(f"   Te recomiendo: {e['recomendacion']}")
+        m = e.get("marco")
+        if m:
+            L.append(f"   Técnica:       MITRE ATT&CK {m['id']} · {m['nombre']} "
+                     f"({m['tactica']})")
         L.append("")
     L.append("-" * 60)
     L.append("TZANIX vigila tu servidor 24/7 y aprende de los ataques a toda la red.")
+    L.append("Este informe sigue la estructura de respuesta a incidentes de NIST")
+    L.append("SP 800-61 (qué pasó · contención · recomendación) y clasifica cada")
+    L.append("ataque con MITRE ATT&CK, los marcos que usa la industria.")
     L.append("Cualquier duda, aquí estoy. — Tu equipo de seguridad.")
     L.append("=" * 60)
     return "\n".join(L)
@@ -131,18 +165,18 @@ def informe_texto(eventos, negocio="tu negocio", modo="observacion"):
 #  implementa aquí la llamada; si falla o no hay key, usa el motor de reglas.
 # --------------------------------------------------------------------------
 def explicar_con_llm(ip, descartes, clientes_red=1, modo="observacion",
-                     api_key=None):
+                     api_key=None, tecnica=None):
     """
     Versión LLM (futura). Debe devolver el MISMO dict que explicar_atacante().
     Diseño: si api_key es None o la llamada falla -> cae al motor de reglas.
     Así el producto nunca se cae por depender de la IA generativa.
     """
     if not api_key:
-        return explicar_atacante(ip, descartes, clientes_red, modo)
+        return explicar_atacante(ip, descartes, clientes_red, modo, tecnica)
     # TODO: aquí iría la llamada a la API del LLM (Claude/OpenAI) con un prompt
     # tipo: "Explica a un dueño de tienda, en español llano, este ataque: ..."
     # Por ahora, respaldo seguro:
-    return explicar_atacante(ip, descartes, clientes_red, modo)
+    return explicar_atacante(ip, descartes, clientes_red, modo, tecnica)
 
 
 if __name__ == "__main__":

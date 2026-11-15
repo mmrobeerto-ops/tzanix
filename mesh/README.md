@@ -32,6 +32,14 @@ llano, en "manzanas".
 Hoy el analista es un motor de reglas (gratis, instantáneo, sin internet). El
 código deja listo el enchufe para un LLM (`explicar_con_llm`) sin cambiar el resto.
 
+**Alineado con marcos oficiales** (sin humo: solo donde de verdad aplica). El
+informe clasifica cada ataque con **MITRE ATT&CK** — lo que observamos es
+*Escaneo activo* (T1595); si golpea rutas tipo `/wp-login` o `/.env`, lo marca
+como *Explotar app pública* (T1190). Y el informe sigue la estructura de
+**respuesta a incidentes de NIST SP 800-61** (qué pasó · contención ·
+recomendación). No hacemos gestión de riesgos, parcheo ni Zero Trust — eso es
+consultoría, otro músculo; aquí detectamos y respondemos.
+
 ## El cerebro: detección por comportamiento (ML)
 
 El guardián no usa listas negras (se evaden cambiando de IP o de disfraz).
