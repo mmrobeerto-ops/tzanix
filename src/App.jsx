@@ -196,22 +196,23 @@ export default function App() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-white" />
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-20 pb-16 sm:pt-28 sm:pb-24 text-center">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-semibold tracking-wide">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-500" /> PROTECCIÓN DDoS PARA TU SERVIDOR
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-500" /> SEGURIDAD PARA EL SERVIDOR DE TU NEGOCIO
           </span>
           <h1 className="mt-6 text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05]">
-            Frena los ataques a tu servidor.<br className="hidden sm:inline" />{' '}
-            <span className="text-brand-600">Sin molestar a tus clientes.</span>
+            Alguien intenta colarse a tu servidor.<br className="hidden sm:inline" />{' '}
+            <span className="text-brand-600">Nosotros lo vemos y te lo explicamos.</span>
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-lg text-slate-600 leading-relaxed">
-            TZANIX vigila tu tráfico y bloquea en el acto a quien ataca, dejando pasar siempre a tus usuarios reales.
-            Se instala en <strong className="text-ink">5 minutos</strong> en cualquier servidor Linux.
+            TZANIX vigila el servidor de tu negocio, caza a los robots y escáneres que buscan cómo entrar,
+            y te avisa <strong className="text-ink">en español</strong>, no en tecnicismos. Y lo que ataca a un negocio
+            de la red, tu servidor ya lo tiene bloqueado antes de que llegue.
             <strong className="text-ink"> Gratis y de código abierto.</strong>
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <a href={EMAIL} className="btn-primary">Empezar gratis →</a>
             <a href="#como-funciona" className="btn-ghost">Ver cómo funciona</a>
           </div>
-          <p className="mt-6 text-sm text-slate-500">Para servidores VPS, hosting, SaaS, tiendas online y APIs.</p>
+          <p className="mt-6 text-sm text-slate-500">Para PyMEs, tiendas online, páginas de negocio y servidores VPS. Una PyME protegida es más resiliente y competitiva.</p>
         </div>
       </section>
 
@@ -219,15 +220,17 @@ export default function App() {
       <section className="max-w-5xl mx-auto px-5 sm:px-8 py-16">
         <div className="rounded-3xl bg-brand-900 text-white p-8 sm:p-12">
           <p className="eyebrow !text-brand-200">En palabras sencillas</p>
-          <h2 className="mt-3 text-2xl sm:text-3xl font-bold leading-snug">Imagina la puerta de un estadio</h2>
+          <h2 className="mt-3 text-2xl sm:text-3xl font-bold leading-snug">Imagina un velador que conoce a tus clientes</h2>
           <p className="mt-4 text-brand-100 text-lg leading-relaxed">
-            Los firewalls normales revisan a cada persona una por una. Cuando llegan miles de golpe —un ataque—
-            la fila colapsa y <strong className="text-white">ya no entra nadie, ni tus clientes de verdad.</strong>
+            Un buen velador conoce a los que entran y salen todos los días. Cuando un desconocido empieza a
+            <strong className="text-white"> probar puertas y ventanas</strong> buscando una abierta, lo nota al instante
+            —aunque venga disfrazado. TZANIX es ese velador para tu servidor: distingue a tus visitantes de verdad
+            de los <strong className="text-white">robots que buscan cómo colarse.</strong>
           </p>
           <p className="mt-4 text-brand-100 text-lg leading-relaxed">
-            TZANIX no revisa uno por uno: mira la <strong className="text-white">forma de la multitud</strong>. Una avalancha de atacantes
-            se ve distinta a un público normal, así que TZANIX <strong className="text-white">frena solo a los que empujan</strong> —en una fracción de segundo—
-            sin cerrarle la puerta a quien viene a comprar.
+            Y no trabaja solo. Está conectado por radio con los veladores de otros negocios: cuando uno caza a un ladrón,
+            <strong className="text-white"> les avisa a todos.</strong> Así, al que ataca a otro negocio de la red,
+            tu servidor ya lo tiene fichado <strong className="text-white">antes de que llegue a tu puerta.</strong>
           </p>
         </div>
       </section>
@@ -240,9 +243,9 @@ export default function App() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {[
-            { icon: 'bolt', t: 'Detecta ataques al instante', d: 'Reconoce ataques DDoS y botnets por la “forma” del tráfico, en una fracción de segundo.' },
-            { icon: 'users', t: 'No bloquea a tus clientes', d: 'Frena solo al atacante. Tus usuarios reales siguen entrando como si nada.' },
-            { icon: 'lock', t: 'No guarda datos privados', d: 'Solo mira estadísticas del tráfico. Nunca tus contraseñas ni el contenido de tus usuarios.' },
+            { icon: 'bolt', t: 'Caza a quien intenta colarse', d: 'Detecta bots y escáneres que buscan puertas abiertas (/wp-login, /.env…) por su comportamiento, no por una lista que se evade.' },
+            { icon: 'users', t: 'No molesta a tus clientes', d: 'Frena solo al sospechoso. Tus usuarios reales siguen entrando como si nada.' },
+            { icon: 'lock', t: 'No guarda datos privados', d: 'Solo comparte IPs atacantes. Nunca tus contraseñas ni el contenido de tus usuarios.' },
           ].map((c) => (
             <div key={c.t} className="card">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-50 text-brand-600"><Icon name={c.icon} /></span>
@@ -482,12 +485,13 @@ tzanix-status{'\n\n'}
               Seguimos validándolo en más entornos, por eso lo recomendamos primero en <strong>modo observación</strong> antes de activar el bloqueo automático.
             </p>
             <p className="mt-3 text-slate-600 leading-relaxed text-sm">
-              Y en un <strong>benchmark reproducible</strong> con tráfico real etiquetado (tráfico legítimo real + un SYN flood de CIC-DDoS2019),
-              alcanzó <strong>ROC AUC 0.89</strong> — en su mejor punto, <strong>83% de ataques detectados con 6% de falsos positivos</strong> (precisión 87%).
+              Y en un <strong>benchmark reproducible</strong>, detectando atacantes por su comportamiento,
+              alcanzó <strong>ROC AUC 0.96</strong>. A los escáneres y la fuerza bruta los caza casi al <strong>100%</strong>.
+              Honesto: a un atacante que imita perfecto a un humano, el comportamiento solo no lo caza —por eso existe la red colaborativa.
             </p>
           </div>
           <p className="mt-6 text-sm text-slate-500">
-            La latencia en FPGA es de <strong>10 ns</strong> (pipeline de 4 ciclos a 400 MHz), <strong>verificada en simulación RTL</strong>.{' '}
+            Procesa <strong>~237,000 líneas de registro por segundo</strong> en Python, sin hardware especial —de sobra para cualquier servidor de PyME.{' '}
             <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="text-brand-600 font-semibold hover:underline">Código y pruebas en GitHub →</a>
           </p>
         </div>
@@ -555,7 +559,7 @@ tzanix-status{'\n\n'}
               <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" /></svg>
               Código abierto · AGPL-3.0
             </a>
-            <p>© {new Date().getFullYear()} TZANIX · Protección DDoS para servidores · Sin almacenar datos privados</p>
+            <p>© {new Date().getFullYear()} TZANIX · Vigilancia y defensa colaborativa para servidores · Sin almacenar datos privados</p>
           </div>
         </div>
       </footer>
