@@ -196,17 +196,17 @@ export default function App() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-white" />
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-20 pb-16 sm:pt-28 sm:pb-24 text-center">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-semibold tracking-wide">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-500" /> SEGURIDAD PARA EL SERVIDOR DE TU NEGOCIO
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-500" /> RED DE DEFENSA COLABORATIVA
           </span>
           <h1 className="mt-6 text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05]">
-            Alguien intenta colarse a tu servidor.<br className="hidden sm:inline" />{' '}
-            <span className="text-brand-600">Nosotros lo vemos y te lo explicamos.</span>
+            Defensa colaborativa para servidores.<br className="hidden sm:inline" />{' '}
+            <span className="text-brand-600">El ataque a uno protege a todos.</span>
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-lg text-slate-600 leading-relaxed">
-            TZANIX vigila el servidor de tu negocio, caza a los robots y escáneres que buscan cómo entrar,
-            y te avisa <strong className="text-ink">en español</strong>, no en tecnicismos. Y lo que ataca a un negocio
-            de la red, tu servidor ya lo tiene bloqueado antes de que llegue.
-            <strong className="text-ink"> Gratis y de código abierto.</strong>
+            TZANIX detecta a los atacantes por su <strong className="text-ink">comportamiento</strong> —no con listas
+            negras que se evaden— y comparte cada amenaza con una red de servidores que se defienden entre sí.
+            Lo que ataca a un negocio queda <strong className="text-ink">pre-bloqueado en los demás</strong>, antes de que llegue.
+            <strong className="text-ink"> Código abierto, en tu servidor.</strong>
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <a href={EMAIL} className="btn-primary">Empezar gratis →</a>
@@ -219,18 +219,16 @@ export default function App() {
       {/* CON MANZANAS: la analogía */}
       <section className="max-w-5xl mx-auto px-5 sm:px-8 py-16">
         <div className="rounded-3xl bg-brand-900 text-white p-8 sm:p-12">
-          <p className="eyebrow !text-brand-200">En palabras sencillas</p>
-          <h2 className="mt-3 text-2xl sm:text-3xl font-bold leading-snug">Imagina un velador que conoce a tus clientes</h2>
+          <p className="eyebrow !text-brand-200">Por qué TZANIX es distinto</p>
+          <h2 className="mt-3 text-2xl sm:text-3xl font-bold leading-snug">Un servidor solo aprende de sus propios ataques. Una red aprende de todos.</h2>
           <p className="mt-4 text-brand-100 text-lg leading-relaxed">
-            Un buen velador conoce a los que entran y salen todos los días. Cuando un desconocido empieza a
-            <strong className="text-white"> probar puertas y ventanas</strong> buscando una abierta, lo nota al instante
-            —aunque venga disfrazado. TZANIX es ese velador para tu servidor: distingue a tus visitantes de verdad
-            de los <strong className="text-white">robots que buscan cómo colarse.</strong>
+            La seguridad tradicional trabaja aislada: cada servidor libra su propia batalla y repite los errores
+            que otro ya pagó. Las listas negras llegan tarde y se evaden cambiando de IP o de disfraz.
           </p>
           <p className="mt-4 text-brand-100 text-lg leading-relaxed">
-            Y no trabaja solo. Está conectado por radio con los veladores de otros negocios: cuando uno caza a un ladrón,
-            <strong className="text-white"> les avisa a todos.</strong> Así, al que ataca a otro negocio de la red,
-            tu servidor ya lo tiene fichado <strong className="text-white">antes de que llegue a tu puerta.</strong>
+            TZANIX conecta tus servidores en una <strong className="text-white">red de inteligencia compartida</strong>.
+            Cuando una amenaza golpea a cualquiera, todos los demás quedan protegidos <strong className="text-white">en segundos</strong>.
+            Mientras más servidores, más fuerte es la defensa de cada uno.
           </p>
         </div>
       </section>
@@ -263,9 +261,9 @@ export default function App() {
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-brand-700 text-xs font-semibold tracking-wide">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-500" /> NUEVO
             </span>
-            <h2 className="mt-5 text-3xl sm:text-4xl font-extrabold tracking-tight">Una red que aprende de cada ataque. Y te lo explica.</h2>
+            <h2 className="mt-5 text-3xl sm:text-4xl font-extrabold tracking-tight">Cada ataque se convierte en protección para toda la red.</h2>
             <p className="mt-4 text-slate-600 text-lg leading-relaxed">
-              No solo frenamos ataques en tu servidor. Los compartimos con una red para protegerte <strong className="text-ink">antes</strong>, y te explicamos cada uno en español.
+              Detectamos al atacante por su comportamiento y lo compartimos con la red para protegerte <strong className="text-ink">antes</strong> de que te toque. Con consenso entre varios servidores para evitar falsos positivos.
             </p>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -278,9 +276,9 @@ export default function App() {
             </div>
             <div className="card !bg-white">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-50 text-brand-600"><Icon name="shield" /></span>
-              <h3 className="mt-5 text-lg font-bold">Un analista que te lo explica</h3>
+              <h3 className="mt-5 text-lg font-bold">Detección por comportamiento</h3>
               <p className="mt-2 text-slate-600 leading-relaxed">
-                No te dejamos una lista de IPs que no entiendes. Te decimos <strong className="text-ink">qué pasó, qué significa y qué hicimos</strong> — como dueño de negocio, no como ingeniero.
+                No usamos listas negras que se evaden cambiando de IP o de disfraz. TZANIX identifica al atacante por <strong className="text-ink">cómo se comporta</strong> — y lo caza aunque se haga pasar por un visitante legítimo.
               </p>
             </div>
           </div>
@@ -289,15 +287,15 @@ export default function App() {
               <span className="w-3 h-3 rounded-full bg-red-400" />
               <span className="w-3 h-3 rounded-full bg-amber-400" />
               <span className="w-3 h-3 rounded-full bg-green-400" />
-              <span className="ml-2 text-slate-400 text-xs">tzanix · informe en español</span>
+              <span className="ml-2 text-slate-400 text-xs">tzanix · informe de incidente</span>
             </div>
             <pre className="mt-4 leading-relaxed whitespace-pre-wrap">
 <span className="text-red-400">🔴 Riesgo ALTO · 45.148.10.238</span>{'\n'}
-<span className="text-brand-400">Qué pasó:</span> tocó tu servidor 640 veces probando entrar.{'\n'}
-<span className="text-brand-400">Qué significa:</span> un robot que ataca a todo servidor mal protegido.{'\n'}
-<span className="text-brand-400">Qué hice:</span> lo corté solo. Ya no puede volver.{'\n'}
-<span className="text-brand-400">Te recomiendo:</span> nada. Yo me encargo.{'\n\n'}
-<span className="text-green-400">✓ Tu equipo de seguridad, 24/7</span>
+<span className="text-brand-400">Actividad:</span> 640 intentos de acceso en 4 min.{'\n'}
+<span className="text-brand-400">Clasificación:</span> MITRE ATT&CK T1190 · Explotar app pública.{'\n'}
+<span className="text-brand-400">Acción:</span> IP bloqueada automáticamente.{'\n'}
+<span className="text-brand-400">Red:</span> amenaza compartida con los demás servidores.{'\n\n'}
+<span className="text-green-400">✓ Protección activa · 24/7</span>
             </pre>
           </div>
         </div>
