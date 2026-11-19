@@ -4,7 +4,7 @@ import BITACORA from './bitacora.json';
 const WHATSAPP = 'https://wa.me/526371377861?text=Hola%2C%20quiero%20mi%20reporte%20de%20amenazas%20gratis.';
 const EMAIL = 'mailto:mmrobeerto@gmail.com?subject=Quiero%20instalar%20TZANIX%20(gratis)';
 const WHATSAPP_CHEQUEO = 'https://wa.me/526371377861?text=Hola%2C%20quiero%20mi%20chequeo%20de%20seguridad%20gratis.';
-const GITHUB = 'https://github.com/mmrobeerto-ops/aether-core';
+const GITHUB = 'https://github.com/mmrobeerto-ops/tzanix';
 
 const NAV = [
   { href: '#que-hace', label: 'Qué hace' },
@@ -236,8 +236,8 @@ export default function App() {
       {/* QUÉ HACE: 3 beneficios */}
       <section id="que-hace" className="max-w-6xl mx-auto px-5 sm:px-8 py-16 scroll-mt-20">
         <div className="text-center max-w-2xl mx-auto">
-          <p className="eyebrow">Qué hace por ti</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Tres cosas, muy claras</h2>
+          <p className="eyebrow">Capacidades</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Qué hace por tu servidor</h2>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {[
@@ -258,10 +258,8 @@ export default function App() {
       <section id="red" className="bg-slate-50 border-y border-slate-200 scroll-mt-20">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-brand-700 text-xs font-semibold tracking-wide">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" /> NUEVO
-            </span>
-            <h2 className="mt-5 text-3xl sm:text-4xl font-extrabold tracking-tight">Cada ataque se convierte en protección para toda la red.</h2>
+            <p className="eyebrow">Inteligencia colectiva</p>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Cada ataque se convierte en protección para toda la red.</h2>
             <p className="mt-4 text-slate-600 text-lg leading-relaxed">
               Detectamos al atacante por su comportamiento y lo compartimos con la red para protegerte <strong className="text-ink">antes</strong> de que te toque. Con consenso entre varios servidores para evitar falsos positivos.
             </p>
@@ -306,7 +304,7 @@ export default function App() {
         <div className="rounded-3xl border border-brand-200 bg-brand-50 p-8 sm:p-12">
           <div className="text-center max-w-2xl mx-auto">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-brand-700 text-xs font-semibold tracking-wide">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" /> NUEVO · 100% GRATIS
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" /> HERRAMIENTA GRATUITA
             </span>
             <h2 className="mt-5 text-3xl sm:text-4xl font-extrabold tracking-tight">Chequeo de seguridad gratis</h2>
             <p className="mt-4 text-slate-600 text-lg leading-relaxed">
@@ -365,7 +363,7 @@ export default function App() {
           <p className="eyebrow">La teoría</p>
           <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Detectamos por comportamiento, no por listas</h2>
           <p className="mt-4 text-slate-600 text-lg leading-relaxed">
-            Las listas negras se evaden: el atacante cambia de IP o de disfraz. El <strong className="text-ink">comportamiento</strong> es mucho más difícil de falsificar. Por eso TZANIX aprende cómo se ve tu tráfico normal y aísla lo raro, mirando cinco señales:
+            Las listas negras se evaden: el atacante cambia de IP o de disfraz. El <strong className="text-ink">comportamiento</strong> es mucho más difícil de falsificar. Por eso TZANIX aprende cómo se ve tu tráfico normal y aísla lo raro, combinando señales de comportamiento con la inteligencia de la red:
           </p>
         </div>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
@@ -447,10 +445,10 @@ tzanix-status{'\n\n'}
           </p>
           <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { v: '16.86 M', l: 'paquetes/seg (software, 1 núcleo)' },
-              { v: '~59 ns', l: 'por paquete (software)' },
-              { v: '0.89', l: 'ROC AUC (tráfico real etiquetado)' },
-              { v: '2 bots', l: 'escáneres cazados en tráfico real (Tokio)' },
+              { v: '0.96', l: 'ROC AUC · detección por comportamiento' },
+              { v: '~100%', l: 'escáneres y fuerza bruta detectados' },
+              { v: '9,366', l: 'falsos “Googlebot” desenmascarados (servidor real)' },
+              { v: '237k/s', l: 'líneas de registro procesadas, sin hardware especial' },
             ].map((m) => (
               <div key={m.l} className="rounded-xl bg-white border border-slate-200 p-5">
                 <div className="text-2xl font-extrabold text-brand-600">{m.v}</div>
@@ -541,7 +539,7 @@ tzanix-status{'\n\n'}
           <a href={EMAIL} className="btn-primary">Escribir por correo →</a>
           <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="btn-ghost">WhatsApp directo</a>
         </div>
-        <p className="mt-6 text-sm text-slate-500 font-mono">mmrobeerto@gmail.com · +52 664 724 7803</p>
+        <p className="mt-6 text-sm text-slate-500 font-mono">mmrobeerto@gmail.com · +52 637 137 7861</p>
       </section>
 
       {/* FOOTER */}
@@ -557,7 +555,7 @@ tzanix-status{'\n\n'}
               <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" /></svg>
               Código abierto · AGPL-3.0
             </a>
-            <p>© {new Date().getFullYear()} TZANIX · Vigilancia y defensa colaborativa para servidores · Sin almacenar datos privados</p>
+            <p>© {new Date().getFullYear()} TZANIX · Un proyecto de Aurea Systems · México · Sin almacenar datos privados</p>
           </div>
         </div>
       </footer>
